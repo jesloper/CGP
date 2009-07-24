@@ -1,0 +1,11 @@
+n0 = data(3) sIF data(2);
+n3 = data(8) sIF data(2);
+n8 = data(4) + data(5);
+n9 = C;
+n15 = n3 sIF n9;
+n18 = n9 + n0;
+n23 = n8 C n3;
+n32 = n18 + n23;
+n33 = n18 + n15;
+
+n47 = n32 gt n33;

@@ -1,0 +1,27 @@
+#ifndef GP_FUNCTIONS_H
+#define GP_FUNCTIONS_H
+#include "Penotype.h"
+#include <iostream>
+
+
+double getOutPut(const Phenotype* p,double* inputlist,int numberOfInputs);
+
+double getActual(double* inputlist);
+
+double getFitness(Phenotype* it,double* inputlist,int numberOfInputs);
+
+double getAvgFitness(std::list<Phenotype*> pop,double* inputlist);
+
+bool my_compare(Phenotype * o1, Phenotype * o2);
+
+void mutate(Gene& it, int number);
+
+void mutate(Phenotype* it, int Genes, int numberOfInputs);
+
+void CrossOver(Phenotype *first,Phenotype *second);
+
+bool operator <(const Phenotype& d1,const Phenotype& d2);
+
+Phenotype* getBest(std::list<Phenotype*> pop);
+
+#endif

@@ -1,0 +1,16 @@
+#ifndef GENOTYPE_H
+#define GENOTYPE_H
+#include <string>
+
+class Genotype
+{
+public:
+ Genotype(std::string gene,int,int);
+ ~Genotype(void);
+ void printGenes();
+ int numberOfNodes;
+ int lengthOfNode;
+ std::string genes;
+};
+
+#endif

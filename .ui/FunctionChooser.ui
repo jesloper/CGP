@@ -1,0 +1,67 @@
+<ui version="4.0" >
+ <class>FSelector</class>
+ <widget class="QDialog" name="FSelector" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>428</width>
+    <height>353</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" >
+   <property name="margin" >
+    <number>9</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item row="1" column="0" >
+    <widget class="QTreeWidget" name="AvailableFunctions" />
+   </item>
+   <item row="0" column="0" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>Available functions</string>
+     </property>
+    </widget>
+   </item>
+   <item rowspan="4" row="1" column="1" colspan="2" >
+    <widget class="QTextEdit" name="Description" >
+     <property name="enabled" >
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item rowspan="2" row="5" column="1" >
+    <widget class="QPushButton" name="Finish" >
+     <property name="text" >
+      <string>Finish</string>
+     </property>
+    </widget>
+   </item>
+   <item rowspan="2" row="4" column="0" >
+    <widget class="QListWidget" name="ChosenFunctions" />
+   </item>
+   <item row="2" column="0" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>Selected functions</string>
+     </property>
+    </widget>
+   </item>
+   <item rowspan="2" row="5" column="2" >
+    <widget class="QPushButton" name="Cancel" >
+     <property name="text" >
+      <string>Cancel</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
