@@ -745,11 +745,17 @@ void CGPWindow::loadDll(QString fileName) {
     if (fileName.isEmpty())
         return;
     qDebug() << "Attempting to load file: " << fileName;
-
+    #ifdef WIN32
     if (!fileName.contains(".dll")) {
         HERE_T(0,"Plugin is not a dll!");
         return;
     }
+    #else
+    if (!fileName.contains(".so")) {
+        HERE_T(0,"Plugin is not a so file!");
+        return;
+    }
+    #endif
     QPluginLoader loader(fileName);
     QObject* plugin = loader.instance();
     if (plugin) {

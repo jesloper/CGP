@@ -1,7 +1,7 @@
 #ifndef SR_PROBLEMSELECTER_H_
 #define SR_PROBLEMSELECTER_H_
 
-#include "../.ui/ui_SR_ProblemSelecter.h"
+#include "ui_SR_ProblemSelecter.h"
 
 class SR_ProblemSelecter: public QDialog, private Ui::SR_ProblemSelecter{
 	public:

@@ -1,5 +1,6 @@
-#define isnan(x) ((x) != (x))
-
+#ifdef WIN32
+    #define isnan(x) ((x) != (x))
+#endif
 #include "CGPPopulationBase.h"
 #include "Individual.h"
 #include "MathFunctions.h"

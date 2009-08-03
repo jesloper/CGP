@@ -6,7 +6,7 @@
 #ifndef FUNCTIONSELECTER_H
 #define FUNCTIONSELECTER_H
 
-#include "../.ui/ui_FunctionChooser.h"
+#include "ui_FunctionChooser.h"
 
 #include "Function.h"
 #include <map>
