@@ -14,8 +14,8 @@ QT += xml
 		    ../headers/gui \
 		    ../ui 
 								
-include(./GUI/GUI.pri)
-include(./CGP/CGP.pri )
+include(./gui/GUI.pri)
+include(./cgp/CGP.pri )
 RESOURCES = ../icons/sources.qrc
 HEADERS += ../headers/TwoDArray.h \
 						../headers/MathFunctions.h  
