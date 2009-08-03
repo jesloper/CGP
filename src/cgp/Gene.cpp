@@ -1,6 +1,6 @@
 #include <Gene.h>
 #include <GeneFactory.h>
-#include <qdebug>
+#include <QDebug>
 
 static GeneRegistrator<Gene> Gene_instance("Gene");
 

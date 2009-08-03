@@ -6,7 +6,6 @@
 #include "FunctionFactory.h"
 #include "RunInfo.h"
 #include "Macros.h"
-#include <Math.h>
 #include <utility>
 
 /**
