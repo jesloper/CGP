@@ -7,7 +7,7 @@
 #ifdef WIN32
 void sleep(unsigned int mseconds)
 {
-    clock_t goal = mseconds + clock();
+    clock_t goal = 1000*mseconds + clock();
     while (goal > clock());
 }
 #endif
@@ -32,7 +32,7 @@ int main( int argc, char ** argv ) {
 	a.processEvents();
 	
 	thing.show();
-	sleep(1000);
+        sleep(1);
 	splash.finish(&thing);
 	return a.exec();
 	qInstallMsgHandler(0);
