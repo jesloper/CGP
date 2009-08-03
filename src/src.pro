@@ -12,7 +12,7 @@ QT += xml
  INCLUDEPATH += ../headers \
 		    ../headers/cgp \
 		    ../headers/gui \
-		    ../.ui 
+		    ../ui 
 								
 include(./GUI/GUI.pri)
 include(./CGP/CGP.pri )
