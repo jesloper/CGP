@@ -1,5 +1,5 @@
 #include "GeneFactory.h"
-#include <qdebug>
+#include <QDebug>
 GeneFactory::GeneFactory()
 {
 	qDebug() << "Initializing debug";

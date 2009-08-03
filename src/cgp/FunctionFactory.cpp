@@ -1,5 +1,5 @@
 #include "FunctionFactory.h"
-#include <qdebug>
+#include <QDebug>
 
 
  
