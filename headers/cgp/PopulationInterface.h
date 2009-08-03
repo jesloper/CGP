@@ -12,7 +12,7 @@
  */
 class PopulationInterface {
 public:
-	enum SelectionType {QTournament,Random};
+	enum SelectionType {QTournament,Random,Roulette};
 	virtual ~PopulationInterface(){};
 	virtual void createPopulation() = 0; /**< \brief creates a population of a given size and with a set number of nodes */
 	virtual void setInput(int number, double value) = 0; /**< \brief sets a particular input */

@@ -28,7 +28,7 @@ SOURCES += $${SRC_DIR}/CompThread.cpp \
 				    $${SRC_DIR}/qdebugstream.cpp
 					
 
-UI_DIR = ../.ui
+UI_DIR = ../ui
 UI_HEADERS_DIR = $${UI_DIR}
 FORMS += $${UI_DIR}/cgpWindow.ui \
     $${UI_DIR}/gridViewer.ui \

@@ -390,6 +390,9 @@ void CGPPopulationBase::getIndividual(Individual& ind) {
 	case PopulationInterface::Random:
 		ind = this->randomSelection();
 		break;
+	case PopulationInterface::Roulette:
+		LOG("Here");
+		break;
 	default:
 		qDebug() << "selection impossible!! " << this->ri.sel.Selection;
 		abort();
