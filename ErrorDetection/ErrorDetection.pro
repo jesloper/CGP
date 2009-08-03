@@ -2,7 +2,8 @@ TEMPLATE = lib
 CONFIG += plugin debug
 LANGUAGE = C++
 
-INCLUDEPATH += ../headers \
+INCLUDEPATH += ../headers/cgp \
+               ../headers \
     		   ../src
 HEADERS += ./ClassificationProblem.h
 SOURCES += ./ClassificationProblem.cpp

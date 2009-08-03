@@ -1,5 +1,5 @@
+
 INCLUDEPATH +=  C:\qwt-5.1.1\include
-        
 LIBS += -LC:\qwt-5.1.1\lib  -lqwt5
 
 INCLUDEDIR = ../headers/gui

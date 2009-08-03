@@ -1,7 +1,7 @@
 #ifndef ErrorDetection_H_
 #define ErrorDetection_H_
 #include <QtDebug>
-#include "../headers/CGP/Problem.h"
+#include "Problem.h"
 #include <QFileDialog>
 #include "TwoDArray.h"
 #include <Macros.h>
