@@ -1,6 +1,6 @@
-SRC_DIR = ./CGP
+SRC_DIR = ./cgp
 
-INCLUDE_DIR = ../headers/CGP/
+INCLUDE_DIR = ../headers/cgp/
 INCLUDEPATH += $${INCLUDE_DIR}
 HEADERS += $${INCLUDE_DIR}/Individual.h \
 					$${INCLUDE_DIR}/HFCPopulation.h \

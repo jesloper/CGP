@@ -2,9 +2,9 @@ INCLUDEPATH +=  C:\qwt-5.1.1\include
         
 LIBS += -LC:\qwt-5.1.1\lib  -lqwt5
 
-INCLUDEDIR = ../headers/GUI
+INCLUDEDIR = ../headers/gui
 INCLUDEPATH += $${INCLUDEDIR}
-SRC_DIR=./GUI
+SRC_DIR=./gui
 HEADERS += $${INCLUDEDIR}/CompThread.h \
 					$${INCLUDEDIR}/DataGrapher.h \
 					$${INCLUDEDIR}/MainWindow.h \
