@@ -757,9 +757,14 @@ void CGPWindow::loadDll(QString fileName) {
     }
     #endif
     QPluginLoader loader(fileName);
+    loader.load();
+    if(!loader.isLoaded()){
+        LOG(loader.errorString());
+        return;
+    }
     QObject* plugin = loader.instance();
     if (plugin) {
-        Problem *interface = dynamic_cast<Problem *> (plugin);
+        Problem *interface = qobject_cast<Problem *> (plugin);
         if (interface) {
             qDebug() << "plugin ok";
             problems[interface->getName()] = interface;
