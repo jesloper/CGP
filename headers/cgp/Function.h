@@ -87,7 +87,7 @@ template<class T> class BinaryOperator: public Function<T> {
 template<class T> class BooleanAND: public Function<T> {
 public:
 	BooleanAND() {
-		Function<T>::m_name = "AND";
+                Function<T>::m_name = "and";
 		Function<T>::m_description
 				= "Logical AND operation.  Will return 1 if both inputs are > 0. Otherwise 0.";
 		Function<T>::m_inputs = 2;
@@ -105,7 +105,7 @@ public:
 template<class T> class BooleanOR: public Function<T> {
 public:
 	BooleanOR() {
-		Function<T>::m_name = "OR";
+                Function<T>::m_name = "or";
 		Function<T>::m_description
 				= "Logical OR operation.  Will return 1 if either inputs are > 0. Otherwise 0.";
 		Function<T>::m_inputs = 2;
@@ -122,7 +122,7 @@ public:
 template<class T> class BooleanNOR: public Function<T> {
 public:
 	BooleanNOR() {
-		Function<T>::m_name = "NOR";
+                Function<T>::m_name = "nor";
 		Function<T>::m_description = "Logical NOR operation.  simply a !OR.";
 		Function<T>::m_inputs = 2;
 	}
@@ -139,7 +139,7 @@ public:
 template<class T> class BooleanNOT: public Function<T> {
 public:
 	BooleanNOT() {
-		Function<T>::m_name = "NOT";
+                Function<T>::m_name = "not";
 		Function<T>::m_description
 				= "Logical NOT operation.  Will return 0 if input is > 0. Otherwise 1.";
 		Function<T>::m_inputs = 1;
@@ -155,7 +155,7 @@ public:
 template<class T> class BooleanNAND: public Function<T> {
 public:
 	BooleanNAND() {
-		Function<T>::m_name = "NAND";
+                Function<T>::m_name = "nand";
 		Function<T>::m_description
 				= "Logical NAND operation.  Will return 1 if both inputs are <= 0. Otherwise 0.";
 		Function<T>::m_inputs = 2;
@@ -171,7 +171,7 @@ public:
 template<class T> class BooleanXOR: public Function<T> {
 public:
 	BooleanXOR() {
-		Function<T>::m_name = "XOR";
+                Function<T>::m_name = "xor";
 		Function<T>::m_description
 				= "Logical XOR operation.  Will return 1 exactely one of the inputs are >= 0. Otherwise 0.";
 		Function<T>::m_inputs = 2;

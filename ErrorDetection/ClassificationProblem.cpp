@@ -102,6 +102,9 @@ void ClassificationProblem::GetInputData() {
     }
 }
 
+/**
+  *  Calculates fitness value for a given output
+  */
 double ClassificationProblem::setFitness(double* output) {
     double fit = 0;
 
@@ -109,11 +112,11 @@ double ClassificationProblem::setFitness(double* output) {
     if(m_fitFunc == 0){
         for (int i = 0; i < this->m_number_of_outputs; i++) {
             if((*m_answers)[currentOut][i] == 1) {
-                if (output[i] < 1) {
+                if (output[i] < 0.5) {
                     fit+= m_fitnessFactor[currentOut];
                 }
             } else {
-                if (output[i] >= 1) {
+                if (output[i] >= 0.5) {
                     fit+= m_fitnessFactor[currentOut];
                 }
             }
@@ -131,6 +134,9 @@ double ClassificationProblem::setFitness(double* output) {
     return fit;
 }
 
+/**
+  * gets the current target value
+  */
 double ClassificationProblem::answer() {
     return (*m_inputArray)[current][Problem::m_number_of_inputs];
 }
