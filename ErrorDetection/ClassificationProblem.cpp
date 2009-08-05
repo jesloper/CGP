@@ -64,7 +64,7 @@ void ClassificationProblem::GetInputData() {
     Problem::m_number_of_inputs = cols - outputs;
     Problem::m_number_of_outputs = outputs;
     Problem::setup();
-    m_fitnessFactor = new double[rows-1];
+    m_fitnessFactor = new double[m_fitness_cases];
     double num = 0;
     double ans;
 
