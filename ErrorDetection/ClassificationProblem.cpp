@@ -38,18 +38,19 @@ void ClassificationProblem::GetInputData() {
                                                           tr("Evaluation function:"), items, 0, false, &ok);
     }
 
+
     if (fd->exec() == QDialog::Accepted) {
         fileName = fd->selectedFiles().at(0);
     } else {
         return;
     }
-    if (fileName.isEmpty())
-        exit(0);
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    if (fileName.isEmpty()){
+        return;
+    }
     QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly)) {
+    if (!file.open(QFile::ReadOnly)) {
         LOG("Could not open file!: " << fileName);
-        exit(0);
+       return;
     }
     QTextStream input(&file);
     int rows, cols, outputs;
@@ -63,39 +64,32 @@ void ClassificationProblem::GetInputData() {
     Problem::m_number_of_inputs = cols - outputs;
     Problem::m_number_of_outputs = outputs;
     Problem::setup();
-    Problem::m_inputs = new double[rows - 1]; //for later use
     m_fitnessFactor = new double[rows-1];
     double num = 0;
     double ans;
+
     for (int i = 0; i < rows; i++) {
         LOG( " row# " << i);
-        for (int j = 0; j < cols - outputs; j++) {
+        for (int j = 0; j < m_number_of_inputs; j++) {
             input >> num;
             (*m_inputArray)[i][j] = num;
         }
         LOG( "finished reading input nums. ");
-        for (int k = 0; k < outputs; k++) {
+        for (int k = 0; k < m_number_of_outputs; k++) {
             input >> ans;
             (*m_answers)[i][k] = ans;
         }
 
-
         input >> ans;
         LOG( " reading fitness factor: " << ans);
         m_fitnessFactor[i] = ans;
-
         LOG( " row# " << i << " finished");
 
     }
-    for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < cols - outputs; j++) {
-                        LOG( "[" << i << "][" << j << "]" << (*m_inputArray)[i][j]);
-                }
-        }
-        
+
     file.close();
+
     m_dataLoaded = true;
-    QApplication::restoreOverrideCursor();
     if(m_fitnessFunction.compare("Roundoff") == 0){
         m_fitFunc = 0;
     }else{

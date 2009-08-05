@@ -37,14 +37,14 @@ public:
 			delete m_answers;
 		m_answers = new TwoDArray<double>(m_fitness_cases,m_number_of_outputs);
 	}
-	; ///< \brief sets up the problem according to number of inputs, outputs, etc.
+        ///< \brief sets up the problem according to number of inputs, outputs, etc.
 	virtual double setFitness(double* output) =0; ///< \brief sets the fitness affection for the current input */
 	virtual double answer() = 0; ///< \brief should return the correct answer for a given inputs
 	virtual double* getCurrentInputs() = 0; ///< \brief this should return the current inputs
 	virtual QString getName() = 0; ///< \brief this should return the name of the problem
 	virtual void reset() {
 	}
-	; ///< \brief should reset any data if needed
+        ///< \brief should reset any data if needed
 	virtual QString description() {
 		return QString("No description is available");
 	}
@@ -54,7 +54,7 @@ public:
 			inp.push_back(s.toStdString());
 		}
 	}
-	;
+
 	/**
 	 * \returns number of fitness cases
 	 */

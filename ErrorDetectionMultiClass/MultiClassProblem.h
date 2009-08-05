@@ -19,8 +19,8 @@ public:
 	virtual double answer();
 	virtual double* getCurrentInputs();
 	virtual void inputStringValues(std::vector<std::string>& inp);
-	virtual QString description();
-	QString getName(){ return "ErrorDetectionMultiClass";} ///< \brief this should return the name of the problem
+        virtual QString description();
+        QString getName(){ return "ErrorDetectionMultiClass";} ///< \brief this should return the name of the problem
 	void Init();
 private:
 	void setInputs();

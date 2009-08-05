@@ -43,7 +43,6 @@ void MultiClassProblem::GetInputData() {
     }
     if (fileName.isEmpty())
         exit(0);
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly)) {
         LOG("Could not open file!: " << fileName);
@@ -61,17 +60,16 @@ void MultiClassProblem::GetInputData() {
     Problem::m_number_of_inputs = cols - 1;
     Problem::m_number_of_outputs = 1;
     Problem::setup();
-    Problem::m_inputs = new double[rows - 1]; //for later use
     m_fitnessFactor = new double[rows-1];
     double num = 0;
     double ans;
     for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols - outputs; j++) {
+        for (int j = 0; j < m_number_of_inputs; j++) {
             input >> num;
             (*m_inputArray)[i][j] = num;
         }
         LOG( "finished reading input nums. ");
-        for (int k = 0; k < outputs; k++) {
+        for (int k = 0; k < m_number_of_outputs; k++) {
             input >> ans;
             LOG( "got answer: " << ans);
             (*m_answers)[i][k] = ans;
@@ -91,7 +89,7 @@ void MultiClassProblem::GetInputData() {
     }else{
         m_fitFunc = 1;
     }
-    QApplication::restoreOverrideCursor();
+
 }
 
 double MultiClassProblem::setFitness(double* output) {
@@ -139,7 +137,7 @@ void MultiClassProblem::inputStringValues(std::vector<std::string>& inp) {
 
 QString MultiClassProblem::description() {
     HERE(0);
-    return QString("Detecting errors from rate data");
+    return QString("Classification using single output");
 }
 
 void MultiClassProblem::setInputs() {
