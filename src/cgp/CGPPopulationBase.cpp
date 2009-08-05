@@ -77,7 +77,7 @@ void CGPPopulationBase::mutate(Gene &g, int number) {
 		g.setInput(2, this->validInput(number));//getRandInt(max(0,numberOfInputs+number-5),numberOfInputs+number-2);
 		break;
 	case 3: //the function is changed into a new legal function type
-		g.setFunction(ri.getRandomFunction());
+		g.setFunction(ri.getRandomFunction().toStdString());
 		break;
 	default:
 		QMessageBox::warning(0, QString("Aborting!"),
@@ -352,7 +352,7 @@ std::string CGPPopulationBase::HumanReadable(Individual &ind) {
 		function = ind.getGenes().at(i).getFunction()->name();
 		std::ostringstream str;
 		str << "(" << function;
-		for (int j = 0; j < ri.functions[function]->numberOfInputs(); j++) {
+		for (int j = 0; j < ri.functions[QString(function.c_str())]->numberOfInputs(); j++) {
 			str << " " << strings.at(ind.getGenes().at(i).getInput(j + 1));
 		}
 		str << ")";
@@ -514,11 +514,10 @@ void CGPPopulationBase::createIndividual(Individual& newInd) {
 		int inputOne = validInput(j);//getRandInt(max(0,numberOfInputs+j-5),numberOfInputs-1+j);
 		int inputTwo = validInput(j);//getRandInt(max(0,numberOfInputs+j-5),numberOfInputs-1+j);
 		int func = getRandInt(0, numberOfFunctions - 1);
-		std::map<std::string, Function<double>*>::iterator it =
-				ri.functions.begin();
+		QMap<QString, Function<double>*>::iterator it = ri.functions.begin();
 		for (int k = 0; k < func; k++) {
 			it++;
 		}
-		newInd.insertGene(inputOne, inputTwo, it->first);
+		newInd.insertGene(inputOne, inputTwo, it.key().toStdString());
 	}
 }

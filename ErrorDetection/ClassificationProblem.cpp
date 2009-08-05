@@ -164,9 +164,9 @@ void ClassificationProblem::inputStringValues(std::vector<std::string>& inp) {
     }
 }
 
-std::string ClassificationProblem::description() {
+QString ClassificationProblem::description() {
     HERE(0);
-    return std::string("Detecting errors from rate data");
+    return QString("Detecting errors from rate data");
 }
 
 void ClassificationProblem::setInputs() {

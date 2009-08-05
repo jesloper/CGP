@@ -17,11 +17,11 @@ class FunctionSelecter : public QDialog, private Ui::FSelector
         Q_OBJECT
 
     public:
-        FunctionSelecter(QWidget* parent,std::map<std::string,Function<double>*>& available,std::map<std::string,Function<double>*>& chosen );
+        FunctionSelecter(QWidget* parent,QMap<QString,Function<double>*>& available,QMap<QString,Function<double>*>& chosen );
 		
 	private:
-		std::map<std::string,Function<double>*> fMap;
-		std::map<std::string,Function<double>*>* cMap;
+		QMap<QString,Function<double>*> fMap;
+		QMap<QString,Function<double>*>* cMap;
 	private slots:
 	  void on_Finish_clicked();
 	  void on_Cancel_clicked();

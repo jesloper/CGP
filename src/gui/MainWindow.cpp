@@ -27,8 +27,14 @@
 #include "Problem.h"
 #include "qdebugstream.h"
 
+QTextStream* outfile = 0;
+QMutex mut;
 void myMessageOutput(QtMsgType type, const char *msg) {
-    std::cout << msg << std::endl;
+    QMutexLocker lock(&mut);
+    if(outfile){
+    	(*outfile) << msg << "\n";
+	outfile->flush();
+    }
 }
 
 /**
@@ -41,10 +47,10 @@ CGPWindow::CGPWindow(QMainWindow *parent) :
     saved = true;
     QFile* file = new QFile("cgp_out.txt");
     if(file->open(QFile::WriteOnly | QFile::Truncate)){
-        QTextStream* stream = new QTextStream(file);
+        outfile = new QTextStream(file);
 
-        new QDebugStream(std::cout,
-                         stream);
+        //new QDebugStream(std::cout,
+          //               stream);
     }
     qInstallMsgHandler(myMessageOutput);
 
@@ -76,12 +82,12 @@ CGPWindow::CGPWindow(QMainWindow *parent) :
     EvenParity* e = new EvenParity();
     problems[e->getName()] = e;
 
-    std::map<std::string, Problem*>::iterator pit;
-
-    for (pit = problems.begin(); pit != problems.end(); pit++) {
-        addMenuProblem((*pit).first);
+    QMapIterator<QString,Problem*> i(problems);
+    while(i.hasNext()){
+	i.next();
+    	addMenuProblem(i.key());
     }
-
+    
     selectedProblem = 0;
     batchNumber = -1;
     batchFile = "";
@@ -95,13 +101,13 @@ CGPWindow::CGPWindow(QMainWindow *parent) :
 
 CGPWindow::~CGPWindow() {
     qDebug() << "Deleting myself";
-    std::map<std::string, Problem*>::iterator pit;
-    qDebug() << "deleting " << problems.size() << " problems";
-    for (pit = problems.begin(); pit != problems.end(); pit++) {
-        qDebug() << "deleting problem '" << (*pit).first.c_str() << "'";
-        delete (*pit).second;
+    QMapIterator<QString,Problem*> i(problems);
+    while(i.hasNext()){
+    	i.next();
+        qDebug() << "deleting problem '" << i.key() << "'";
+    	delete i.value();
     }
-
+    
 }
 
 /**
@@ -480,7 +486,7 @@ void CGPWindow::on_StartButton_clicked() {
     m_solution_grapher->initializePlot(data);
 
     //thread.setQSize(tournamentSize->value());
-    qDebug() << " Setting problem = " << selectedProblem->description().c_str();
+    qDebug() << " Setting problem = " << selectedProblem->description();
     thread.init(runInfo, stopV);
 
     progressBar->reset();
@@ -532,18 +538,19 @@ void CGPWindow::on_ChooseFunctions_clicked() {
     for (; fit != all.end(); fit++) {
         Function<double>* f =
                 FunctionFactory<double>::instance().create((*fit));
-        availableFunctions[(*fit)] = f;
+        availableFunctions.insert(QString((*fit).c_str()),f);
     }
     FunctionSelecter* fsel = new FunctionSelecter(0, availableFunctions,
                                                   chosenFunctions);
     fsel->setWindowModality(Qt::ApplicationModal);
     fsel->exec();
-    std::map<std::string, Function<double>*>::iterator it =
-            chosenFunctions.begin();
+    QMapIterator<QString, Function<double>*> it(chosenFunctions);
     functionList->clear();
-    for (; it != chosenFunctions.end(); it++) {
-        new QListWidgetItem(tr((*it).first.c_str()), functionList);
+    while(it.hasNext()){
+    	it.next();
+        new QListWidgetItem(it.key(), functionList);
     }
+    
     functionList->sortItems();
 
 }
@@ -562,16 +569,15 @@ void CGPWindow::on_reInitProblem_clicked() {
  */
 void CGPWindow::selectProblem(QAction* a) {
     qDebug() << "This problem was selected" << a->text();
-    std::map<std::string, Problem*>::iterator it = problems.find(
-            a->text().toStdString());
+    QMap<QString,Problem*>::iterator it = problems.find(a->text());
     if (it == problems.end()) {
         qDebug() << "Could not find problem in the problem list";
     } else {
         qDebug() << "New problem has been selected";
-        selectedProblem = it->second;
+        selectedProblem = it.value();
         selectedProblem->Init();
 
-        problemDescription->setPlainText(it->second->description().c_str());
+        problemDescription->setPlainText(it.value()->description());
         qDebug() << "Description has been set.";
 
     }
@@ -581,9 +587,9 @@ void CGPWindow::selectProblem(QAction* a) {
  * Adds an entry in the list of problems (from the menu)
  * \param name	name of the problem to be added
  */
-void CGPWindow::addMenuProblem(std::string name) {
-    qDebug() << "adding " << name.c_str() << " to menu";
-    menuProblems->addAction(name.c_str());
+void CGPWindow::addMenuProblem(QString name) {
+    qDebug() << "adding " << name << " to menu";
+    menuProblems->addAction(name);
 }
 
 /**

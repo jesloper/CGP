@@ -61,11 +61,11 @@ class CGPWindow : public QMainWindow, private Ui::MainWindow
 		GridViewer* gViewer;	///<\brief  Shows the CGP in graphical format
 		void setupTable();		///< \brief Sets up the table
 		void setupGrapher();	///< \brief sets up the grapher
-		std::map<std::string,Function<double>*> availableFunctions; ///<\brief  Functions available
-		std::map<std::string,Function<double>*> chosenFunctions;	///< \brief Functions currently chosen
-		std::map<std::string,Problem*> problems;	///< \brief Available problems
+		QMap<QString,Function<double>*> availableFunctions; ///<\brief  Functions available
+		QMap<QString,Function<double>*> chosenFunctions;	///< \brief Functions currently chosen
+		QMap<QString,Problem*> problems;	///< \brief Available problems
 		Problem* selectedProblem;					///< \brief Currently selected problem
-		void addMenuProblem(std::string);			///< \brief Adds a problem to the menu	
+		void addMenuProblem(QString);			///< \brief Adds a problem to the menu	
 		void startRun();		///< \brief Starts a new run
 		void execBatch();		///< \brief executes a new batch run
 		int batchNumber;		///< \brief Current batch number

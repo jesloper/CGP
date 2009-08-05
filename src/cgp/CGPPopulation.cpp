@@ -41,12 +41,15 @@ void CGPPopulation::createPopulation() {
 	qDebug() << "[CGPPopulation::createPopulation]sorting...";
 	std::sort(pop.begin(), pop.end(), AscendingSort());
 
-	std::map<std::string,Function<double>*>::iterator it = ri.functions.begin();
+	QMapIterator<QString,Function<double>*> it(ri.functions);
 	//populate the map of available functions with the default list
 	qDebug() << "[CGPPopulation::createPopulation]number of functions = " << this->numberOfFunctions;
-	for (; it != ri.functions.end(); it++) {
-		qDebug() << "[CGPPopulation::createPopulation] " <<(*it).first.c_str();
+	while(it.hasNext()){
+		it.next();
+		qDebug() << "[CGPPopulation::createPopulation] " << it.key();
+	
 	}
+	
 }
 
 /**

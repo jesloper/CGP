@@ -66,16 +66,16 @@ public:
 	~RunInfo(void) {
 	}
 	;
-	std::map<std::string, Function<double>*> functions; ///< \brief available functions in this run
+	QMap<QString, Function<double>*> functions; ///< \brief available functions in this run
 	std::map<std::string, int> functionHeuristics; ///< \brief keeps count of mostly used functions
-	std::string getRandomFunction() {
-		std::map<std::string, Function<double>*>::iterator it;
+	QString getRandomFunction() {
+		QMap<QString, Function<double>*>::iterator it = functions.begin();
 		int rand = getRandInt(0, functions.size() - 1);
 		it = functions.begin();
 		for (int k = 0; k < rand; k++) {
 			it++;
 		}
-		return it->first;
+		return it.key();
 	}
 	/**
 	 * Stores all data in the DomDocument

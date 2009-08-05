@@ -24,7 +24,7 @@ public:
 
 	}
 
-	std::string getName() {
+	QString getName() {
 		return "SRProblem";
 	}
 	/**
@@ -39,7 +39,7 @@ public:
 		outputs.push_back("z");
 
 	}
-	virtual std::string description() {
+	virtual QString description() {
 		return m_description;
 	}
 	virtual void Init();
@@ -52,7 +52,7 @@ private:
 	double answer_;
 	double x, y, z;
 	double* m_params;
-	std::string m_description;
+	QString m_description;
 	int m_function;
 };
 
@@ -107,10 +107,10 @@ public:
 	virtual void inputStringValues(std::string* inp) {
 		inp[0] = "r";
 	}
-	virtual std::string description() {
-		return std::string("Example problem. Tries to find a circuit that gives both area of a circle and volume of the sphere for a given radius");
+	virtual QString description() {
+		return QString("Example problem. Tries to find a circuit that gives both area of a circle and volume of the sphere for a given radius");
 	}
-	std::string getName() {
+	QString getName() {
 		return "Circles";
 	}
 private:
@@ -135,7 +135,7 @@ public:
 	double answer() {
 		return m_answer;
 	}
-	std::string getName() {
+	QString getName() {
 		return "EvenParity";
 	}
 	virtual double* getCurrentInputs() {
@@ -167,8 +167,8 @@ public:
 		inp.push_back("x3");
 
 	}
-	virtual std::string description() {
-		return std::string("Even Parity problem\nTrying to find a function for the even parity problem for x inputs.");
+	virtual QString description() {
+		return QString("Even Parity problem\nTrying to find a function for the even parity problem for x inputs.");
 	}
 	virtual void Init();
 private:
@@ -236,8 +236,8 @@ public:
 		inp.push_back("x1");
 		inp.push_back("x2");
 	}
-	virtual std::string description() {
-		return std::string("Even 3-Parity problem\nTrying to find a function for the even parity problem for 3 inputs.");
+	virtual QString description() {
+		return QString("Even 3-Parity problem\nTrying to find a function for the even parity problem for 3 inputs.");
 	}
 private:
 	void setInputs() {
@@ -305,8 +305,8 @@ public:
 		inp.push_back("x0");
 		inp.push_back("x1");
 	}
-	virtual std::string description() {
-		return std::string("Even 3-Parity problem\nTrying to find a function for the even parity problem for 3 inputs.");
+	virtual QString description() {
+		return QString("Even 3-Parity problem\nTrying to find a function for the even parity problem for 3 inputs.");
 	}
 private:
 

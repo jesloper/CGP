@@ -137,9 +137,9 @@ void MultiClassProblem::inputStringValues(std::vector<std::string>& inp) {
     }
 }
 
-std::string MultiClassProblem::description() {
+QString MultiClassProblem::description() {
     HERE(0);
-    return std::string("Detecting errors from rate data");
+    return QString("Detecting errors from rate data");
 }
 
 void MultiClassProblem::setInputs() {

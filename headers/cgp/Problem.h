@@ -41,12 +41,12 @@ public:
 	virtual double setFitness(double* output) =0; ///< \brief sets the fitness affection for the current input */
 	virtual double answer() = 0; ///< \brief should return the correct answer for a given inputs
 	virtual double* getCurrentInputs() = 0; ///< \brief this should return the current inputs
-	virtual std::string getName() = 0; ///< \brief this should return the name of the problem
+	virtual QString getName() = 0; ///< \brief this should return the name of the problem
 	virtual void reset() {
 	}
 	; ///< \brief should reset any data if needed
-	virtual std::string description() {
-		return std::string("No description is available");
+	virtual QString description() {
+		return QString("No description is available");
 	}
 	virtual void inputStringValues(std::vector<std::string>& inp) {
 		for (int i = 0; i < m_number_of_inputs; i++) {
