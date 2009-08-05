@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
-CONFIG += ordered debug
+CONFIG += ordered
     
 LANGUAGE = C++
 RESOURCES = ./icons/sources.qrc

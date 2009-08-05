@@ -1,5 +1,5 @@
 TEMPLATE = lib
-CONFIG += plugin debug
+CONFIG += plugin
 LANGUAGE = C++
 
 INCLUDEPATH += ../headers \

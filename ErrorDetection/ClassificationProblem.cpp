@@ -6,6 +6,7 @@
 #include <QInputDialog>
 #include <QtPlugin>
 #include <cmath>
+#include <QMessageBox>
 
 
 ClassificationProblem::ClassificationProblem():m_inputArray(0),m_dataLoaded(false),m_fitnessFactor(0) {
@@ -129,6 +130,8 @@ double ClassificationProblem::setFitness(double* output) {
 
         }
     }else{
+        QMessageBox::warning(0, QString("Aborting!"),QString("Wrong fit function!"));
+
         abort();
     }
     return fit;
