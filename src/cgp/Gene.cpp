@@ -4,12 +4,12 @@
 
 static GeneRegistrator<Gene> Gene_instance("Gene");
 
-std::string Gene::m_class_name = "Gene";
+QString Gene::m_class_name = "Gene";
 
 /**
  * Constructor taking two inputs and function
  */
-Gene::Gene(int f, int s, std::string func) :
+Gene::Gene(int f, int s, QString func) :
 	m_function(0) {
 
 	this->setFunction(func);
@@ -18,7 +18,7 @@ Gene::Gene(int f, int s, std::string func) :
 		inputs[1] = s;
 	} else {
 		FunctionFactory<double>::instance().print();
-		QMessageBox::warning(0, QString("Aborting!"), QString("Function %1 does not exist!").arg(func.c_str()));
+		QMessageBox::warning(0, QString("Aborting!"), QString("Function %1 does not exist!").arg(func));
 		abort();
 	}
 }
@@ -48,7 +48,7 @@ bool Gene::equals(const Gene& other) const {
 /**
  * Sets the node function to f
  */
-void Gene::setFunction(std::string f) {
+void Gene::setFunction(QString f) {
 	m_function.reset(FunctionFactory<double>::instance().create(f));
 }
 /**
@@ -115,7 +115,7 @@ double Gene::calculate(double* inputs, RunInfo &ri) const {
 	double result = m_function->calculate(inputs);
 	if (isnan(result)) {
 		qDebug() << "======= Got NAN result ===============";
-		qDebug() << " Function = " << m_function->name().c_str();
+		qDebug() << " Function = " << m_function->name();
 		qDebug() << " Inputs   = [" << inputs[0] << " , " << inputs[1] << "]";
 		qDebug() << " Input 1  = " << inputs[0];
 		qDebug() << " Input 2  = " << inputs[1];
@@ -131,7 +131,7 @@ double Gene::calculate(double* inputs, RunInfo &ri) const {
  * Prints the gene to the qDebug stream
  */
 void Gene::print() const {
-	qDebug() << inputs[0] << "," << inputs[1] << " [" << m_function->name().c_str() << "]";
+	qDebug() << inputs[0] << "," << inputs[1] << " [" << m_function->name() << "]";
 }
 
 /**
@@ -141,7 +141,7 @@ std::string Gene::toStdString() {
 	std::ostringstream str;
 	if (inputs[0] < 0)
 		qDebug() << "BAAD";
-	str << inputs[0] << " " << inputs[1] << " " << m_function->name();
+	str << inputs[0] << " " << inputs[1] << " " << m_function->name().toStdString();
 	return str.str();
 }
 /**
@@ -153,6 +153,6 @@ void Gene::toOutStream(std::ostringstream out) {
 	for (int i = 0; i < getNumberOfInputs(); i++) {
 		out << inputs[i] << " ";
 	}
-	out << m_function->name().c_str();
+	out << m_function->name().toStdString();
 }
 

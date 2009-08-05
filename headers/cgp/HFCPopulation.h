@@ -22,20 +22,20 @@ public:
 	virtual void resetCalculations(); ///< \brief resets the remebered calulations
 private:
 	RunInfo* params; ///< \brief parameters for the current run
-	std::vector<Individual> pop; ///< \brief temporary storage
-	std::vector<std::vector<Individual>*> pools; ///< \brief contains the pools of individuals
+	QVector<Individual> pop; ///< \brief temporary storage
+	QVector<QVector<Individual>*> pools; ///< \brief contains the pools of individuals
 
 	double* thresholds; ///< \brief current thresholds for all levels
 	int numPools; ///< \brief number of pools
 
 	void addIndividual(Individual& ind); ///< \todo: move to CGPPopulationBase
 
-	void getIndividual(std::vector<Individual>& pool, Individual& ind); ///< \brief gets an individual from a given pool
-	Individual& tournamentSelection(int q, std::vector<Individual>& pool); ///< \brief gets an individual given selection method q and a pool
-	Individual& randomSelection(std::vector<Individual>& pool); ///< \brief gets an individual from a pool using a random selection method
-	void insertInLevel(int level, std::vector<Individual>& buffer); ///< \brief inserts a vector of individuals at a given level
+	void getIndividual(QVector<Individual>& pool, Individual& ind); ///< \brief gets an individual from a given pool
+	Individual& tournamentSelection(int q, QVector<Individual>& pool); ///< \brief gets an individual given selection method q and a pool
+	Individual& randomSelection(QVector<Individual>& pool); ///< \brief gets an individual from a pool using a random selection method
+	void insertInLevel(int level, QVector<Individual>& buffer); ///< \brief inserts a vector of individuals at a given level
 	void computeThresholds(); ///< \brief computes new threshold for all levels
-	double getAvg(std::vector<Individual>& pool); ///< \brief returns the average fitness of all individuals
+	double getAvg(QVector<Individual>& pool); ///< \brief returns the average fitness of all individuals
 };
 
 #endif /*HFCPOPULATION_H_*/

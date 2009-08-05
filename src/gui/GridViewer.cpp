@@ -34,7 +34,7 @@ GridViewer::~GridViewer() {
 }
 
 void GridViewer::updateIndividual(QString s) {
-	m_individual.fromString(s.toStdString());
+	m_individual.fromString(s);
 	this->Fitness->display(m_individual.getFitness());
 	this->repaint();
 }
@@ -58,19 +58,18 @@ void GridViewer::drawNodes() {
 	int row = 0;
 	int col = 0;
 	QRect rect(0, 0, x_size, y_size);
-	std::vector<int> active = m_individual.getActiveNodes();
-	std::vector<int>::const_iterator it;
-
+	QVector<int> active = m_individual.getActiveNodes();
+	int index = -1;
 	for (int i = 1; i <= m_individual.getNumberOfNodes(); i++) {
 
 		m_painter->save();
 
 		if (i > rows) {
-			it = std::find(active.begin(), active.end(), i - 1);
-			if (it != active.end()) {
+			index = active.indexOf(i-1);
+			if (index != -1) {
 				m_painter->setPen(*m_heavyPen);
 			}
-			if (it != active.end() || drawInactive->isChecked()) {
+			if (index != -1 || drawInactive->isChecked()) {
 
 				Gene g = m_individual.getGenes().at(i - 1);
 				this->drawNodeLines(g, row, col);
@@ -88,11 +87,11 @@ void GridViewer::drawNodes() {
 	col = 0;
 	for (int i = 1; i <= m_individual.getNumberOfNodes(); i++) {
 		m_painter->save();
-		it = std::find(active.begin(), active.end(), i - 1);
-		if (it == active.end()) {
+		index = active.indexOf(i - 1);
+		if (index == -1) {
 			m_painter->setBrush(*m_grayBrush);
 		}
-		if (it != active.end() || drawInactive->isChecked()) {
+		if (index != -1 || drawInactive->isChecked()) {
 
 			m_painter->translate(col * x_size + col * spacing, row * y_size
 					+ row * spacing);
@@ -102,7 +101,7 @@ void GridViewer::drawNodes() {
 					x_size / 2,
 					y_size / 2 + fontsize / 2,
 					QString("%1").arg(
-							m_individual.getGenes().at(i - 1).getFunction()->name().c_str()));
+							m_individual.getGenes().at(i - 1).getFunction()->name()));
 
 			for (int k = 0; k
 					< m_individual.getGenes().at(i - 1).getNumberOfInputs(); k++) {

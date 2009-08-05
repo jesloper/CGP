@@ -26,6 +26,7 @@
 #include "DataGrapher.h"
 #include "Problem.h"
 #include "qdebugstream.h"
+#include <QVector>
 
 QTextStream* outfile = 0;
 QMutex mut;
@@ -214,13 +215,13 @@ void CGPWindow::update(int gens, double best, double worst, double avg,
     DataTable->setItem(gens, 2, worstItem);
     DataTable->setItem(gens, 3, avgItem);
     DataTable->scrollToItem(gensItem);
-    std::vector<int> activeNodes = indInfo.m_ind.getActiveNodes();
-    std::map<std::string,int> functions;
+    QVector<int> activeNodes = indInfo.m_ind.getActiveNodes();
+    QMap<QString,int> functions;
     QString active = "";
     for(size_t i =0; i < activeNodes.size();i++){
         int node = activeNodes.at(i);
         active.append(QString("n%1; ").arg(node));
-        std::string functionName = indInfo.m_ind.getGenes().at(node).getFunction()->name();
+        QString functionName = indInfo.m_ind.getGenes().at(node).getFunction()->name();
         if(functions.find(functionName) == functions.end()){
             functions[functionName] = 1;
         }else{
@@ -228,11 +229,11 @@ void CGPWindow::update(int gens, double best, double worst, double avg,
         }
     }
 
-    std::map<std::string,int>::iterator it = functions.begin();
+    QMap<QString,int>::iterator it = functions.begin();
     QString functionUse = "";
     for(;it != functions.end();it++){
-        //qDebug() << it->first.c_str() << " = " << it->second;
-        QString s = QString("%1=%2; ").arg(it->first.c_str()).arg(it->second);
+        //qDebug() << it.key() << " = " << it.value();
+        QString s = QString("%1=%2; ").arg(it.key()).arg(it.value());
         functionUse.append(s);
     }
     runInfo.updateData(gens, best, avg, worst, indInfo.m_ind.toMatlabCode(runInfo.problem->NumberOfInputs()),active,functionUse);
@@ -532,13 +533,13 @@ void CGPWindow::on_RestartButton_clicked() {
  Opens the window for selection of functions
  */
 void CGPWindow::on_ChooseFunctions_clicked() {
-    std::vector<std::string> all =
+    QVector<QString> all =
             FunctionFactory<double>::instance().getAllFunctions();
-    std::vector<std::string>::iterator fit = all.begin();
+    QVector<QString>::iterator fit = all.begin();
     for (; fit != all.end(); fit++) {
         Function<double>* f =
                 FunctionFactory<double>::instance().create((*fit));
-        availableFunctions.insert(QString((*fit).c_str()),f);
+        availableFunctions.insert(QString((*fit)),f);
     }
     FunctionSelecter* fsel = new FunctionSelecter(0, availableFunctions,
                                                   chosenFunctions);

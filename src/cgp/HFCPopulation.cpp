@@ -36,7 +36,7 @@ HFCPopulation::~HFCPopulation() {
 double HFCPopulation::getAvgFitness() {
 
 	HERE(2);//qDebug() << __FUNCTION__ <<"getAvgFitness()";
-	std::vector<Individual>::iterator it;
+	QVector<Individual>::iterator it;
 	double avg = 0;
 	int num = 0;
 	for (int i = 0; i < numPools; i++) {
@@ -93,7 +93,7 @@ void HFCPopulation::createPopulation() {
 	HERE(2);
 	for (int i = 0; i < numPools; i++) {
 		//create subpool #i
-		std::vector<Individual>* pop = new std::vector<Individual>();
+		QVector<Individual>* pop = new QVector<Individual>();
 		pools.push_back(pop);
 	}
 
@@ -192,7 +192,7 @@ double HFCPopulation::getWorstFitness() {
  * \param pool sub-pool to select from
  * \param ind reference to individual to be filled with return value
  */
-void HFCPopulation::getIndividual(std::vector<Individual>& pool, Individual& ind) {
+void HFCPopulation::getIndividual(QVector<Individual>& pool, Individual& ind) {
 	switch (this->ri.sel.Selection) {
 	case PopulationInterface::QTournament:
 		ind = tournamentSelection(ri.sel.QTournamentSize, pool);
@@ -215,27 +215,27 @@ void HFCPopulation::getIndividual(std::vector<Individual>& pool, Individual& ind
  * \param q percentage of population to pick individual from
  * \param pool sub-pool to select from
  */
-Individual& HFCPopulation::tournamentSelection(int q, std::vector<Individual>& pool) {
+Individual& HFCPopulation::tournamentSelection(int q, QVector<Individual>& pool) {
 	int max = (pool.size() * q) / 100;
 	int rand = getRandInt(0, max - 1);
 	int rand2 = getRandInt(0, max - 1);
 	//	qDebug() << "Getting " << rand << " or " << rand2 << "(max = " << max << "  q = " << q << " )";
 	if (pool.at(rand).getFitness() < pool.at(rand2).getFitness())
-		return pool.at(rand);
-	return pool.at(rand2);
+		return pool[rand];
+	return pool[rand2];
 }
 
-Individual& HFCPopulation::randomSelection(std::vector<Individual>& pool) {
+Individual& HFCPopulation::randomSelection(QVector<Individual>& pool) {
 
 	int rand = getRandInt(0, pool.size() - 1);
 
 	if (poolNum == 0)
 		MYDEBUG(2,qDebug() << "returning ind at " << rand);
 
-	return pool.at(rand);
+	return pool[rand];
 }
-void printPool(std::vector<Individual> pop) {
-	std::vector<Individual>::iterator it;
+void printPool(QVector<Individual> pop) {
+	QVector<Individual>::iterator it;
 	for (it = pop.begin(); it != pop.end(); it++) {
 		double fitness = (*it).getFitness();
 		MYDEBUG(0,qDebug() << "Fitness = " << fitness);
@@ -248,8 +248,8 @@ void printPool(std::vector<Individual> pop) {
 void HFCPopulation::NewGeneration() {
 	static int genNum = 0;
 	genNum++;
-	std::vector<Individual>::iterator it;
-	std::vector<Individual> newGen;
+	QVector<Individual>::iterator it;
+	QVector<Individual> newGen;
 
 	//Save the best ind if elitism is set
 	if (ri.sel.Elitism) {
@@ -293,7 +293,7 @@ void HFCPopulation::NewGeneration() {
 		sortPool(newGen, true);
 		pools[i]->clear();
 		*pools[i] = newGen;
-		std::vector<Individual>().swap(newGen); // release all memory
+		QVector<Individual>()= newGen; // release all memory
 		computeFitness(*pools[i]);
 		sortPool(*pools[i], true);
 	}
@@ -311,7 +311,7 @@ void HFCPopulation::NewGeneration() {
 		}
 
 		//create an admission buffer
-		std::vector<Individual> bufferUp;
+		QVector<Individual> bufferUp;
 		//loop over pools and move individuals
 		for (size_t i = numPools - 1; i > 0; i--) {
 			qDebug() << "Checking " << pools[i]->back().getFitness() << " vs " << thresholds[i - 1];
@@ -371,7 +371,7 @@ void HFCPopulation::PrintGeneration() {
 /**
  * Inserts a buffer of individuals into a level
  */
-void HFCPopulation::insertInLevel(int level, std::vector<Individual> &buffer) {
+void HFCPopulation::insertInLevel(int level, QVector<Individual> &buffer) {
 
 	//now we will copy all into this level
 	unsigned int size = buffer.size();
@@ -385,7 +385,7 @@ void HFCPopulation::insertInLevel(int level, std::vector<Individual> &buffer) {
 			qDebug() << __FUNCTION__ << "New size = (" << size << ")";
 
 		}
-		std::vector<Individual>::iterator it;
+		QVector<Individual>::iterator it;
 		for (unsigned int i = 0; i < size; i++) {
 			//qDebug() << __FUNCTION__ <<"Inserting something with fitness = " << buffer.back().getFitness() << " into level " << level;
 			pools[level]->push_back(buffer.back());
@@ -411,8 +411,8 @@ void HFCPopulation::computeThresholds() {
 	}
 }
 
-double HFCPopulation::getAvg(std::vector<Individual> &pool) {
-	std::vector<Individual>::iterator it;
+double HFCPopulation::getAvg(QVector<Individual> &pool) {
+	QVector<Individual>::iterator it;
 	double avg = 0.;
 	for (it = pool.begin(); it != pool.end(); it++) {
 		avg += (*it).getFitness();
@@ -420,7 +420,7 @@ double HFCPopulation::getAvg(std::vector<Individual> &pool) {
 	}
 	return avg / double(pool.size());
 }
-/*double HFCPopulation::getStdDev(std::vector<Individual> &pool, double mean) {
+/*double HFCPopulation::getStdDev(QVector<Individual> &pool, double mean) {
 	double sum = 0.;
 	for (it = pool.begin(); it != pool.end(); it++) {
 		double diff = (*it).getFitness - mean;
@@ -435,8 +435,8 @@ double HFCPopulation::getAvg(std::vector<Individual> &pool) {
  */
 void HFCPopulation::resetCalculations() {
 	for (int i = 0; i < numPools; i++) {
-		std::vector<Individual>::iterator it;
-		std::vector<Individual> pool = *pools[i];
+		QVector<Individual>::iterator it;
+		QVector<Individual> pool = *pools[i];
 		for (it = pool.begin(); it != pool.end(); it++) {
 			//(*it).reset();
 		}

@@ -33,10 +33,10 @@ void RunInfo::RunData::store(QDomElement parent, QDomDocument doc) {
 		QDomElement gen = doc.createElement("Generation");
 		gen.setAttribute("value", i);
 		QDomElement bestInd = doc.createElement("BestInd");
-		bestInd.setAttribute("value", BestInds.at(i).replace(QString("\n"),
+		bestInd.setAttribute("value", BestInds[i].replace(QString("\n"),
 				QString(" ")));
 		QDomElement activeInd = doc.createElement("ActiveNodes");
-		activeInd.setAttribute("value", ActiveNodes.at(i).replace(
+		activeInd.setAttribute("value", ActiveNodes[i].replace(
 				QString("\n"), QString(" ")));
 		QDomElement best = doc.createElement("Best");
 		best.setAttribute("value", Stats[i][0]);

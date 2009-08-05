@@ -40,7 +40,7 @@ public:
 	; ///< \brief resets calulations (forget results)
 
 	RunInfo ri;
-	std::string HumanReadable(Individual &ind);
+	QString HumanReadable(Individual &ind);
 
 	/*
 	 Defines how we select the individuals when creating a new Generation
@@ -50,7 +50,7 @@ public:
 protected:
 		RunInfo* params; /**< \brief parameters for the current run */
 	double* inputList; /**< \brief placeholder when calculating the fitness for individuals */
-	std::vector<Individual> pop; /**< \brief temporary storage */
+	QVector<Individual> pop; /**< \brief temporary storage */
 
 	int numberOfInputs;
 	int numberOfFunctions;
@@ -59,7 +59,7 @@ protected:
 	double m_ind_inputs[100]; //TODO: this is a hard-limit, but ok for now
 	double m_ind_fitnessTotal; ///< \brief fitness total of a single individual
 	double m_ind_fit;	///< \brief fitness for a single individual for a single fitnesscase
-	std::map<std::string, double> m_fitnessMap; ///< \brief contains already calculated values. Used to improve performance
+	QMap<QString, double> m_fitnessMap; ///< \brief contains already calculated values. Used to improve performance
 	double getFitness(Individual& it);
 
 	void mutate(Gene& it, int number); ///< \brief mutates a Gene
@@ -71,18 +71,18 @@ protected:
 	void directedGraphTreeCrossOver(Individual& first, Individual &second, Individual &result);
 	void gridTreeCrossOver(Individual& first, Individual &second, Individual &result);
 		
-	void getNodes(int at, Individual& parent, std::vector<int> &nodes);	///< \brief used by the tree crossover methods
-	void computeFitness(std::vector<Individual> &pool); ///< \brief computes the fitness of all individuals
-	void regularCompute(std::vector<Individual> &pool); //Regular computation of fitness
-	void hashCompute(std::vector<Individual> &pool); //use of hash to speed up computation
+	void getNodes(int at, Individual& parent, QVector<int> &nodes);	///< \brief used by the tree crossover methods
+	void computeFitness(QVector<Individual> &pool); ///< \brief computes the fitness of all individuals
+	void regularCompute(QVector<Individual> &pool); //Regular computation of fitness
+	void hashCompute(QVector<Individual> &pool); //use of hash to speed up computation
 	void getIndividual(Individual& ind);
 	Individual& tournamentSelection(int q);
 	Individual& randomSelection();
-	void insertInLevel(int level, std::vector<Individual>& buffer);
+	void insertInLevel(int level, QVector<Individual>& buffer);
 	void computeThresholds();
-	double getAvg(std::vector<Individual>& pool); /**< \brief returns the average fitness of all individuals */
+	double getAvg(QVector<Individual>& pool); /**< \brief returns the average fitness of all individuals */
 	int validInput(int node);
-	void sortPool(std::vector<Individual>& pool, bool); ///< \brief sorts a population
+	void sortPool(QVector<Individual>& pool, bool); ///< \brief sorts a population
 	void SanityCheck(Individual& ind);
 	void createIndividual(Individual& ind); ///< \brief Creates a new random individual
 

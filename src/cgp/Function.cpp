@@ -1,7 +1,7 @@
 #include "FunctionFactory.h"
 #include "Function.h"
 typedef double CGPBaseType;
-void deregister(std::string key){
+void deregister(QString key){
 	//std::cout << "deregistering " << key << std::endl;
         FunctionFactory<CGPBaseType>::instance().dereference(key);
 }

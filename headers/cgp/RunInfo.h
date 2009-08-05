@@ -48,9 +48,9 @@ class RunInfo {
 	struct RunData {
 		int CompletedGenerations;
 		TwoDArray<double> Stats;
-		std::vector<QString> BestInds;
-		std::vector<QString> ActiveNodes;
-		std::vector<QString> FunctionUsage;
+		QVector<QString> BestInds;
+		QVector<QString> ActiveNodes;
+		QVector<QString> FunctionUsage;
 
 		void store(QDomElement parent, QDomDocument doc);
 		RunData() {
@@ -67,7 +67,7 @@ public:
 	}
 	;
 	QMap<QString, Function<double>*> functions; ///< \brief available functions in this run
-	std::map<std::string, int> functionHeuristics; ///< \brief keeps count of mostly used functions
+	QMap<QString, int> functionHeuristics; ///< \brief keeps count of mostly used functions
 	QString getRandomFunction() {
 		QMap<QString, Function<double>*>::iterator it = functions.begin();
 		int rand = getRandInt(0, functions.size() - 1);

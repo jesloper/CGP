@@ -8,7 +8,7 @@
 #include "MathFunctions.h"
 #include <math.h>
 
-void deregister(std::string);
+void deregister(QString);
 /**
  * Converts a number to string
  */
@@ -34,14 +34,14 @@ public:
     /**
          *  \return the name of the function
          */
-    virtual std::string name() {
+    virtual QString name() {
         return m_name;
     }
 
     /**
          * \return a description of the function
          */
-    virtual std::string description() {
+    virtual QString description() {
         return m_description;
     }
 
@@ -59,32 +59,32 @@ public:
 
     std::string toStdString() {
         std::ostringstream str;
-        str << "Name: " << m_name << std::endl << "Description: "
-                << m_description << std::endl << "Num inputs : " << m_inputs
+        str << "Name: " << m_name.toStdString() << std::endl << "Description: "
+                << m_description.toStdString() << std::endl << "Num inputs : " << m_inputs
                 << std::endl;
         return str.str();
     }
     virtual QString toMatlabCode(QString& inp1, QString& inp2) {
-        return QString("%1(%2,%3);").arg(m_name.c_str()).arg(inp1).arg(inp2);
+        return QString("%1(%2,%3);").arg(m_name).arg(inp1).arg(inp2);
     }
 
 protected:
     int m_inputs;
-    std::string m_name;
-    std::string m_description;
+    QString m_name;
+    QString m_description;
 };
 
 template<class T> class BinaryOperator: public Function<T> {
     virtual T calculate(T* inputs) = 0;
     virtual QString toMatlabCode(QString& inp1, QString& inp2) {
-        return QString("(%1 %2 %3);").arg(inp1).arg(Function<T>::m_name.c_str()).arg(
+        return QString("(%1 %2 %3);").arg(inp1).arg(Function<T>::m_name).arg(
                 inp2);
     }
 };
 template<class T> class UnaryOperator: public Function<T> {
     virtual T calculate(T* inputs) = 0;
     virtual QString toMatlabCode(QString& inp1, QString& inp2) {
-        return QString("%1(%2);").arg(Function<T>::m_name.c_str()).arg(inp1);
+        return QString("%1(%2);").arg(Function<T>::m_name).arg(inp1);
     }
 };
 /**

@@ -56,8 +56,8 @@ void CGPPopulation::createPopulation() {
  * Evolves the next generation.
  */
 void CGPPopulation::NewGeneration() {
-	std::vector<Individual>::iterator it;
-	std::vector<Individual> newGen;
+	QVector<Individual>::iterator it;
+	QVector<Individual> newGen;
 	ti.reset();
 
 	//Save the best ind if elitism is set
@@ -112,7 +112,7 @@ void CGPPopulation::NewGeneration() {
  * prints all individuals and their fitness
  */
 void CGPPopulation::PrintGeneration() {
-	std::vector<Individual>::iterator it;
+	QVector<Individual>::iterator it;
 	for (it = pop.begin(); it != pop.end(); it++) {
 		(*it).printGenes();
 		double fitness = (*it).getFitness();
@@ -132,8 +132,8 @@ void CGPPopulation::PrintBest() {
 	for (unsigned int i = 0; i < best.getGenes().size(); i++) {
 		int first = best.getGenes().at(i).getInput(1);
 		int second = best.getGenes().at(i).getInput(2);
-		std::string function = best.getGenes().at(i).getFunction()->name();
-		qDebug() << "#" << i+ri.problem->NumberOfInputs() << "  " << first << function.c_str() << second;
+		QString function = best.getGenes().at(i).getFunction()->name();
+		qDebug() << "#" << i+ri.problem->NumberOfInputs() << "  " << first << function << second;
 	}
 	this->HumanReadable(best);
 }

@@ -24,7 +24,7 @@ public:
 	virtual Individual& getBest() = 0; /**< \brief returns the best fit individual */
 	virtual Individual& getWorst() = 0; /**< \brief returns the least fit individual */
 	virtual void setInfo(RunInfo& ri) = 0;/**< \brief sets the current run information */
-	virtual std::string HumanReadable(Individual&)= 0; /**< \brief returns a Human readable string of an ind */
+	virtual QString HumanReadable(Individual&)= 0; /**< \brief returns a Human readable string of an ind */
 	virtual TwoDArray<double> getBestOutput() = 0; ///< \brief retrieves a vector of outputs from the best individual
 private:
 };

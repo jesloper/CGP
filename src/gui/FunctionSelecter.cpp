@@ -80,7 +80,7 @@ void FunctionSelecter::itemClicked(QTreeWidgetItem * item){
     QMap<QString,Function<double>*>::iterator it;
     it = fMap.find(item->text(0));
     if(it != fMap.end()){
-	Description->setPlainText(QString(it.value()->description().c_str()));
+	Description->setPlainText(QString(it.value()->description()));
     }
 }
 void FunctionSelecter::deleteItem(QListWidgetItem *){

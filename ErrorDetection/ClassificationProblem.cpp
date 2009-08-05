@@ -151,10 +151,10 @@ double* ClassificationProblem::getCurrentInputs() {
     return m_inputs;
 }
 
-void ClassificationProblem::inputStringValues(std::vector<std::string>& inp) {
+void ClassificationProblem::inputStringValues(QVector<QString>& inp) {
     for (int i = 0; i < Problem::m_number_of_inputs; i++) {
         QString s = QString("x%1").arg(i);
-        inp.push_back(s.toStdString());
+        inp.push_back(s);
     }
 }
 

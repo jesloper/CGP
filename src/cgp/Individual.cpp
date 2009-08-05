@@ -11,7 +11,7 @@ Individual::~Individual(void) {
 /**
  * Inserts a new gene to the Individual
  */
-void Individual::insertGene(int f, int s, std::string func) {
+void Individual::insertGene(int f, int s, QString func) {
 	if ((f < 0) || (s < 0))
 		std::cout << "ILLEAGAL!!";
 	this->Genes.push_back(Gene(f, s, func));
@@ -25,7 +25,7 @@ void Individual::printGenes() const {
 	qDebug() << "This is ME (number of nodes " << this->numberOfNodes << ")";
 	for (unsigned int i = 0; i < this->Genes.size(); i++) {
 		qDebug() << "#" << i << " = ";
-		Genes.at(i).print();
+		Genes[i].print();
 		qDebug() << " /  ";
 
 	}
@@ -38,7 +38,7 @@ void Individual::printGenes() const {
 void Individual::copy(const Individual &rhs) {
 	this->Genes.clear();
 	for (unsigned int i = 0; i < rhs.Genes.size(); i++) {
-		Gene newGene = rhs.Genes.at(i);
+		Gene newGene = rhs.Genes[i];
 		//newGene.copy();
 		Genes.push_back(newGene);
 	}
@@ -56,7 +56,7 @@ void Individual::copy(const Individual &rhs) {
  */
 bool Individual::equals(const Individual& other) const {
 	for (unsigned int i = 0; i < other.Genes.size(); i++) {
-		if (!Genes.at(i).equals(other.Genes.at(i)))
+		if (!Genes[i].equals(other.Genes[i]))
 			return false;
 	}
 	return true;
@@ -76,9 +76,9 @@ void Individual::swapGenes(Individual& other, int f, int s) throw(OutOfRange) {
 	}
 	assert(s < this->numberOfNodes);
 	for (int i = f; i <= s; i++) {
-		Gene temp = this->getGenes().at(i);
-		this->getGenes().at(i) = other. getGenes().at(i);
-		other. getGenes().at(i) = temp;
+		Gene temp = this->getGenes()[i];
+		this->getGenes()[i] = other.getGenes()[i];
+		other.getGenes()[i] = temp;
 
 	}
 }
@@ -87,15 +87,15 @@ void Individual::swapGenes(Individual& other, int f, int s) throw(OutOfRange) {
  * serializes the Individual to a string
  * \returns the Individual represented as a string
  */
-std::string Individual::toString() {
+QString Individual::toString() {
 	QString out;
 	QTextStream str(&out);
 	str << this->numberOfNodes << endl;
 	str << this->fitness << endl;
 	for (unsigned int i = 0; i < Genes.size(); i++) {
-		str << Genes.at(i).toStdString().c_str() << endl;
+		str << Genes[i].toStdString().c_str() << endl;
 	}
-	return out.toStdString();
+	return out;
 }
 
 /**
@@ -103,19 +103,19 @@ std::string Individual::toString() {
  * Uses 'Polish' notation.
  * \returns the individual represented as a single string.
  */
-std::string Individual::singleLineString() {
+QString Individual::singleLineString() {
 	QString out;
 	QTextStream str(&out);
 	str << "(";
 	for (unsigned int i = 0; i < Genes.size(); i++) {
-		str << "( " << Genes.at(i).getFunction()->name().c_str();
-		for (int j = 1; j <= Genes.at(i).getNumberOfInputs(); j++) {
-			str << "  " << Genes.at(i).getInput(j);
+		str << "( " << Genes[i].getFunction()->name();
+		for (int j = 1; j <= Genes[i].getNumberOfInputs(); j++) {
+			str << "  " << Genes[i].getInput(j);
 		}
 		str << " )";
 	}
 	str << ")";
-	return out.toStdString();
+	return out;
 }
 /**
  * serializes the individual to matlab friendly code
@@ -125,9 +125,9 @@ QString Individual::toMatlabCode(int inputs) {
 	QString out;
 	QTextStream str(&out);
 	for (unsigned int i = 0; i < Genes.size(); i++) {
-		int i1 = Genes.at(i).getInput(1);
-		int i2 = Genes.at(i).getInput(2);
-		std::string func = Genes.at(i).getFunction()->name().c_str();
+		int i1 = Genes[i].getInput(1);
+		int i2 = Genes[i].getInput(2);
+		QString func = Genes[i].getFunction()->name();
 		QString inp1, inp2;
 		if (i1 < inputs) {
 			inp1 = QString("data(k,%1)").arg(i1 + 1);
@@ -139,8 +139,8 @@ QString Individual::toMatlabCode(int inputs) {
 		} else {
 			inp2 = QString("n%1").arg((i2 - inputs));
 		}
-		QString gout = Genes.at(i).toMatlabCode(inp1, inp2);
-		QString line = QString("n%1 = %2").arg(i).arg(gout);//.arg(func.c_str()).arg(inp2);
+		QString gout = Genes[i].toMatlabCode(inp1, inp2);
+		QString line = QString("n%1 = %2").arg(i).arg(gout);//.arg(func).arg(inp2);
 		str << line << endl;
 	}
 	return out;
@@ -150,8 +150,8 @@ QString Individual::toMatlabCode(int inputs) {
  * restores and individual from a string
  * \param object the string representation of the object
  */
-void Individual::fromString(std::string object) {
-	QString in(object.c_str());
+void Individual::fromString(QString object) {
+	QString in(object);
 	QTextStream str(&in);
 	Genes.clear();
 	this->numberOfNodes = 0;
@@ -163,7 +163,7 @@ void Individual::fromString(std::string object) {
 		int i1, i2;
 		QString func;
 		str >> i1 >> i2 >> func;
-		insertGene(i1, i2, func.toStdString());
+		insertGene(i1, i2, func);
 	}
 
 }
@@ -202,7 +202,7 @@ double Individual::getOutput(Gene g, RunInfo& ri, double* inputlist, bool track)
 	for (int i = 0; i < g.getNumberOfInputs(); i++) {
 		int inp = g.getInput(i+1);
 		double result;
-		std::map<int, double>::const_iterator it = h_map.find(inp);
+		QMap<int, double>::const_iterator it = h_map.find(inp);
 		if (it == h_map.end()) {
 			if (inp < ri.problem->NumberOfInputs()) {
 				result = inputlist[inp];
@@ -212,7 +212,7 @@ double Individual::getOutput(Gene g, RunInfo& ri, double* inputlist, bool track)
 			}
 			h_map[inp] = result;
 		} else {
-			result = it->second;
+			result = it.value();
 		}
 		inps[i] = result;
 	}
@@ -254,7 +254,7 @@ double Individual::getOutput(Gene g, RunInfo& ri, double* inputlist, bool track)
 
 		final_result = g.calculate(f_result, s_result, ri);
 		if (track) {
-			qDebug() << "calculating " << f_result << " " << g.getFunction()->name().c_str() << " " << s_result << "   = " << final_result;
+			qDebug() << "calculating " << f_result << " " << g.getFunction()->name() << " " << s_result << "   = " << final_result;
 		}
 	} catch (...) {
 		this->printGenes();
@@ -271,7 +271,7 @@ Individual::Individual(const Individual& other) {
 
 	this->Genes.clear();
 	for (size_t i = 0; i < other.Genes.size(); i++) {
-		Genes.push_back(other.Genes.at(i));
+		Genes.push_back(other.Genes[i]);
 	}
 	this->numberOfNodes = other.numberOfNodes;
 	this->lengthOfNode = other.lengthOfNode;
@@ -286,7 +286,7 @@ Individual::Individual(const Individual& other) {
 Individual& Individual::operator =(const Individual & other) {
 	this->Genes.clear();
 	for (unsigned int i = 0; i < other.Genes.size(); i++) {
-		Genes.push_back(other.Genes.at(i));
+		Genes.push_back(other.Genes[i]);
 	}
 	this->numberOfNodes = other.numberOfNodes;
 	this->lengthOfNode = other.lengthOfNode;

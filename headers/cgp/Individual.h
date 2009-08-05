@@ -30,14 +30,14 @@ public:
  };
  ~Individual(void);	///< \ brief dtor
  void copy(const Individual &rhs);	///< copies and individual.  We cannot use shallow copy because of the vector
- void insertGene(int f, int s, std::string func); //< \brief inserts a new gene at the back of the individual
+ void insertGene(int f, int s, QString func); //< \brief inserts a new gene at the back of the individual
  void swapGenes(Individual& other, int f, int s) throw(OutOfRange);
  void printGenes() const; ///< \brief prints the genes using qDebug
  bool equals(const Individual& other) const; ///< \brief check if two individuals are equal
- std::string toString();	///< \brief converts the Individual to a string representation
- void fromString(std::string);	///< \brief updates the individual based on a string representation
+ QString toString();	///< \brief converts the Individual to a string representation
+ void fromString(QString);	///< \brief updates the individual based on a string representation
  QString toMatlabCode(int inputs);	///< \brief converts the Ind to a matlab friendly representation
- std::string singleLineString();	///< \brief single line string representation
+ QString singleLineString();	///< \brief single line string representation
 
  /**
   * \brief Returns the number of nodes in the individual
@@ -48,7 +48,7 @@ public:
  /**
   * returns a reference to the vector of genes representing the individual
   */
- std::vector<Gene>& getGenes(){
+ QVector<Gene>& getGenes(){
 	 return this->Genes;
  }
  /**
@@ -69,17 +69,17 @@ public:
  void getOutput(double* out,RunInfo& ri,double* inp,bool track = false);
  Individual(const Individual& other);
  Individual& operator=(const Individual& other);
- std::vector<int> getActiveNodes(){
+ QVector<int> getActiveNodes(){
 	 return m_activeNodes;
  }
 private:
  double getOutput(Gene g,RunInfo& ri,double* inp, bool track = false);
  int numberOfNodes;
  int lengthOfNode;
- std::vector<Gene> Genes;
+ QVector<Gene> Genes;
  double fitness;
- std::map<int,double> h_map;
- std::vector<int> m_activeNodes; ///< \brief holds the currently active nodes as of last time output was calculated
+ QMap<int,double> h_map;
+ QVector<int> m_activeNodes; ///< \brief holds the currently active nodes as of last time output was calculated
 
 };
 

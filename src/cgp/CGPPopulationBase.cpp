@@ -53,7 +53,7 @@ double CGPPopulationBase::getFitness(Individual& it) {
  Calculates the average fitness for all the individuals in the population.
  */
 double CGPPopulationBase::getAvgFitness() {
-	std::vector<Individual>::iterator it;
+	QVector<Individual>::iterator it;
 	double avg = 0;
 	for (it = pop.begin(); it != pop.end(); it++) {
 		avg += (*it).getFitness();
@@ -77,7 +77,7 @@ void CGPPopulationBase::mutate(Gene &g, int number) {
 		g.setInput(2, this->validInput(number));//getRandInt(max(0,numberOfInputs+number-5),numberOfInputs+number-2);
 		break;
 	case 3: //the function is changed into a new legal function type
-		g.setFunction(ri.getRandomFunction().toStdString());
+		g.setFunction(ri.getRandomFunction());
 		break;
 	default:
 		QMessageBox::warning(0, QString("Aborting!"),
@@ -96,7 +96,7 @@ void CGPPopulationBase::mutate(Individual& it) {
 	ti.Mutations++;
 	for (int i = 0; i < ri.gp.Nodes; i++) {
 		if (getRandInt(0, 100) < ri.gp.PointMutationProbability) {
-			mutate(it.getGenes().at(i), i);
+			mutate(it.getGenes()[i], i);
 		}
 	}
 }
@@ -183,11 +183,11 @@ void CGPPopulationBase::directedGraphTreeCrossOver(Individual& first,
 		Individual &second, Individual &result) {
 	int max = ri.gp.Nodes;
 	int node = getRandInt(0, max - 1);//get a start node
-	std::vector<int> nodes;
+	QVector<int> nodes;
 	getNodes(node, first, nodes);//get a vector of node indexes from first individual
 	std::sort(nodes.begin(), nodes.end());//sort the vector
-	std::vector<int>::iterator end = std::unique(nodes.begin(), nodes.end()); //remove duplicate nodes. Now we can copy all these nodes
-	std::vector<int>::iterator it;
+	QVector<int>::iterator end = std::unique(nodes.begin(), nodes.end()); //remove duplicate nodes. Now we can copy all these nodes
+	QVector<int>::iterator it;
 	Individual child1, child2;
 	child1 = first;
 	child2 = second;
@@ -208,16 +208,16 @@ void CGPPopulationBase::gridTreeCrossOver(Individual& first,
 	int col = getRandInt(1, ri.gp.Cols); //which row to take the start node from.
 	int row = getRandInt(1, ri.gp.Rows);//which col to take the start node from.
 
-	std::vector<int> nodes;
+	QVector<int> nodes;
 	int c_node = (col - 1) * ri.gp.Rows + (row - 1); //current node (from [0- numNodes-1]);
 	getNodes(c_node, first, nodes);//get a vector of node indexes
 	std::sort(nodes.begin(), nodes.end());//sort the vector
-	std::vector<int>::iterator end = std::unique(nodes.begin(), nodes.end()); //remove duplicate nodes. Now we can copy all these nodes
+	QVector<int>::iterator end = std::unique(nodes.begin(), nodes.end()); //remove duplicate nodes. Now we can copy all these nodes
 
 	Individual child1, child2;
 	child1 = first;
 	child2 = second;
-	std::vector<int>::iterator it;
+	QVector<int>::iterator it;
 
 	for (it = nodes.begin(); it != end; it++) {
 		child2.swapGenes(child1, (*it), (*it));
@@ -234,7 +234,7 @@ void CGPPopulationBase::gridTreeCrossOver(Individual& first,
  * Gets all nodes back for a set number of levels
  */
 void CGPPopulationBase::getNodes(int at, Individual& parent,
-		std::vector<int> &nodes) {
+		QVector<int> &nodes) {
 
 	if (at >= 0) {
 		nodes.push_back(at);
@@ -261,15 +261,15 @@ void CGPPopulationBase::getNodes(int at, Individual& parent,
  computes the fitness for all individual
  \todo: Implement hashing of results so that identical individuals only gets calculated once.
  */
-void CGPPopulationBase::computeFitness(std::vector<Individual> &pool) {
+void CGPPopulationBase::computeFitness(QVector<Individual> &pool) {
 	//regularCompute(pool);
 	hashCompute(pool);
 }
 /**
  * Calculates the fitness for all individuals.
  */
-void CGPPopulationBase::regularCompute(std::vector<Individual> &pool) {
-	std::vector<Individual>::iterator it;
+void CGPPopulationBase::regularCompute(QVector<Individual> &pool) {
+	QVector<Individual>::iterator it;
 	this->FitnessTotal = 0;
 	for (it = pool.begin(); it != pool.end(); it++) {
 		(*it).setFitness(this->getFitness((*it)));
@@ -281,22 +281,22 @@ void CGPPopulationBase::regularCompute(std::vector<Individual> &pool) {
 /**
  * Calculates the fitness of all individuals, but optimized for using a hash map of already stored individuals
  */
-void CGPPopulationBase::hashCompute(std::vector<Individual> &pool) {
+void CGPPopulationBase::hashCompute(QVector<Individual> &pool) {
 	//m_fitnessMap.clear();
-	std::vector<Individual>::iterator it;
+	QVector<Individual>::iterator it;
 	this->FitnessTotal = 0;
 	int mapUse = 0;
 	for (it = pool.begin(); it != pool.end(); it++) {
 		//see if we have already calculated fitness for this exact individual /todo optimize to only look at 'active' nodes
-		std::map<std::string, double>::iterator map_it =
+		QMap<QString, double>::iterator map_it =
 				this->m_fitnessMap.find((*it).singleLineString());
 		if (map_it == m_fitnessMap.end()) {
 			(*it).setFitness(this->getFitness((*it)));
 			this->FitnessTotal += (*it).getFitness();
 			m_fitnessMap[(*it).singleLineString()] = (*it).getFitness();
 		} else {
-			(*it).setFitness(map_it->second);
-			this->FitnessTotal += map_it->second;
+			(*it).setFitness(map_it.value());
+			this->FitnessTotal += map_it.value();
 			mapUse++;
 		}
 
@@ -344,19 +344,20 @@ void CGPPopulationBase::setInput(int number, double value) {
  * \param &ind individual to be parsed
  * \return the ouput of the final node as a program-tree
  */
-std::string CGPPopulationBase::HumanReadable(Individual &ind) {
-	std::string function;
-	std::vector<std::string> strings;
+QString CGPPopulationBase::HumanReadable(Individual &ind) {
+	QString function;
+	QVector<QString> strings;
 	ri.problem->inputStringValues(strings);
 	for (unsigned int i = 0; i < ind.getGenes().size(); i++) {
 		function = ind.getGenes().at(i).getFunction()->name();
-		std::ostringstream str;
-		str << "(" << function;
-		for (int j = 0; j < ri.functions[QString(function.c_str())]->numberOfInputs(); j++) {
-			str << " " << strings.at(ind.getGenes().at(i).getInput(j + 1));
+		QString str;
+		QTextStream stream(&str);
+		stream << "(" << function;
+		for (int j = 0; j < ri.functions[function]->numberOfInputs(); j++) {
+			stream << " " << strings.at(ind.getGenes().at(i).getInput(j + 1));
 		}
-		str << ")";
-		strings.push_back(str.str());
+		stream << ")";
+		strings.push_back(str);
 	}
 
 	return strings[ind.getGenes().size() + ri.problem->NumberOfInputs() - 1]; //this returns only the last
@@ -413,21 +414,21 @@ Individual& CGPPopulationBase::tournamentSelection(int q) {
 	int rand = getRandInt(0, max - 1);
 	int rand2 = getRandInt(0, max - 1);
 	if (pop.at(rand).getFitness() < pop.at(rand2).getFitness())
-		return pop.at(rand);
-	return pop.at(rand2);
+		return pop[rand];
+	return pop[rand2];
 }
 
 /**
  */
 Individual& CGPPopulationBase::randomSelection() {
 	int rand = getRandInt(0, pop.size() - 1);
-	return pop.at(rand);
+	return pop[rand];
 }
 /**
  * prints all individuals and their fitness
  */
 void CGPPopulationBase::PrintGeneration() {
-	std::vector<Individual>::iterator it;
+	QVector<Individual>::iterator it;
 	for (it = pop.begin(); it != pop.end(); it++) {
 		(*it).printGenes();
 		double fitness = (*it).getFitness();
@@ -483,7 +484,7 @@ int CGPPopulationBase::validInput(int node) {
  * \param pop vector to be sorted
  * \param ascending if true the pop is sorted in ascending order, otherwise in descending
  */
-void CGPPopulationBase::sortPool(std::vector<Individual>& pop, bool ascending) {
+void CGPPopulationBase::sortPool(QVector<Individual>& pop, bool ascending) {
 	if (ascending) {
 		std::sort(pop.begin(), pop.end(), AscendingSort());
 	} else {
@@ -518,6 +519,6 @@ void CGPPopulationBase::createIndividual(Individual& newInd) {
 		for (int k = 0; k < func; k++) {
 			it++;
 		}
-		newInd.insertGene(inputOne, inputTwo, it.key().toStdString());
+		newInd.insertGene(inputOne, inputTwo, it.key());
 	}
 }

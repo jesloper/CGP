@@ -30,12 +30,12 @@ public:
          * \param s address of second input
          * \param func type of node/function (add, div, and, or,sub,...)
          */
-    Gene(int f, int s, std::string func);
+    Gene(int f, int s, QString func);
 
     bool equals(const Gene& other) const ;
 
 
-    void setFunction(std::string f);
+    void setFunction(QString f);
 
     /**
          * Gets the node function
@@ -94,7 +94,7 @@ public:
         return m_function->toMatlabCode(inp1,inp2);
     }
 protected:
-    static std::string m_class_name;
+    static QString m_class_name;
 private:
 
     int inputs[2]; ///< location of inputs to this function

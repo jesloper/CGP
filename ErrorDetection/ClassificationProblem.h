@@ -18,7 +18,7 @@ public:
     virtual double setFitness(double* output);
 	virtual double answer();
 	virtual double* getCurrentInputs();
-        virtual void inputStringValues(std::vector<std::string>& inp);
+        virtual void inputStringValues(QVector<QString>& inp);
 	virtual QString description();
 	QString getName(){ return "ErrorDetection";} ///< \brief this should return the name of the problem
 	void Init();

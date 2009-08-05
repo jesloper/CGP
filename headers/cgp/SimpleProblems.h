@@ -33,7 +33,7 @@ public:
 	 */
 	virtual double* getCurrentInputs();
 
-	virtual void inputStringValues(std::vector<std::string>& outputs) {
+	virtual void inputStringValues(QVector<QString>& outputs) {
 		outputs.push_back("x");
 		outputs.push_back("y");
 		outputs.push_back("z");
@@ -104,7 +104,7 @@ public:
 			current=0;
 		return m_inputs;
 	}
-	virtual void inputStringValues(std::string* inp) {
+	virtual void inputStringValues(QString* inp) {
 		inp[0] = "r";
 	}
 	virtual QString description() {
@@ -160,7 +160,7 @@ public:
 		}
 	}
 
-	virtual void inputStringValues(std::vector<std::string>& inp) {
+	virtual void inputStringValues(QVector<QString>& inp) {
 		inp.push_back("x0");
 		inp.push_back("x1");
 		inp.push_back("x2");
@@ -231,7 +231,7 @@ public:
 		}
 	}
 
-	virtual void inputStringValues(std::vector<std::string>& inp) {
+	virtual void inputStringValues(QVector<QString>& inp) {
 		inp.push_back("x0");
 		inp.push_back("x1");
 		inp.push_back("x2");
@@ -301,7 +301,7 @@ public:
 		return !((int)(output[0]) == answer());
 	}
 
-	virtual void inputStringValues(std::vector<std::string>& inp) {
+	virtual void inputStringValues(QVector<QString>& inp) {
 		inp.push_back("x0");
 		inp.push_back("x1");
 	}
