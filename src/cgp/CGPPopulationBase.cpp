@@ -42,7 +42,7 @@ double CGPPopulationBase::getFitness(Individual& it) {
 		}
 	} catch (std::exception &e) {
 		std::cerr << __FUNCTION__ << ": caught std::exception " << e.what();
-		abort();
+                //abort();
 	}
 	//HERE_T(0,"Fitness of ind is " << m_ind_fitnessTotal);
 	return m_ind_fitnessTotal;
@@ -395,8 +395,10 @@ void CGPPopulationBase::getIndividual(Individual& ind) {
 		LOG("Here");
 		break;
 	default:
+                QMessageBox::warning(0, QString("Aborting!"),QString("Impossible selection type!"));
+
 		qDebug() << "selection impossible!! " << this->ri.sel.Selection;
-		abort();
+                //abort();
 	}
 	return;
 }

@@ -220,7 +220,7 @@ double Individual::getOutput(Gene g, RunInfo& ri, double* inputlist, bool track)
 		return g.calculate(inps, ri);
 	} catch (...) {
 		this->printGenes();
-		abort();
+                //abort();
 	}
 /*
 
@@ -258,7 +258,7 @@ double Individual::getOutput(Gene g, RunInfo& ri, double* inputlist, bool track)
 		}
 	} catch (...) {
 		this->printGenes();
-		abort();
+                //abort();
 	}
 	return final_result;*/
 }

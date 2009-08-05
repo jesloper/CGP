@@ -16,10 +16,12 @@ public:
 	typedef Function<T>* (*factoryMethod)(); ///< \brief typedef method returning Function object
 	typedef std::map<std::string, factoryMethod> FactoryMap; ///< \brief map of factory methods
 	typedef std::map<std::string, int> ReferenceMap; ///< \brief counts the number of references
-
+        /**
+          * Dtor
+          */
 	virtual ~FunctionFactory() {
 	}
-        //< Destructor. deletes all registered creator functions
+
 	static FunctionFactory<T>& instance(); ///< \brief access to singleton instance
 	Function<T>* createRandomFunction(); //< \brief returns a random function of the available registered types
 
@@ -48,9 +50,12 @@ public:
 			return it->second();
 
 		}
-
-		return NULL;
+                throw -1;
 	}
+        /**
+         * Creates a random function from all the availble ones
+         *
+         */
 	Function<T>* createRandom() {
 			int random = getRandInt(0,getAllFunctions().size()-1);
 			std::cout << "Random is " << random;
@@ -59,7 +64,7 @@ public:
 				it++;
 			}
 			std::cout << "creating random function " << it->first << std::endl;
-			return it->second();
+                        return it->second(); //this *calls* the registered function. In this case the create() method on the function object
 
 		}
 	void dereference(std::string key) {

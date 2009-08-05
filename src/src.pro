@@ -18,7 +18,8 @@ include(./gui/GUI.pri)
 include(./cgp/CGP.pri )
 RESOURCES = ../icons/sources.qrc
 HEADERS += ../headers/TwoDArray.h \
-						../headers/MathFunctions.h  
+           ../headers/MathFunctions.h \
+           ../headers/Macros.h
 SOURCES +=  main.cpp \
 						MathFunctions.cpp
 

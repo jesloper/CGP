@@ -29,6 +29,8 @@ private:
 	Logger();
 	QTextEdit* editbox;
 	QMutex* m_mutex;
+        QTextStream* m_fileStream;
+        QFile* m_file;
 };
 
 #endif /*LOGGER_H_*/

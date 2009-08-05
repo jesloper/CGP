@@ -13,7 +13,7 @@ FunctionSelecter::FunctionSelecter(QWidget *parent,std::map<std::string,Function
 {
 	setupUi(this);
 
-	qDebug("Setting up Function selector");
+        LOG("Setting up Function selector");
 	fMap = available;
 	cMap = &chosen;
 	std::map<std::string,Function<double>*>::iterator it = available.begin();

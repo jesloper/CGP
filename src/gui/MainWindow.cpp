@@ -29,7 +29,6 @@
 
 void myMessageOutput(QtMsgType type, const char *msg) {
     std::cout << msg << std::endl;
-    //Logger::instance().log(msg);
 }
 
 /**
@@ -41,8 +40,8 @@ CGPWindow::CGPWindow(QMainWindow *parent) :
     setupUi(this);
     saved = true;
     qInstallMsgHandler(myMessageOutput);
-    QDebugStream* qout = new QDebugStream(std::cout,
-                                          Logger::instance().getWindow());
+    new QDebugStream(std::cout,
+                     Logger::instance().getWindow());
 
     runInfo.setGPInfo(Individuals->value(), Generations->value(),
                       Nodes->value(), Mutation->value(), Crossover->value(),
@@ -713,8 +712,9 @@ void CGPWindow::setRunInformation() {
 }
 
 /**
- * Toggles whether the debug window should be shown or not
- */
+  * Auto connected.
+  * Toggles whether the debug window should be shown or not
+  */
 void CGPWindow::on_actionDebugWindow_toggled(bool checked) {
     if (checked) {
         Logger::instance().show();
@@ -745,17 +745,17 @@ void CGPWindow::loadDll(QString fileName) {
     if (fileName.isEmpty())
         return;
     qDebug() << "Attempting to load file: " << fileName;
-    #ifdef WIN32
+#ifdef WIN32
     if (!fileName.contains(".dll")) {
         HERE_T(0,"Plugin is not a dll!");
         return;
     }
-    #else
+#else
     if (!fileName.contains(".so")) {
         HERE_T(0,"Plugin is not a so file!");
         return;
     }
-    #endif
+#endif
     QPluginLoader loader(fileName);
     loader.load();
     if(!loader.isLoaded()){

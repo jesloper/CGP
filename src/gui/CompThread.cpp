@@ -32,12 +32,11 @@ CompThread::CompThread(QObject *parent) :
  */
 CompThread::~CompThread() {
 	qDebug() << "deleting thread";
-	mutex.lock();
+        QMutexLocker lock(&mutex);
 	qDebug() << "mutex locked";
 	m_abort = true;
 	condition.wakeOne();
 	qDebug() << "condition awoken";
-	mutex.unlock();
 	qDebug() << "deletion successful";
 }
 
@@ -85,17 +84,19 @@ double avgTime = 0;
  * Actually runs the thread
  */
 void CompThread::run() {
-	qDebug() << "Running thread";
-	if (m_population)
-		delete m_population; // delete the old one
+        qDebug() << "Running thread";
+        delete m_population; // delete the old one
 	//create the new population
+        qDebug() << "Creating new population...";
 	if (ri.gp.HFC) {
 		m_population = new HFCPopulation();
 	} else {
 		m_population = new CGPPopulation();
 	}
+        qDebug() << "Created population successfully";
 	//pass along information
 	m_population->setInfo(this->ri);
+        qDebug() << "Info is set";
 
 	//create a new population
 	qDebug() << "Creating population ....";

@@ -34,7 +34,14 @@ int main( int argc, char ** argv ) {
 	thing.show();
         sleep(1);
 	splash.finish(&thing);
-	return a.exec();
-	qInstallMsgHandler(0);
+        try{
+            return a.exec();
+
+        }catch(int a){
+            std::cout << "Something threw! " << a;
+            return a;
+        }
+        qInstallMsgHandler(0);
+
 
 }

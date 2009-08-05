@@ -9,6 +9,8 @@
 #include <QMutex>
 #include <QEvent>
 #include <QCoreApplication>
+#include <QFile>
+#include <QTextStream>
 
 /**
  * \class QDebugStream
@@ -33,6 +35,10 @@ public:
 		log_window = text_edit;
 		m_old_buf = stream.rdbuf();
 		stream.rdbuf(this);
+                m_file = new QFile("cgp_out.txt");
+                if(m_file->open(QFile::WriteOnly | QFile::Truncate)){
+                     m_fileStream = new QTextStream(m_file);
+                }
 	}
 	~QDebugStream() {
 		// output anything that is left
@@ -54,5 +60,7 @@ private:
 	QTextEdit* log_window;
 	QMutex *m_mutex;
 	QString m_text;
+        QTextStream* m_fileStream;
+        QFile* m_file;
 };
 #endif

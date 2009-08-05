@@ -107,7 +107,7 @@ double MultiClassProblem::setFitness(double* output) {
         double err = fabs((*m_answers)[currentOut][0]-output[0]);
         fit += m_fitnessFactor[currentOut]*err*err;
     }else{
-        abort();
+       LOG("fitness function is BAAAD!");
     }
 
     return fit;

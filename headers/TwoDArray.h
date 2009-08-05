@@ -19,104 +19,106 @@
  */
 template < class T> class TwoDArray {
 public:
-	TwoDArray() :
-		m_row(0),m_col(0),m_data(0) {
-		qDebug() << "default ctor";
-	}
-	TwoDArray(size_t row, size_t col) :
-		m_row(row), m_col(col), m_data((row!=0&&col!=0) ? new T[row*col] : NULL) {
-	}
-	TwoDArray(const TwoDArray& src) :
-		m_row(src.m_row), m_col(src.m_col), m_data((src.m_row!=0&&src.m_col!=0) ? new T[src.m_row*src.m_col] : NULL) {
-		for (size_t r=0; r<m_row; ++r)
-			for (size_t c=0; c<m_col; ++c)
-				(*this)[r][c] = src[r][c];
+    TwoDArray() :
+            m_row(0),m_col(0),m_data(0) {
+        qDebug() << "default ctor";
+    }
+    TwoDArray(size_t row, size_t col) :
+            m_row(row), m_col(col), m_data((row!=0&&col!=0) ? new T[row*col] : NULL) {
+    }
+    TwoDArray(const TwoDArray& src) :
+            m_row(src.m_row), m_col(src.m_col), m_data((src.m_row!=0&&src.m_col!=0) ? new T[src.m_row*src.m_col] : NULL) {
+        for (size_t r=0; r<m_row; ++r)
+            for (size_t c=0; c<m_col; ++c)
+                (*this)[r][c] = src[r][c];
 
-	}
-	~TwoDArray() {
-		if (m_data) {
-			delete [] m_data;
-		}
-	}
-	TwoDArray& operator =(const TwoDArray &other) {
-		if (m_data)
-			delete[] m_data;
-		m_row = other.m_row;
-		m_col = other.m_col;
-		m_data = (other.m_row!=0 && other.m_col!=0) ? new T[other.m_row*other.m_col] : NULL;
-		for (size_t r=0; r<m_row; ++r)
-			for (size_t c=0; c<m_col; ++c)
-				(*this)[r][c] = other[r][c];
-		return *this;
-	}
+    }
+    ~TwoDArray() {
+        if (m_data) {
+            delete [] m_data;
+        }
+    }
+    TwoDArray& operator =(const TwoDArray &other) {
+        if (m_data)
+            delete[] m_data;
+        m_row = other.m_row;
+        m_col = other.m_col;
+        m_data = (other.m_row!=0 && other.m_col!=0) ? new T[other.m_row*other.m_col] : NULL;
+        for (size_t r=0; r<m_row; ++r)
+            for (size_t c=0; c<m_col; ++c)
+                (*this)[r][c] = other[r][c];
+        return *this;
+    }
 
-	/**
-	 * horizontally concatenates the arrays;
-	 */
-	void horzCat(const TwoDArray &other) {
-		if (m_row != other.m_row)
-			abort();//TODO: throw exception
-		TwoDArray<double> tmp(m_row, m_col+other.m_col);
-		for (size_t i = 0; i < m_row; i++) {
-			for (size_t j = 0; j < m_col; j++)
-				tmp[i][j] = (*this)[i][j];
-			for (size_t c2 = 0; c2 < other.m_col; c2++)
-				tmp[i][m_col+c2] = other[i][c2];
-		}
-		(*this) = tmp;
-	}
-	/**
-	 * Inverses the two dimensional array
-	 */
-	void inverse() {
-		TwoDArray tmp(m_col, m_row);
-		for (size_t r=0; r<m_row; ++r)
-			for (size_t c=0; c<m_col; ++c)
-				tmp[c][r] = (*this)[r][c];
-		m_col = tmp.m_col;
-		m_row =tmp.m_row;
-		for (size_t r=0; r<m_row; ++r)
-			for (size_t c=0; c<m_col; ++c)
-				(*this)[r][c] = tmp[r][c];
+    /**
+         * horizontally concatenates the arrays;
+         */
+    void horzCat(const TwoDArray &other) {
+        if (m_row != other.m_row){
+            throw 1;
+            //abort();//TODO: throw exception
+        }
+        TwoDArray<double> tmp(m_row, m_col+other.m_col);
+        for (size_t i = 0; i < m_row; i++) {
+            for (size_t j = 0; j < m_col; j++)
+                tmp[i][j] = (*this)[i][j];
+            for (size_t c2 = 0; c2 < other.m_col; c2++)
+                tmp[i][m_col+c2] = other[i][c2];
+        }
+        (*this) = tmp;
+    }
+    /**
+         * Inverses the two dimensional array
+         */
+    void inverse() {
+        TwoDArray tmp(m_col, m_row);
+        for (size_t r=0; r<m_row; ++r)
+            for (size_t c=0; c<m_col; ++c)
+                tmp[c][r] = (*this)[r][c];
+        m_col = tmp.m_col;
+        m_row =tmp.m_row;
+        for (size_t r=0; r<m_row; ++r)
+            for (size_t c=0; c<m_col; ++c)
+                (*this)[r][c] = tmp[r][c];
 
-	}
-	inline T* operator[](size_t i) {
-		return (m_data + (m_col*i));
-	}
-	inline T const*const operator[](size_t i) const {
-		return (m_data + (m_col*i));
-	}
-	size_t rows() {
-		return m_row;
-	}
-	size_t cols() {
-		return m_col;
-	}
-	/**
-	 * Resizes the matrix. No values are kept
-	 */
-	inline void resize(size_t rows, size_t cols) {
-		if(m_data)
-			delete[] m_data;
-		m_row = rows;
-		m_col = cols;
-		m_data = ((rows!=0&&cols!=0) ? new T[rows*cols] : NULL);
-	}
+    }
+    inline T* operator[](size_t i) {
+        return (m_data + (m_col*i));
+    }
+    inline T const*const operator[](size_t i) const {
+        return (m_data + (m_col*i));
+    }
+    size_t rows() {
+        return m_row;
+    }
+    size_t cols() {
+        return m_col;
+    }
+    /**
+         * Resizes the matrix. No values are kept
+         */
+    inline void resize(size_t rows, size_t cols) {
+        if(m_data)
+            delete[] m_data;
+        m_row = rows;
+        m_col = cols;
+        m_data = ((rows!=0&&cols!=0) ? new T[rows*cols] : NULL);
+    }
 private:
-	size_t m_row;
-	size_t m_col;
-	T* m_data;
+    size_t m_row;
+    size_t m_col;
+    T* m_data;
 };
 
 template <class T> void printTwoDArray(TwoDArray<T>* a) {
-	for (size_t r = 0; r < a->rows(); r++) {
-		QString s;
-		for (size_t c = 0; c < a->cols(); c++) {
-			T value = (*a)[r][c];
-			QString col = QString("[%1][%2]=%3   ").arg(r).arg(c).arg(value);
-			s.append(col);
-		}
-		qDebug() << s;
-	}
+    for (size_t r = 0; r < a->rows(); r++) {
+        QString s;
+        for (size_t c = 0; c < a->cols(); c++) {
+            T value = (*a)[r][c];
+            QString col = QString("[%1][%2]=%3   ").arg(r).arg(c).arg(value);
+            s.append(col);
+        }
+        qDebug() << s;
+    }
 }
 #endif /*TWODARRAY_H_*/

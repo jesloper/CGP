@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,388 +10,377 @@
     <height>674</height>
    </rect>
   </property>
-  <property name="sizePolicy" >
-   <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
-  <property name="minimumSize" >
+  <property name="minimumSize">
    <size>
     <width>500</width>
     <height>400</height>
    </size>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Cartesian Genetic Programming &amp; MORE!</string>
   </property>
-  <property name="windowIcon" >
-   <iconset>../BitMap2.bmp</iconset>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../BitMap2.bmp</normaloff>../BitMap2.bmp</iconset>
   </property>
-  <property name="iconSize" >
+  <property name="iconSize">
    <size>
     <width>100</width>
     <height>100</height>
    </size>
   </property>
-  <property name="toolButtonStyle" >
+  <property name="toolButtonStyle">
    <enum>Qt::ToolButtonTextBesideIcon</enum>
   </property>
-  <property name="dockNestingEnabled" >
+  <property name="dockNestingEnabled">
    <bool>true</bool>
   </property>
-  <widget class="QWidget" name="centralwidget" >
-   <layout class="QHBoxLayout" >
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout">
     <item>
-     <widget class="QSplitter" name="splitter_2" >
-      <property name="orientation" >
+     <widget class="QSplitter" name="splitter_2">
+      <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QSplitter" name="splitter" >
-       <property name="orientation" >
+      <widget class="QSplitter" name="splitter">
+       <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
-       <widget class="QGroupBox" name="groupBox_5" >
-        <property name="sizePolicy" >
-         <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <property name="minimumSize" >
+        <property name="minimumSize">
          <size>
           <width>200</width>
           <height>600</height>
          </size>
         </property>
-        <property name="autoFillBackground" >
+        <property name="autoFillBackground">
          <bool>false</bool>
         </property>
-        <property name="title" >
+        <property name="title">
          <string>Parameters</string>
         </property>
-        <property name="flat" >
+        <property name="flat">
          <bool>false</bool>
         </property>
-        <property name="checkable" >
+        <property name="checkable">
          <bool>false</bool>
         </property>
-        <layout class="QVBoxLayout" >
+        <layout class="QVBoxLayout">
          <item>
-          <widget class="QSplitter" name="splitter_3" >
-           <property name="orientation" >
+          <widget class="QSplitter" name="splitter_3">
+           <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
-           <widget class="QGroupBox" name="groupBox_2" >
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="minimumSize" >
+            <property name="minimumSize">
              <size>
               <width>0</width>
               <height>0</height>
              </size>
             </property>
-            <property name="palette" >
+            <property name="palette">
              <palette>
               <active/>
               <inactive/>
               <disabled/>
              </palette>
             </property>
-            <property name="autoFillBackground" >
+            <property name="autoFillBackground">
              <bool>false</bool>
             </property>
-            <property name="title" >
+            <property name="title">
              <string>GP Paramters</string>
             </property>
-            <property name="flat" >
+            <property name="flat">
              <bool>false</bool>
             </property>
-            <property name="checkable" >
+            <property name="checkable">
              <bool>false</bool>
             </property>
-            <layout class="QGridLayout" >
-             <item row="0" column="0" >
-              <widget class="QLabel" name="textLabel1" >
-               <property name="toolTip" >
-                <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;/head>&lt;body style=" white-space: pre-wrap; font-family:MS Shell Dlg 2; font-size:8.25pt; font-weight:400; font-style:normal; text-decoration:none;">&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Number of individuals in the population&lt;/p>&lt;/body>&lt;/html></string>
+            <layout class="QGridLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="textLabel1">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;/head&gt;&lt;body style=&quot; white-space: pre-wrap; font-family:MS Shell Dlg 2; font-size:8.25pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Number of individuals in the population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Individuals</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1" >
-              <widget class="QSpinBox" name="Individuals" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="Individuals">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <number>100000</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>2000</number>
                </property>
               </widget>
              </item>
-             <item row="1" column="0" >
-              <widget class="QLabel" name="textLabel1_2" >
-               <property name="toolTip" >
-                <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;/head>&lt;body style=" white-space: pre-wrap; font-family:MS Shell Dlg 2; font-size:8.25pt; font-weight:400; font-style:normal; text-decoration:none;">&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Maximum number of generations to run experiment&lt;/p>&lt;/body>&lt;/html></string>
+             <item row="1" column="0">
+              <widget class="QLabel" name="textLabel1_2">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;/head&gt;&lt;body style=&quot; white-space: pre-wrap; font-family:MS Shell Dlg 2; font-size:8.25pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Maximum number of generations to run experiment&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Generations</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" >
-              <widget class="QSpinBox" name="Generations" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
+             <item row="1" column="1">
+              <widget class="QSpinBox" name="Generations">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="toolTip" >
+               <property name="toolTip">
                 <string>Max number of generations</string>
                </property>
-               <property name="minimum" >
+               <property name="minimum">
                 <number>1</number>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <number>10000</number>
                </property>
-               <property name="singleStep" >
+               <property name="singleStep">
                 <number>20</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>101</number>
                </property>
               </widget>
              </item>
-             <item row="2" column="0" >
-              <widget class="QLabel" name="textLabel1_3" >
-               <property name="text" >
+             <item row="2" column="0">
+              <widget class="QLabel" name="textLabel1_3">
+               <property name="text">
                 <string>Mutation Prob</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="1" >
-              <widget class="QSpinBox" name="Mutation" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
+             <item row="2" column="1">
+              <widget class="QSpinBox" name="Mutation">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="suffix" >
+               <property name="suffix">
                 <string>%</string>
                </property>
-               <property name="prefix" >
+               <property name="prefix">
                 <string/>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <number>100</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>10</number>
                </property>
               </widget>
              </item>
-             <item row="3" column="0" >
-              <widget class="QLabel" name="textLabel1_3_2" >
-               <property name="text" >
+             <item row="3" column="0">
+              <widget class="QLabel" name="textLabel1_3_2">
+               <property name="text">
                 <string>Crossover Prob </string>
                </property>
               </widget>
              </item>
-             <item row="3" column="1" >
-              <widget class="QSpinBox" name="Crossover" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
+             <item row="3" column="1">
+              <widget class="QSpinBox" name="Crossover">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="suffix" >
+               <property name="suffix">
                 <string>%</string>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <number>100</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>10</number>
                </property>
               </widget>
              </item>
-             <item row="4" column="0" >
-              <widget class="QLabel" name="pointMut" >
-               <property name="text" >
+             <item row="4" column="0">
+              <widget class="QLabel" name="pointMut">
+               <property name="text">
                 <string>Point mut Prob</string>
                </property>
               </widget>
              </item>
-             <item row="4" column="1" >
-              <widget class="QSpinBox" name="pointProb" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
+             <item row="4" column="1">
+              <widget class="QSpinBox" name="pointProb">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="suffix" >
+               <property name="suffix">
                 <string>%</string>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <number>100</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>10</number>
                </property>
               </widget>
              </item>
-             <item row="5" column="1" >
-              <widget class="QCheckBox" name="treeCheck" >
-               <property name="text" >
+             <item row="5" column="1">
+              <widget class="QCheckBox" name="treeCheck">
+               <property name="text">
                 <string>TreeCrossover</string>
                </property>
               </widget>
              </item>
-             <item row="6" column="1" >
-              <widget class="QComboBox" name="PopulationType" >
-               <property name="toolTip" >
+             <item row="6" column="1">
+              <widget class="QComboBox" name="PopulationType">
+               <property name="toolTip">
                 <string>Choose type of population</string>
                </property>
-               <property name="currentIndex" >
+               <property name="currentIndex">
                 <number>1</number>
                </property>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>Normal</string>
                 </property>
                </item>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>HFC</string>
                 </property>
                </item>
               </widget>
              </item>
-             <item row="7" column="1" >
-              <widget class="QComboBox" name="CGP_type" >
-               <property name="toolTip" >
+             <item row="7" column="1">
+              <widget class="QComboBox" name="CGP_type">
+               <property name="toolTip">
                 <string>Choose connection type</string>
                </property>
-               <property name="currentIndex" >
+               <property name="currentIndex">
                 <number>0</number>
                </property>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>Directed graph</string>
                 </property>
                </item>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>Grid</string>
                 </property>
                </item>
               </widget>
              </item>
-             <item row="8" column="0" colspan="2" >
-              <widget class="QTabWidget" name="options" >
-               <property name="currentIndex" >
+             <item row="8" column="0" colspan="2">
+              <widget class="QTabWidget" name="options">
+               <property name="currentIndex">
                 <number>1</number>
                </property>
-               <widget class="QWidget" name="Direct" >
-                <attribute name="title" >
+               <widget class="QWidget" name="Direct">
+                <attribute name="title">
                  <string>Directed graph</string>
                 </attribute>
-                <attribute name="toolTip" >
+                <attribute name="toolTip">
                  <string>Settings for directed graph type layout</string>
                 </attribute>
-                <layout class="QGridLayout" >
-                 <item row="0" column="0" >
-                  <widget class="QLabel" name="textLabel1_3_2_2" >
-                   <property name="text" >
+                <layout class="QGridLayout">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="textLabel1_3_2_2">
+                   <property name="text">
                     <string>Number of nodes</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="1" >
-                  <widget class="QSpinBox" name="Nodes" >
-                   <property name="minimum" >
+                 <item row="0" column="1">
+                  <widget class="QSpinBox" name="Nodes">
+                   <property name="minimum">
                     <number>1</number>
                    </property>
-                   <property name="maximum" >
+                   <property name="maximum">
                     <number>1000</number>
                    </property>
-                   <property name="value" >
+                   <property name="value">
                     <number>10</number>
                    </property>
                   </widget>
                  </item>
                 </layout>
                </widget>
-               <widget class="QWidget" name="Grid options" >
-                <attribute name="title" >
+               <widget class="QWidget" name="Grid options">
+                <attribute name="title">
                  <string>Grid options</string>
                 </attribute>
-                <layout class="QGridLayout" >
-                 <property name="leftMargin" >
+                <layout class="QGridLayout">
+                 <property name="margin">
                   <number>9</number>
                  </property>
-                 <property name="topMargin" >
-                  <number>9</number>
-                 </property>
-                 <property name="rightMargin" >
-                  <number>9</number>
-                 </property>
-                 <property name="bottomMargin" >
-                  <number>9</number>
-                 </property>
-                 <property name="horizontalSpacing" >
+                 <property name="spacing">
                   <number>6</number>
                  </property>
-                 <property name="verticalSpacing" >
-                  <number>6</number>
-                 </property>
-                 <item row="1" column="1" >
-                  <widget class="QSpinBox" name="Cols" >
-                   <property name="minimum" >
+                 <item row="1" column="1">
+                  <widget class="QSpinBox" name="Cols">
+                   <property name="minimum">
                     <number>1</number>
                    </property>
-                   <property name="value" >
+                   <property name="value">
                     <number>4</number>
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="0" >
-                  <widget class="QLabel" name="label_5" >
-                   <property name="text" >
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_5">
+                   <property name="text">
                     <string>Columns</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="0" >
-                  <widget class="QLabel" name="label_4" >
-                   <property name="text" >
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_4">
+                   <property name="text">
                     <string>Rows</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="1" >
-                  <widget class="QSpinBox" name="Rows" >
-                   <property name="minimum" >
+                 <item row="0" column="1">
+                  <widget class="QSpinBox" name="Rows">
+                   <property name="minimum">
                     <number>1</number>
                    </property>
-                   <property name="value" >
+                   <property name="value">
                     <number>3</number>
                    </property>
                   </widget>
@@ -399,176 +389,164 @@
                </widget>
               </widget>
              </item>
-             <item row="6" column="0" >
-              <widget class="QLabel" name="label_8" >
-               <property name="text" >
+             <item row="6" column="0">
+              <widget class="QLabel" name="label_8">
+               <property name="text">
                 <string>Population type</string>
                </property>
               </widget>
              </item>
-             <item row="7" column="0" >
-              <widget class="QLabel" name="label_9" >
-               <property name="text" >
+             <item row="7" column="0">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
                 <string>CGP layout</string>
                </property>
               </widget>
              </item>
-             <item row="9" column="0" >
-              <widget class="QLabel" name="label_7" >
-               <property name="text" >
+             <item row="9" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="text">
                 <string>Levels of connection</string>
                </property>
               </widget>
              </item>
-             <item row="9" column="1" >
-              <widget class="QSpinBox" name="Back" >
-               <property name="minimum" >
+             <item row="9" column="1">
+              <widget class="QSpinBox" name="Back">
+               <property name="minimum">
                 <number>1</number>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <number>1000</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>5</number>
                </property>
               </widget>
              </item>
             </layout>
            </widget>
-           <widget class="QGroupBox" name="groupBox" >
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+           <widget class="QGroupBox" name="groupBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="palette" >
+            <property name="palette">
              <palette>
               <active/>
               <inactive/>
               <disabled/>
              </palette>
             </property>
-            <property name="autoFillBackground" >
+            <property name="autoFillBackground">
              <bool>false</bool>
             </property>
-            <property name="title" >
+            <property name="title">
              <string>Run parameters</string>
             </property>
-            <layout class="QGridLayout" >
-             <property name="leftMargin" >
+            <layout class="QGridLayout">
+             <property name="margin">
               <number>9</number>
              </property>
-             <property name="topMargin" >
-              <number>9</number>
-             </property>
-             <property name="rightMargin" >
-              <number>9</number>
-             </property>
-             <property name="bottomMargin" >
-              <number>9</number>
-             </property>
-             <property name="horizontalSpacing" >
+             <property name="spacing">
               <number>6</number>
              </property>
-             <property name="verticalSpacing" >
-              <number>6</number>
-             </property>
-             <item row="0" column="0" >
-              <widget class="QCheckBox" name="stopCheck" >
-               <property name="toolTip" >
-                <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;/head>&lt;body style=" white-space: pre-wrap; font-family:MS Shell Dlg 2; font-size:8.25pt; font-weight:400; font-style:normal; text-decoration:none;">&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Stops the experiment at a given minimum fitness&lt;/p>&lt;/body>&lt;/html></string>
+             <item row="0" column="0">
+              <widget class="QCheckBox" name="stopCheck">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;/head&gt;&lt;body style=&quot; white-space: pre-wrap; font-family:MS Shell Dlg 2; font-size:8.25pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Stops the experiment at a given minimum fitness&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Stop at fitness:</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1" >
-              <widget class="QDoubleSpinBox" name="stopValue" >
-               <property name="decimals" >
+             <item row="0" column="1">
+              <widget class="QDoubleSpinBox" name="stopValue">
+               <property name="decimals">
                 <number>4</number>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <double>100000.000000000000000</double>
                </property>
               </widget>
              </item>
             </layout>
            </widget>
-           <widget class="QGroupBox" name="groupBox_3" >
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+           <widget class="QGroupBox" name="groupBox_3">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="palette" >
+            <property name="palette">
              <palette>
               <active/>
               <inactive/>
               <disabled/>
              </palette>
             </property>
-            <property name="autoFillBackground" >
+            <property name="autoFillBackground">
              <bool>false</bool>
             </property>
-            <property name="title" >
+            <property name="title">
              <string>Selection Parameters</string>
             </property>
-            <layout class="QGridLayout" >
-             <item row="0" column="0" colspan="2" >
-              <widget class="QCheckBox" name="Elitism" >
-               <property name="toolTip" >
-                <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;/head>&lt;body style=" white-space: pre-wrap; font-family:MS Shell Dlg 2; font-size:8.25pt; font-weight:400; font-style:normal; text-decoration:none;">&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-size:8pt;">When using elitism the best individual is always kept for next generation&lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+            <layout class="QGridLayout">
+             <item row="0" column="0" colspan="2">
+              <widget class="QCheckBox" name="Elitism">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;/head&gt;&lt;body style=&quot; white-space: pre-wrap; font-family:MS Shell Dlg 2; font-size:8.25pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;When using elitism the best individual is always kept for next generation&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Elitism</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>false</bool>
                </property>
-               <property name="tristate" >
+               <property name="tristate">
                 <bool>false</bool>
                </property>
               </widget>
              </item>
-             <item row="1" column="0" colspan="2" >
-              <widget class="QComboBox" name="selectionMethod" >
+             <item row="1" column="0" colspan="2">
+              <widget class="QComboBox" name="selectionMethod">
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>QTournament</string>
                 </property>
                </item>
                <item>
-                <property name="text" >
+                <property name="text">
                  <string>Random</string>
                 </property>
                </item>
               </widget>
              </item>
-             <item row="2" column="0" >
-              <widget class="QLabel" name="tournamentLabel" >
-               <property name="enabled" >
+             <item row="2" column="0">
+              <widget class="QLabel" name="tournamentLabel">
+               <property name="enabled">
                 <bool>true</bool>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Tournament size</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="1" >
-              <widget class="QSpinBox" name="tournamentSize" >
-               <property name="enabled" >
+             <item row="2" column="1">
+              <widget class="QSpinBox" name="tournamentSize">
+               <property name="enabled">
                 <bool>true</bool>
                </property>
-               <property name="minimum" >
+               <property name="minimum">
                 <number>1</number>
                </property>
-               <property name="maximum" >
+               <property name="maximum">
                 <number>1000</number>
                </property>
-               <property name="value" >
+               <property name="value">
                 <number>80</number>
                </property>
               </widget>
@@ -580,68 +558,68 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QGroupBox" name="runData" >
-       <property name="enabled" >
+      <widget class="QGroupBox" name="runData">
+       <property name="enabled">
         <bool>true</bool>
        </property>
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>1</horstretch>
          <verstretch>1</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimumSize" >
+       <property name="minimumSize">
         <size>
          <width>300</width>
          <height>400</height>
         </size>
        </property>
-       <property name="palette" >
+       <property name="palette">
         <palette>
          <active/>
          <inactive/>
          <disabled/>
         </palette>
        </property>
-       <property name="autoFillBackground" >
+       <property name="autoFillBackground">
         <bool>false</bool>
        </property>
-       <property name="title" >
+       <property name="title">
         <string>Run data</string>
        </property>
-       <property name="flat" >
+       <property name="flat">
         <bool>false</bool>
        </property>
-       <layout class="QGridLayout" >
-        <item row="0" column="0" colspan="2" >
-         <widget class="QSplitter" name="graph_splitter" >
-          <property name="orientation" >
+       <layout class="QGridLayout">
+        <item row="0" column="0" colspan="2">
+         <widget class="QSplitter" name="graph_splitter">
+          <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
-          <widget class="QSplitter" name="table_splitter" >
-           <property name="orientation" >
+          <widget class="QSplitter" name="table_splitter">
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <widget class="QGroupBox" name="groupBox_6" >
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+           <widget class="QGroupBox" name="groupBox_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
               <verstretch>1</verstretch>
              </sizepolicy>
             </property>
-            <property name="title" >
+            <property name="title">
              <string/>
             </property>
-            <layout class="QGridLayout" >
-             <item row="2" column="0" >
-              <widget class="QLabel" name="textLabel2" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+            <layout class="QGridLayout">
+             <item row="2" column="0">
+              <widget class="QLabel" name="textLabel2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="font" >
+               <property name="font">
                 <font>
                  <family>MS Shell Dlg 2</family>
                  <pointsize>10</pointsize>
@@ -652,26 +630,26 @@
                  <strikeout>false</strikeout>
                 </font>
                </property>
-               <property name="text" >
-                <string>&lt;font size="-1">Generation#&lt;/font></string>
+               <property name="text">
+                <string>&lt;font size=&quot;-1&quot;&gt;Generation#&lt;/font&gt;</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="1" >
-              <widget class="QLCDNumber" name="GenerationNumber" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+             <item row="2" column="1">
+              <widget class="QLCDNumber" name="GenerationNumber">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="minimumSize" >
+               <property name="minimumSize">
                 <size>
                  <width>50</width>
                  <height>25</height>
                 </size>
                </property>
-               <property name="font" >
+               <property name="font">
                 <font>
                  <family>MS Shell Dlg 2</family>
                  <pointsize>16</pointsize>
@@ -682,41 +660,41 @@
                  <strikeout>false</strikeout>
                 </font>
                </property>
-               <property name="frameShape" >
+               <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
                </property>
-               <property name="frameShadow" >
+               <property name="frameShadow">
                 <enum>QFrame::Sunken</enum>
                </property>
-               <property name="lineWidth" >
+               <property name="lineWidth">
                 <number>1</number>
                </property>
-               <property name="smallDecimalPoint" >
+               <property name="smallDecimalPoint">
                 <bool>true</bool>
                </property>
-               <property name="numDigits" >
+               <property name="numDigits">
                 <number>5</number>
                </property>
-               <property name="segmentStyle" >
+               <property name="segmentStyle">
                 <enum>QLCDNumber::Flat</enum>
                </property>
               </widget>
              </item>
-             <item row="2" column="2" >
-              <widget class="QLabel" name="textLabel2_2_2" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+             <item row="2" column="2">
+              <widget class="QLabel" name="textLabel2_2_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="maximumSize" >
+               <property name="maximumSize">
                 <size>
                  <width>16777215</width>
                  <height>50</height>
                 </size>
                </property>
-               <property name="font" >
+               <property name="font">
                 <font>
                  <family>MS Shell Dlg 2</family>
                  <pointsize>10</pointsize>
@@ -727,26 +705,26 @@
                  <strikeout>false</strikeout>
                 </font>
                </property>
-               <property name="text" >
-                <string>&lt;font size="-1">Best Fitness&lt;/font></string>
+               <property name="text">
+                <string>&lt;font size=&quot;-1&quot;&gt;Best Fitness&lt;/font&gt;</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="3" >
-              <widget class="QLCDNumber" name="BestFitness" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+             <item row="2" column="3">
+              <widget class="QLCDNumber" name="BestFitness">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="minimumSize" >
+               <property name="minimumSize">
                 <size>
                  <width>50</width>
                  <height>25</height>
                 </size>
                </property>
-               <property name="font" >
+               <property name="font">
                 <font>
                  <family>MS Shell Dlg 2</family>
                  <pointsize>16</pointsize>
@@ -757,35 +735,35 @@
                  <strikeout>false</strikeout>
                 </font>
                </property>
-               <property name="frameShape" >
+               <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
                </property>
-               <property name="frameShadow" >
+               <property name="frameShadow">
                 <enum>QFrame::Sunken</enum>
                </property>
-               <property name="lineWidth" >
+               <property name="lineWidth">
                 <number>1</number>
                </property>
-               <property name="smallDecimalPoint" >
+               <property name="smallDecimalPoint">
                 <bool>true</bool>
                </property>
-               <property name="numDigits" >
+               <property name="numDigits">
                 <number>5</number>
                </property>
-               <property name="segmentStyle" >
+               <property name="segmentStyle">
                 <enum>QLCDNumber::Flat</enum>
                </property>
               </widget>
              </item>
-             <item row="3" column="0" >
-              <widget class="QLabel" name="textLabel2_2" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+             <item row="3" column="0">
+              <widget class="QLabel" name="textLabel2_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="font" >
+               <property name="font">
                 <font>
                  <family>MS Shell Dlg 2</family>
                  <pointsize>10</pointsize>
@@ -796,23 +774,23 @@
                  <strikeout>false</strikeout>
                 </font>
                </property>
-               <property name="text" >
-                <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+               <property name="text">
+                <string>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style>&lt;/head>&lt;body style=" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;">
-&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;span style=" font-size:small;">Avg Fitness  &lt;/span>&lt;/p>&lt;/body>&lt;/html></string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:small;&quot;&gt;Avg Fitness  &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="1" >
-              <widget class="QLCDNumber" name="AvgFitness" >
-               <property name="minimumSize" >
+             <item row="3" column="1">
+              <widget class="QLCDNumber" name="AvgFitness">
+               <property name="minimumSize">
                 <size>
                  <width>50</width>
                  <height>25</height>
                 </size>
                </property>
-               <property name="font" >
+               <property name="font">
                 <font>
                  <family>MS Shell Dlg 2</family>
                  <pointsize>16</pointsize>
@@ -823,45 +801,45 @@ p, li { white-space: pre-wrap; }
                  <strikeout>false</strikeout>
                 </font>
                </property>
-               <property name="frameShape" >
+               <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
                </property>
-               <property name="frameShadow" >
+               <property name="frameShadow">
                 <enum>QFrame::Sunken</enum>
                </property>
-               <property name="smallDecimalPoint" >
+               <property name="smallDecimalPoint">
                 <bool>true</bool>
                </property>
-               <property name="numDigits" >
+               <property name="numDigits">
                 <number>5</number>
                </property>
-               <property name="segmentStyle" >
+               <property name="segmentStyle">
                 <enum>QLCDNumber::Flat</enum>
                </property>
               </widget>
              </item>
-             <item row="3" column="2" >
-              <widget class="QLabel" name="label_2" >
-               <property name="sizePolicy" >
-                <sizepolicy vsizetype="Minimum" hsizetype="Minimum" >
+             <item row="3" column="2">
+              <widget class="QLabel" name="label_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
-               <property name="maximumSize" >
+               <property name="maximumSize">
                 <size>
                  <width>16777215</width>
                  <height>50</height>
                 </size>
                </property>
-               <property name="text" >
+               <property name="text">
                 <string>Worst Fitness</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="3" >
-              <widget class="QLCDNumber" name="WorstFitness" >
-               <property name="font" >
+             <item row="3" column="3">
+              <widget class="QLCDNumber" name="WorstFitness">
+               <property name="font">
                 <font>
                  <family>MS Shell Dlg 2</family>
                  <pointsize>16</pointsize>
@@ -872,289 +850,277 @@ p, li { white-space: pre-wrap; }
                  <strikeout>false</strikeout>
                 </font>
                </property>
-               <property name="frameShape" >
+               <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
                </property>
-               <property name="frameShadow" >
+               <property name="frameShadow">
                 <enum>QFrame::Sunken</enum>
                </property>
-               <property name="smallDecimalPoint" >
+               <property name="smallDecimalPoint">
                 <bool>true</bool>
                </property>
-               <property name="numDigits" >
+               <property name="numDigits">
                 <number>5</number>
                </property>
-               <property name="segmentStyle" >
+               <property name="segmentStyle">
                 <enum>QLCDNumber::Flat</enum>
                </property>
               </widget>
              </item>
-             <item row="4" column="0" >
-              <widget class="QCheckBox" name="checkBest" >
-               <property name="text" >
+             <item row="4" column="0">
+              <widget class="QCheckBox" name="checkBest">
+               <property name="text">
                 <string>Best</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>true</bool>
                </property>
               </widget>
              </item>
-             <item row="4" column="1" >
-              <widget class="QCheckBox" name="checkWorst" >
-               <property name="text" >
+             <item row="4" column="1">
+              <widget class="QCheckBox" name="checkWorst">
+               <property name="text">
                 <string>Worst</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>true</bool>
                </property>
               </widget>
              </item>
-             <item row="4" column="2" >
-              <widget class="QCheckBox" name="checkAverage" >
-               <property name="text" >
+             <item row="4" column="2">
+              <widget class="QCheckBox" name="checkAverage">
+               <property name="text">
                 <string>Average</string>
                </property>
-               <property name="checked" >
+               <property name="checked">
                 <bool>true</bool>
                </property>
               </widget>
              </item>
-             <item row="1" column="0" >
-              <widget class="QLabel" name="batch_label" >
-               <property name="text" >
+             <item row="1" column="0">
+              <widget class="QLabel" name="batch_label">
+               <property name="text">
                 <string>Batch progress</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1" colspan="3" >
-              <widget class="QProgressBar" name="batch_progressbar" >
-               <property name="value" >
+             <item row="1" column="1" colspan="3">
+              <widget class="QProgressBar" name="batch_progressbar">
+               <property name="value">
                 <number>24</number>
                </property>
               </widget>
              </item>
             </layout>
            </widget>
-           <widget class="QTableWidget" name="DataTable" >
-            <property name="enabled" >
+           <widget class="QTableWidget" name="DataTable">
+            <property name="enabled">
              <bool>false</bool>
             </property>
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Expanding" hsizetype="MinimumExpanding" >
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>5</verstretch>
              </sizepolicy>
             </property>
-            <property name="minimumSize" >
+            <property name="minimumSize">
              <size>
               <width>0</width>
               <height>0</height>
              </size>
             </property>
-            <property name="alternatingRowColors" >
+            <property name="alternatingRowColors">
              <bool>true</bool>
             </property>
            </widget>
           </widget>
-          <widget class="QSplitter" name="m_two_graph_splitter" >
-           <property name="orientation" >
+          <widget class="QSplitter" name="m_two_graph_splitter">
+           <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <widget class="DataGrapher" name="frame" >
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="MinimumExpanding" hsizetype="Maximum" >
+           <widget class="DataGrapher" name="frame">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="MinimumExpanding">
               <horstretch>1</horstretch>
               <verstretch>1</verstretch>
              </sizepolicy>
             </property>
-            <property name="minimumSize" >
+            <property name="minimumSize">
              <size>
               <width>0</width>
               <height>0</height>
              </size>
             </property>
-            <property name="cursor" >
+            <property name="cursor">
              <cursorShape>CrossCursor</cursorShape>
             </property>
-            <property name="autoFillBackground" >
+            <property name="autoFillBackground">
              <bool>false</bool>
             </property>
-            <property name="frameShape" >
+            <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
-            <property name="frameShadow" >
+            <property name="frameShadow">
              <enum>QFrame::Sunken</enum>
             </property>
            </widget>
-           <widget class="SimpleGrapher" name="m_solution_grapher" >
-            <property name="frameShape" >
+           <widget class="SimpleGrapher" name="m_solution_grapher">
+            <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
-            <property name="frameShadow" >
+            <property name="frameShadow">
              <enum>QFrame::Sunken</enum>
             </property>
            </widget>
           </widget>
          </widget>
         </item>
-        <item row="1" column="0" colspan="2" >
-         <widget class="QProgressBar" name="progressBar" >
-          <property name="value" >
+        <item row="1" column="0" colspan="2">
+         <widget class="QProgressBar" name="progressBar">
+          <property name="value">
            <number>0</number>
           </property>
-          <property name="orientation" >
+          <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
-        <item row="2" column="0" >
-         <widget class="QPushButton" name="StartButton" >
-          <property name="cursor" >
+        <item row="2" column="0">
+         <widget class="QPushButton" name="StartButton">
+          <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
-          <property name="text" >
+          <property name="text">
            <string>START</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1" >
-         <widget class="QPushButton" name="PauseButton" >
-          <property name="cursor" >
+        <item row="2" column="1">
+         <widget class="QPushButton" name="PauseButton">
+          <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
-          <property name="text" >
+          <property name="text">
            <string>PAUSE</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0" >
-         <widget class="QPushButton" name="StopButton" >
-          <property name="enabled" >
+        <item row="3" column="0">
+         <widget class="QPushButton" name="StopButton">
+          <property name="enabled">
            <bool>true</bool>
           </property>
-          <property name="cursor" >
+          <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
-          <property name="text" >
+          <property name="text">
            <string>STOP</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1" >
-         <widget class="QPushButton" name="RestartButton" >
-          <property name="cursor" >
+        <item row="3" column="1">
+         <widget class="QPushButton" name="RestartButton">
+          <property name="cursor">
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
-          <property name="text" >
+          <property name="text">
            <string>RESUME</string>
           </property>
          </widget>
         </item>
        </layout>
       </widget>
-      <widget class="QGroupBox" name="groupBox_4" >
-       <property name="sizePolicy" >
-        <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+      <widget class="QGroupBox" name="groupBox_4">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="minimumSize" >
+       <property name="minimumSize">
         <size>
          <width>0</width>
          <height>0</height>
         </size>
        </property>
-       <property name="palette" >
+       <property name="palette">
         <palette>
          <active/>
          <inactive/>
          <disabled/>
         </palette>
        </property>
-       <property name="autoFillBackground" >
+       <property name="autoFillBackground">
         <bool>false</bool>
        </property>
-       <property name="title" >
+       <property name="title">
         <string>Problem specific paramters</string>
        </property>
-       <layout class="QGridLayout" >
-        <property name="leftMargin" >
+       <layout class="QGridLayout">
+        <property name="margin">
          <number>9</number>
         </property>
-        <property name="topMargin" >
-         <number>9</number>
-        </property>
-        <property name="rightMargin" >
-         <number>9</number>
-        </property>
-        <property name="bottomMargin" >
-         <number>9</number>
-        </property>
-        <property name="horizontalSpacing" >
+        <property name="spacing">
          <number>6</number>
         </property>
-        <property name="verticalSpacing" >
-         <number>6</number>
-        </property>
-        <item row="0" column="0" >
-         <widget class="QLabel" name="label" >
-          <property name="text" >
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
            <string>Problem description</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0" >
-         <widget class="QTextBrowser" name="problemDescription" >
-          <property name="minimumSize" >
+        <item row="1" column="0">
+         <widget class="QTextBrowser" name="problemDescription">
+          <property name="minimumSize">
            <size>
             <width>0</width>
             <height>0</height>
            </size>
           </property>
-          <property name="toolTip" >
-           <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;/head>&lt;body style=" white-space: pre-wrap; font-family:MS Shell Dlg 2; font-size:8.25pt; font-weight:400; font-style:normal; text-decoration:none;">&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Provides a description of the current problem&lt;/p>&lt;/body>&lt;/html></string>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;/head&gt;&lt;body style=&quot; white-space: pre-wrap; font-family:MS Shell Dlg 2; font-size:8.25pt; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Provides a description of the current problem&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
-          <property name="frameShape" >
+          <property name="frameShape">
            <enum>QFrame::Box</enum>
           </property>
-          <property name="frameShadow" >
+          <property name="frameShadow">
            <enum>QFrame::Sunken</enum>
           </property>
-          <property name="lineWidth" >
+          <property name="lineWidth">
            <number>2</number>
           </property>
-          <property name="horizontalScrollBarPolicy" >
+          <property name="horizontalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOff</enum>
           </property>
-          <property name="documentTitle" >
+          <property name="documentTitle">
            <string>Problem description</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0" >
-         <widget class="QPushButton" name="reInitProblem" >
-          <property name="text" >
+        <item row="2" column="0">
+         <widget class="QPushButton" name="reInitProblem">
+          <property name="text">
            <string>(Re)Init problem</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0" >
-         <widget class="QPushButton" name="ChooseFunctions" >
-          <property name="text" >
+        <item row="3" column="0">
+         <widget class="QPushButton" name="ChooseFunctions">
+          <property name="text">
            <string>ChooseFunctions</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="0" >
-         <widget class="QLabel" name="label_3" >
-          <property name="text" >
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
            <string>Chosen functions</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="0" >
-         <widget class="QListWidget" name="functionList" />
+        <item row="5" column="0">
+         <widget class="QListWidget" name="functionList"/>
         </item>
        </layout>
       </widget>
@@ -1162,8 +1128,8 @@ p, li { white-space: pre-wrap; }
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar" >
-   <property name="geometry" >
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
@@ -1171,77 +1137,78 @@ p, li { white-space: pre-wrap; }
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuProblems" >
-    <property name="windowTitle" >
+   <widget class="QMenu" name="menuProblems">
+    <property name="windowTitle">
      <string>Cartesian Genetic Programming &amp; MORE!</string>
     </property>
-    <property name="windowIcon" >
-     <iconset>../BitMap2.bmp</iconset>
+    <property name="windowIcon">
+     <iconset>
+      <normaloff>../BitMap2.bmp</normaloff>../BitMap2.bmp</iconset>
     </property>
-    <property name="title" >
+    <property name="title">
      <string>Problems</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuTools" >
-    <property name="title" >
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
      <string>Tools</string>
     </property>
-    <addaction name="actionLoad_Problem" />
-    <addaction name="actionBatch_Run" />
+    <addaction name="actionLoad_Problem"/>
+    <addaction name="actionBatch_Run"/>
    </widget>
-   <widget class="QMenu" name="menuWindows" >
-    <property name="title" >
+   <widget class="QMenu" name="menuWindows">
+    <property name="title">
      <string>Windows</string>
     </property>
-    <addaction name="actionDebugWindow" />
+    <addaction name="actionDebugWindow"/>
    </widget>
-   <widget class="QMenu" name="menuFile" >
-    <property name="title" >
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionOpen" />
-    <addaction name="actionSave" />
-    <addaction name="actionExit" />
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionExit"/>
    </widget>
-   <addaction name="menuFile" />
-   <addaction name="menuTools" />
-   <addaction name="menuProblems" />
-   <addaction name="menuWindows" />
+   <addaction name="menuFile"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuProblems"/>
+   <addaction name="menuWindows"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar" />
-  <action name="actionLoad_Problem" >
-   <property name="text" >
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLoad_Problem">
+   <property name="text">
     <string>Load Problem</string>
    </property>
   </action>
-  <action name="actionOpen" >
-   <property name="text" >
+  <action name="actionOpen">
+   <property name="text">
     <string>Open</string>
    </property>
   </action>
-  <action name="actionSave" >
-   <property name="text" >
+  <action name="actionSave">
+   <property name="text">
     <string>Save</string>
    </property>
   </action>
-  <action name="actionExit" >
-   <property name="text" >
+  <action name="actionExit">
+   <property name="text">
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionBatch_Run" >
-   <property name="text" >
+  <action name="actionBatch_Run">
+   <property name="text">
     <string>Batch Run</string>
    </property>
   </action>
-  <action name="actionDebugWindow" >
-   <property name="checkable" >
+  <action name="actionDebugWindow">
+   <property name="checkable">
     <bool>true</bool>
    </property>
-   <property name="checked" >
+   <property name="checked">
     <bool>true</bool>
    </property>
-   <property name="text" >
+   <property name="text">
     <string>DebugWindow</string>
    </property>
   </action>
@@ -1278,11 +1245,11 @@ p, li { white-space: pre-wrap; }
    <receiver>options</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>84</x>
      <y>292</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>89</x>
      <y>319</y>
     </hint>
