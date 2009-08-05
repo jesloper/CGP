@@ -3,7 +3,6 @@
 std::streamsize QDebugStream::xsputn(const char *p, std::streamsize n) {
     QMutexLocker locker(m_mutex);
     m_string.append(p, p + n);
-
     uint pos = 0;
     while (pos != std::string::npos) {
         pos = m_string.find('\n');
@@ -13,7 +12,11 @@ std::streamsize QDebugStream::xsputn(const char *p, std::streamsize n) {
             m_string.erase(m_string.begin(), m_string.begin() + pos + 1);
         }
     }
-    QCoreApplication::postEvent(this, new QEvent(QEvent::User));
+    if(log_window){
+        QCoreApplication::postEvent(this, new QEvent(QEvent::User));
+    }else{
+        (*m_fileStream) << m_text;
+    }
     return n;
 }
 bool QDebugStream::event(QEvent* event) {
@@ -21,9 +24,7 @@ bool QDebugStream::event(QEvent* event) {
         {
             QMutexLocker locker(m_mutex);
             if (!m_text.isEmpty()){
-                //log_window->append(m_text);
-                (*m_fileStream) << m_text;
-                m_fileStream->flush();
+                log_window->append(m_text);
             }
             m_text.clear();
         }
@@ -35,12 +36,15 @@ bool QDebugStream::event(QEvent* event) {
 
 std::streambuf::int_type QDebugStream::overflow(int_type v) {
     QMutexLocker locker(m_mutex);
+
     if (v == '\n') {
         m_text.append(m_string.c_str()).append("\n");
         m_string.erase(m_string.begin(), m_string.end());
     } else {
         m_string += v;
     }
-    QCoreApplication::postEvent(this, new QEvent(QEvent::User));
+    if(log_window){
+        QCoreApplication::postEvent(this, new QEvent(QEvent::User));
+    }
     return v;
 }

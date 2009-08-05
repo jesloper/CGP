@@ -39,9 +39,14 @@ CGPWindow::CGPWindow(QMainWindow *parent) :
         QMainWindow(parent) {
     setupUi(this);
     saved = true;
+    QFile* file = new QFile("cgp_out.txt");
+    if(file->open(QFile::WriteOnly | QFile::Truncate)){
+        QTextStream* stream = new QTextStream(file);
+
+        new QDebugStream(std::cout,
+                         stream);
+    }
     qInstallMsgHandler(myMessageOutput);
-    new QDebugStream(std::cout,
-                     Logger::instance().getWindow());
 
     runInfo.setGPInfo(Individuals->value(), Generations->value(),
                       Nodes->value(), Mutation->value(), Crossover->value(),

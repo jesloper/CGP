@@ -24,43 +24,49 @@
  * \endcode
  */
 class QDebugStream: public QObject, public std::basic_streambuf<char> {
-	Q_OBJECT
+    Q_OBJECT
 public:
 
-	/**
-	 */
-	QDebugStream(std::ostream &stream, QTextEdit* text_edit) :
-	m_stream(stream) {
-		m_mutex = new QMutex();
-		log_window = text_edit;
-		m_old_buf = stream.rdbuf();
-		stream.rdbuf(this);
-                m_file = new QFile("cgp_out.txt");
-                if(m_file->open(QFile::WriteOnly | QFile::Truncate)){
-                     m_fileStream = new QTextStream(m_file);
-                }
-	}
-	~QDebugStream() {
-		// output anything that is left
-		if (!m_string.empty())
-			log_window->append(m_string.c_str());
+    /**
+         */
+    QDebugStream(std::ostream &stream, QTextEdit* text_edit) :
+            m_stream(stream),log_window(0) {
+        m_mutex = new QMutex();
+        log_window = text_edit;
+        m_old_buf = stream.rdbuf();
+        stream.rdbuf(this);
 
-		m_stream.rdbuf(m_old_buf);
-		delete m_mutex;
-	}
+    }
+    QDebugStream(std::ostream &stream, QTextStream* text_stream) :
+            m_stream(stream),log_window(0){
+        m_fileStream = text_stream;
+        m_mutex = new QMutex();
+        m_old_buf = stream.rdbuf();
+        stream.rdbuf(this);
+    }
+
+    ~QDebugStream() {
+        // output anything that is left
+        if(log_window){
+            if (!m_string.empty())
+                log_window->append(m_string.c_str());
+        }
+        m_stream.rdbuf(m_old_buf);
+        delete m_mutex;
+    }
 
 protected:
-	virtual int_type overflow(int_type v);
-	virtual std::streamsize xsputn(const char *p, std::streamsize n);
-	virtual bool event(QEvent* event);
+    virtual int_type overflow(int_type v);
+    virtual std::streamsize xsputn(const char *p, std::streamsize n);
+    virtual bool event(QEvent* event);
 private:
-	std::ostream &m_stream;
-	std::streambuf *m_old_buf;
-	std::string m_string;
-	QTextEdit* log_window;
-	QMutex *m_mutex;
-	QString m_text;
-        QTextStream* m_fileStream;
-        QFile* m_file;
+    std::ostream &m_stream;
+    std::streambuf *m_old_buf;
+    std::string m_string;
+    QTextEdit* log_window;
+    QMutex *m_mutex;
+    QString m_text;
+    QTextStream* m_fileStream;
+    QFile* m_file;
 };
 #endif
