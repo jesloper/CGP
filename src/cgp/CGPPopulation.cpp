@@ -56,8 +56,7 @@ void CGPPopulation::createPopulation() {
  * Evolves the next generation.
  */
 void CGPPopulation::NewGeneration() {
-	QVector<Individual>::iterator it;
-	QVector<Individual> newGen;
+        QVector<Individual> newGen;
 	ti.reset();
 
 	//Save the best ind if elitism is set
@@ -66,7 +65,7 @@ void CGPPopulation::NewGeneration() {
 		elite.setFitness(this->getFitness(elite));
 		newGen.push_back(elite);
 	}
-	unsigned int i = pop.size();
+        int i = pop.size();
 
 	/*
 	 1. Select an individual
@@ -129,7 +128,7 @@ void CGPPopulation::PrintGeneration() {
  */
 void CGPPopulation::PrintBest() {
 	Individual best = getBest();
-	for (unsigned int i = 0; i < best.getGenes().size(); i++) {
+        for (int i = 0; i < best.getGenes().size(); i++) {
 		int first = best.getGenes().at(i).getInput(1);
 		int second = best.getGenes().at(i).getInput(2);
 		QString function = best.getGenes().at(i).getFunction()->name();

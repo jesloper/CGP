@@ -31,8 +31,8 @@ private:
 	void addIndividual(Individual& ind); ///< \todo: move to CGPPopulationBase
 
 	void getIndividual(QVector<Individual>& pool, Individual& ind); ///< \brief gets an individual from a given pool
-	Individual& tournamentSelection(int q, QVector<Individual>& pool); ///< \brief gets an individual given selection method q and a pool
-	Individual& randomSelection(QVector<Individual>& pool); ///< \brief gets an individual from a pool using a random selection method
+        //Individual& tournamentSelection(int q, QVector<Individual>& pool); ///< \brief gets an individual given selection method q and a pool
+        //Individual& randomSelection(QVector<Individual>& pool); ///< \brief gets an individual from a pool using a random selection method
 	void insertInLevel(int level, QVector<Individual>& buffer); ///< \brief inserts a vector of individuals at a given level
 	void computeThresholds(); ///< \brief computes new threshold for all levels
 	double getAvg(QVector<Individual>& pool); ///< \brief returns the average fitness of all individuals

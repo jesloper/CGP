@@ -214,7 +214,7 @@ void HFCPopulation::getIndividual(QVector<Individual>& pool, Individual& ind) {
  * This of course assumes the population to be sorted
  * \param q percentage of population to pick individual from
  * \param pool sub-pool to select from
- */
+ *
 Individual& HFCPopulation::tournamentSelection(int q, QVector<Individual>& pool) {
 	int max = (pool.size() * q) / 100;
 	int rand = getRandInt(0, max - 1);
@@ -234,6 +234,7 @@ Individual& HFCPopulation::randomSelection(QVector<Individual>& pool) {
 
 	return pool[rand];
 }
+*/
 void printPool(QVector<Individual> pop) {
 	QVector<Individual>::iterator it;
 	for (it = pop.begin(); it != pop.end(); it++) {
@@ -248,7 +249,6 @@ void printPool(QVector<Individual> pop) {
 void HFCPopulation::NewGeneration() {
 	static int genNum = 0;
 	genNum++;
-	QVector<Individual>::iterator it;
 	QVector<Individual> newGen;
 
 	//Save the best ind if elitism is set
@@ -259,9 +259,9 @@ void HFCPopulation::NewGeneration() {
 		newGen.push_back(save);
 	}
 	//first we evolve, then we check for admissions
-	for (unsigned int i = 0; i < pools.size(); i++) {
+        for (int i = 0; i < pools.size(); i++) {
 		poolNum = i;
-		unsigned int size = pools[i]->size();
+                int size = pools[i]->size();
 		int random;
 		while (newGen.size() < size) {
 			Individual parent;
@@ -302,11 +302,11 @@ void HFCPopulation::NewGeneration() {
 	if (genNum % 3 == 0) {
 		qDebug() << "Starting swap!";
 		//sort all pools in descending order
-		for (unsigned int i = 0; i < pools.size(); i++) {
+                for (int i = 0; i < pools.size(); i++) {
 			sortPool(*pools[i], false);
 		}
-		unsigned int* size = new unsigned int[numPools]; //placeholder for poolsizes
-		for (unsigned int i = 0; i < pools.size(); i++) {
+                int* size = new int[numPools]; //placeholder for poolsizes
+                for (int i = 0; i < pools.size(); i++) {
 			size[i] = pools[i]->size();
 		}
 
@@ -345,7 +345,7 @@ void HFCPopulation::NewGeneration() {
 		}
 
 		//sortAllPools
-		for (unsigned int i = 0; i < pools.size(); i++) {
+                for (int i = 0; i < pools.size(); i++) {
 			sortPool(*pools[i], true);
 		}
 
@@ -374,7 +374,7 @@ void HFCPopulation::PrintGeneration() {
 void HFCPopulation::insertInLevel(int level, QVector<Individual> &buffer) {
 
 	//now we will copy all into this level
-	unsigned int size = buffer.size();
+        int size = buffer.size();
 
 	if (size > 0) {
 		qDebug() << __FUNCTION__ << "inserting in level " << level << "buffersize" << buffer.size();
@@ -385,8 +385,7 @@ void HFCPopulation::insertInLevel(int level, QVector<Individual> &buffer) {
 			qDebug() << __FUNCTION__ << "New size = (" << size << ")";
 
 		}
-		QVector<Individual>::iterator it;
-		for (unsigned int i = 0; i < size; i++) {
+                for (int i = 0; i < size; i++) {
 			//qDebug() << __FUNCTION__ <<"Inserting something with fitness = " << buffer.back().getFitness() << " into level " << level;
 			pools[level]->push_back(buffer.back());
 			buffer.pop_back();

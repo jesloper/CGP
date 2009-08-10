@@ -218,7 +218,7 @@ void CGPWindow::update(int gens, double best, double worst, double avg,
     QVector<int> activeNodes = indInfo.m_ind.getActiveNodes();
     QMap<QString,int> functions;
     QString active = "";
-    for(size_t i =0; i < activeNodes.size();i++){
+    for(int i =0; i < activeNodes.size();i++){
         int node = activeNodes.at(i);
         active.append(QString("n%1; ").arg(node));
         QString functionName = indInfo.m_ind.getGenes().at(node).getFunction()->name();

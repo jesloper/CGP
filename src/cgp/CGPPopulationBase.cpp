@@ -387,10 +387,10 @@ double CGPPopulationBase::getWorstFitness() {
 void CGPPopulationBase::getIndividual(Individual& ind) {
 	switch (this->ri.sel.Selection) {
 	case PopulationInterface::QTournament:
-		ind = tournamentSelection(ri.sel.QTournamentSize);
+                ind = tournamentSelection(ri.sel.QTournamentSize,pop);
 		break;
 	case PopulationInterface::Random:
-		ind = this->randomSelection();
+                ind = this->randomSelection(pop);
 		break;
 	case PopulationInterface::Roulette:
 		LOG("Here");
@@ -408,22 +408,40 @@ void CGPPopulationBase::getIndividual(Individual& ind) {
  * Gets two individuals among the top q%, then return the best one
  * This of course assumes the population to be sorted
  * \param q percentage of population to pick individual from
+ * \param pool the pool of individuals to do the selection from
  */
-Individual& CGPPopulationBase::tournamentSelection(int q) {
-	int max = (pop.size() * q) / 100;
+Individual& CGPPopulationBase::tournamentSelection(int q, QVector<Individual>& pool) {
+        int max = (pop.size() * q) / 100;
 	int rand = getRandInt(0, max - 1);
 	int rand2 = getRandInt(0, max - 1);
-	if (pop.at(rand).getFitness() < pop.at(rand2).getFitness())
-		return pop[rand];
-	return pop[rand2];
+        if (pool.at(rand).getFitness() < pool.at(rand2).getFitness())
+                return pool[rand];
+        return pool[rand2];
 }
 
 /**
+  * Selects a random individual from the population
+  * \param pool the pool of individuals to do the selection from
  */
-Individual& CGPPopulationBase::randomSelection() {
-	int rand = getRandInt(0, pop.size() - 1);
-	return pop[rand];
+Individual& CGPPopulationBase::randomSelection(QVector<Individual>& pool) {
+        int rand = getRandInt(0, pool.size() - 1);
+        return pool[rand];
 }
+
+/**
+  * Selects an individual from the population using RANK selection
+  * \param pool the pool of individuals to do the selection from
+ */
+Individual& CGPPopulationBase::rankSelection(QVector<Individual>& pool) {
+        std::sort(pool.begin(),pool.end(),AscendingSort());
+        int total = pool.size()*(pool.size()+1)/2;
+        int selection = getRandInt(1,total);
+        double var = (sqrt(1+8*selection)-1)/2;
+        int num = pool.size() - ceil(var);
+        return pool[num];
+}
+
+
 /**
  * prints all individuals and their fitness
  */

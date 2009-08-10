@@ -23,7 +23,7 @@ void Individual::insertGene(int f, int s, QString func) {
  */
 void Individual::printGenes() const {
 	qDebug() << "This is ME (number of nodes " << this->numberOfNodes << ")";
-	for (unsigned int i = 0; i < this->Genes.size(); i++) {
+        for (int i = 0; i < this->Genes.size(); i++) {
 		qDebug() << "#" << i << " = ";
 		Genes[i].print();
 		qDebug() << " /  ";
@@ -37,7 +37,7 @@ void Individual::printGenes() const {
  */
 void Individual::copy(const Individual &rhs) {
 	this->Genes.clear();
-	for (unsigned int i = 0; i < rhs.Genes.size(); i++) {
+        for (int i = 0; i < rhs.Genes.size(); i++) {
 		Gene newGene = rhs.Genes[i];
 		//newGene.copy();
 		Genes.push_back(newGene);
@@ -55,7 +55,7 @@ void Individual::copy(const Individual &rhs) {
  * \param other reference to the other Individual
  */
 bool Individual::equals(const Individual& other) const {
-	for (unsigned int i = 0; i < other.Genes.size(); i++) {
+        for (int i = 0; i < other.Genes.size(); i++) {
 		if (!Genes[i].equals(other.Genes[i]))
 			return false;
 	}
@@ -92,7 +92,7 @@ QString Individual::toString() {
 	QTextStream str(&out);
 	str << this->numberOfNodes << endl;
 	str << this->fitness << endl;
-	for (unsigned int i = 0; i < Genes.size(); i++) {
+        for (int i = 0; i < Genes.size(); i++) {
 		str << Genes[i].toStdString().c_str() << endl;
 	}
 	return out;
@@ -107,7 +107,7 @@ QString Individual::singleLineString() {
 	QString out;
 	QTextStream str(&out);
 	str << "(";
-	for (unsigned int i = 0; i < Genes.size(); i++) {
+        for (int i = 0; i < Genes.size(); i++) {
 		str << "( " << Genes[i].getFunction()->name();
 		for (int j = 1; j <= Genes[i].getNumberOfInputs(); j++) {
 			str << "  " << Genes[i].getInput(j);
@@ -124,7 +124,7 @@ QString Individual::singleLineString() {
 QString Individual::toMatlabCode(int inputs) {
 	QString out;
 	QTextStream str(&out);
-	for (unsigned int i = 0; i < Genes.size(); i++) {
+        for (int i = 0; i < Genes.size(); i++) {
 		int i1 = Genes[i].getInput(1);
 		int i2 = Genes[i].getInput(2);
 		QString func = Genes[i].getFunction()->name();
@@ -220,7 +220,7 @@ double Individual::getOutput(Gene g, RunInfo& ri, double* inputlist, bool track)
 		return g.calculate(inps, ri);
 	} catch (...) {
 		this->printGenes();
-                //abort();
+                abort();
 	}
 /*
 
@@ -270,9 +270,12 @@ double Individual::getOutput(Gene g, RunInfo& ri, double* inputlist, bool track)
 Individual::Individual(const Individual& other) {
 
 	this->Genes.clear();
-	for (size_t i = 0; i < other.Genes.size(); i++) {
-		Genes.push_back(other.Genes[i]);
-	}
+        foreach(const Gene ind, other.Genes){
+            Genes.push_back(ind);
+        }
+        //for (int i = 0; i < other.Genes.size(); i++) {
+//		Genes.push_back(other.Genes[i]);
+//	}
 	this->numberOfNodes = other.numberOfNodes;
 	this->lengthOfNode = other.lengthOfNode;
 	this->fitness = other.fitness;
@@ -285,7 +288,7 @@ Individual::Individual(const Individual& other) {
  */
 Individual& Individual::operator =(const Individual & other) {
 	this->Genes.clear();
-	for (unsigned int i = 0; i < other.Genes.size(); i++) {
+        for (int i = 0; i < other.Genes.size(); i++) {
 		Genes.push_back(other.Genes[i]);
 	}
 	this->numberOfNodes = other.numberOfNodes;

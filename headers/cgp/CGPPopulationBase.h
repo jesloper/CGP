@@ -35,11 +35,7 @@ public:
 	}
 	;
 	virtual TwoDArray<double> getBestOutput();
-	virtual void resetCalculations() {
-	}
-	; ///< \brief resets calulations (forget results)
-
-	RunInfo ri;
+        RunInfo ri;
 	QString HumanReadable(Individual &ind);
 
 	/*
@@ -73,11 +69,12 @@ protected:
 		
 	void getNodes(int at, Individual& parent, QVector<int> &nodes);	///< \brief used by the tree crossover methods
 	void computeFitness(QVector<Individual> &pool); ///< \brief computes the fitness of all individuals
-	void regularCompute(QVector<Individual> &pool); //Regular computation of fitness
-	void hashCompute(QVector<Individual> &pool); //use of hash to speed up computation
+        void regularCompute(QVector<Individual> &pool); ///< \brief Regular computation of fitness
+        void hashCompute(QVector<Individual> &pool); /// \brief use of hash to speed up computation
 	void getIndividual(Individual& ind);
-	Individual& tournamentSelection(int q);
-	Individual& randomSelection();
+        Individual& tournamentSelection(int q,QVector<Individual> &pool);
+        Individual& randomSelection(QVector<Individual> &pool);
+        Individual& rankSelection(QVector<Individual> &pool);
 	void insertInLevel(int level, QVector<Individual>& buffer);
 	void computeThresholds();
 	double getAvg(QVector<Individual>& pool); /**< \brief returns the average fitness of all individuals */
