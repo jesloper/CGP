@@ -36,6 +36,7 @@ void myMessageOutput(QtMsgType type, const char *msg) {
     	(*outfile) << msg << "\n";
 	outfile->flush();
     }
+    std::cout << msg << std::endl;
 }
 
 /**
@@ -50,8 +51,8 @@ CGPWindow::CGPWindow(QMainWindow *parent) :
     if(file->open(QFile::WriteOnly | QFile::Truncate)){
         outfile = new QTextStream(file);
 
-        //new QDebugStream(std::cout,
-          //               stream);
+        (void*)(new QDebugStream(std::cout,
+                         Logger::instance().getWindow()));
     }
     qInstallMsgHandler(myMessageOutput);
 

@@ -157,7 +157,7 @@ emit 											update(pass, m_population->getBestFitness(), m_population->getWo
 			totalSecs %=3600;
 			int mins = totalSecs/60;
 			totalSecs %= 60;
-			QString msg = QString("New Generation took : %1s. Estimated time left: %2h %3m %4s").arg(((end - start)/CLOCKS_PER_SEC)).arg(hours).arg(mins).arg(totalSecs);
+                        QString msg = QString("New Generation took : %1s. Estimated time left: %2h %3m %4s").arg(((double)(end - start)/CLOCKS_PER_SEC)).arg(hours).arg(mins).arg(totalSecs);
 			HERE_T(0,msg);
 
 		}

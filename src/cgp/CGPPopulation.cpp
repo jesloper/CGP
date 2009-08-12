@@ -76,11 +76,11 @@ void CGPPopulation::NewGeneration() {
 	 */
         while (newGen.size() < i) {
 		Individual dude;
-		getIndividual(dude);
+                getIndividual(pop,dude);
 		int random = getRandInt(0, 99);
 		if (random < ri.gp.CrossoverProbability) {//crossover or reproduce
 			Individual dude2;
-			getIndividual(dude2);
+                        getIndividual(pop,dude2);
 			Individual newInd;
 			CrossOver(dude, dude2, newInd);
 			dude = newInd;

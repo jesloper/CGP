@@ -24,26 +24,30 @@ public:
         qDebug() << "default ctor";
     }
     TwoDArray(size_t row, size_t col) :
-            m_row(row), m_col(col), m_data((row!=0&&col!=0) ? new T[row*col] : NULL) {
+            m_row(row), m_col(col), m_data((row!=0&&col!=0) ? new T[row*col] : 0) {
     }
     TwoDArray(const TwoDArray& src) :
-            m_row(src.m_row), m_col(src.m_col), m_data((src.m_row!=0&&src.m_col!=0) ? new T[src.m_row*src.m_col] : NULL) {
+            m_row(src.m_row), m_col(src.m_col), m_data((src.m_row!=0&&src.m_col!=0) ? new T[src.m_row*src.m_col] : 0) {
         for (size_t r=0; r<m_row; ++r)
             for (size_t c=0; c<m_col; ++c)
                 (*this)[r][c] = src[r][c];
 
     }
     ~TwoDArray() {
-        if (m_data) {
-            delete [] m_data;
-        }
+        delete [] m_data;
+        m_data = 0;
     }
+    /**
+      * equality operator
+      * Deletes old data and creates new storage. Then assignes all data from other.
+      * \param other TwoDArray to copy from
+      */
     TwoDArray& operator =(const TwoDArray &other) {
         if (m_data)
             delete[] m_data;
         m_row = other.m_row;
         m_col = other.m_col;
-        m_data = (other.m_row!=0 && other.m_col!=0) ? new T[other.m_row*other.m_col] : NULL;
+        m_data = (other.m_row!=0 && other.m_col!=0) ? new T[other.m_row*other.m_col] : 0;
         for (size_t r=0; r<m_row; ++r)
             for (size_t c=0; c<m_col; ++c)
                 (*this)[r][c] = other[r][c];
@@ -51,8 +55,26 @@ public:
     }
 
     /**
-         * horizontally concatenates the arrays;
-         */
+      * swap operator. move semantics.
+      * Simply takes ownership of other vector
+      * \param other TwoDArray to swap with
+      */
+    void swap(TwoDArray& other){
+        size_t tmp_row = m_row;
+        size_t tmp_col = m_col;
+        m_row = other.m_row;
+        m_col = other.m_col;
+        other.m_row = tmp_row;
+        other.m_col = tmp_col;
+        T* tmp_data = m_data;
+        m_data = other.m_data;
+        other.m_data = tmp_data;
+
+    }
+
+    /**
+      * horizontally concatenates the arrays;
+      */
     void horzCat(const TwoDArray &other) {
         if (m_row != other.m_row){
             throw 1;
@@ -95,14 +117,14 @@ public:
         return m_col;
     }
     /**
-         * Resizes the matrix. No values are kept
-         */
+      * Resizes the matrix. No values are kept
+      */
     inline void resize(size_t rows, size_t cols) {
         if(m_data)
             delete[] m_data;
         m_row = rows;
         m_col = cols;
-        m_data = ((rows!=0&&cols!=0) ? new T[rows*cols] : NULL);
+        m_data = ((rows!=0&&cols!=0) ? new T[rows*cols] : 0);
     }
 private:
     size_t m_row;

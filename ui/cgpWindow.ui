@@ -523,6 +523,16 @@
                  <string>Random</string>
                 </property>
                </item>
+               <item>
+                <property name="text">
+                 <string>Roulette</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Rank</string>
+                </property>
+               </item>
               </widget>
              </item>
              <item row="2" column="0">

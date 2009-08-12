@@ -1,5 +1,6 @@
-INCLUDEPATH +=  /usr/local/qwt-5.2.0/include
-LIBS += -L/usr/local/qwt-5.2.0/lib  -lqwt 
+
+INCLUDEPATH +=  C:\qwt-5.1.1\include
+LIBS += -LC:\qwt-5.1.1\lib  -lqwt5
 
 INCLUDEDIR = ../headers/gui
 INCLUDEPATH += $${INCLUDEDIR}

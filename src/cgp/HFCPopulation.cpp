@@ -187,54 +187,7 @@ double HFCPopulation::getWorstFitness() {
 	return worst.getFitness();
 
 }
-/**
- * Gets an individual from the given pool using the currently set selection mechanism
- * \param pool sub-pool to select from
- * \param ind reference to individual to be filled with return value
- */
-void HFCPopulation::getIndividual(QVector<Individual>& pool, Individual& ind) {
-	switch (this->ri.sel.Selection) {
-	case PopulationInterface::QTournament:
-		ind = tournamentSelection(ri.sel.QTournamentSize, pool);
-		break;
-	case PopulationInterface::Random:
-		ind = this->randomSelection(pool);
-		break;
-	default:
-		qDebug() << "Selection type is: " << ri.sel.Selection;
-		qDebug() << "Possible values are: " << PopulationInterface::QTournament << " and " << PopulationInterface::Random;
-		HERE(0)
-		;
-		abort();
-	}
-}
 
-/**
- * Gets two individuals among the top q%, then return the best one
- * This of course assumes the population to be sorted
- * \param q percentage of population to pick individual from
- * \param pool sub-pool to select from
- *
-Individual& HFCPopulation::tournamentSelection(int q, QVector<Individual>& pool) {
-	int max = (pool.size() * q) / 100;
-	int rand = getRandInt(0, max - 1);
-	int rand2 = getRandInt(0, max - 1);
-	//	qDebug() << "Getting " << rand << " or " << rand2 << "(max = " << max << "  q = " << q << " )";
-	if (pool.at(rand).getFitness() < pool.at(rand2).getFitness())
-		return pool[rand];
-	return pool[rand2];
-}
-
-Individual& HFCPopulation::randomSelection(QVector<Individual>& pool) {
-
-	int rand = getRandInt(0, pool.size() - 1);
-
-	if (poolNum == 0)
-		MYDEBUG(2,qDebug() << "returning ind at " << rand);
-
-	return pool[rand];
-}
-*/
 void printPool(QVector<Individual> pop) {
 	QVector<Individual>::iterator it;
 	for (it = pop.begin(); it != pop.end(); it++) {

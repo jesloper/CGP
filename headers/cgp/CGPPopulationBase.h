@@ -18,7 +18,7 @@ public:
 	CGPPopulationBase() :
 		inputList(0) {
 	}
-	;/**< \brief Ctor */
+
 	virtual ~CGPPopulationBase(); /**< \brief Dtor */
 	virtual void createPopulation() = 0; /**< \brief creates a population of a given size and with a set number of nodes */
 	virtual void NewGeneration() = 0; /** \brief evolves the next generation */
@@ -71,14 +71,14 @@ protected:
 	void computeFitness(QVector<Individual> &pool); ///< \brief computes the fitness of all individuals
         void regularCompute(QVector<Individual> &pool); ///< \brief Regular computation of fitness
         void hashCompute(QVector<Individual> &pool); /// \brief use of hash to speed up computation
-	void getIndividual(Individual& ind);
+        void getIndividual(QVector<Individual> &pool,Individual& ind); ///< \brief gets a single Individual using selection method as set in runinfo
         Individual& tournamentSelection(int q,QVector<Individual> &pool);
         Individual& randomSelection(QVector<Individual> &pool);
+        Individual& rouletteSelection(QVector<Individual> &pool);
         Individual& rankSelection(QVector<Individual> &pool);
 	void insertInLevel(int level, QVector<Individual>& buffer);
-	void computeThresholds();
-	double getAvg(QVector<Individual>& pool); /**< \brief returns the average fitness of all individuals */
-	int validInput(int node);
+        double getAvg(QVector<Individual>& pool); /**< \brief returns the average fitness of all individuals */
+        int validInput(int node); ///< \brief gets a random valid input for a given node
 	void sortPool(QVector<Individual>& pool, bool); ///< \brief sorts a population
 	void SanityCheck(Individual& ind);
 	void createIndividual(Individual& ind); ///< \brief Creates a new random individual

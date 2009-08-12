@@ -348,7 +348,7 @@ QString CGPPopulationBase::HumanReadable(Individual &ind) {
 	QString function;
 	QVector<QString> strings;
 	ri.problem->inputStringValues(strings);
-	for (unsigned int i = 0; i < ind.getGenes().size(); i++) {
+        for (int i = 0; i < ind.getGenes().size(); i++) {
 		function = ind.getGenes().at(i).getFunction()->name();
 		QString str;
 		QTextStream stream(&str);
@@ -384,22 +384,24 @@ double CGPPopulationBase::getWorstFitness() {
  * gets an individual using the set selectionMethod
  * The individual is copied into the passed variable
  */
-void CGPPopulationBase::getIndividual(Individual& ind) {
-	switch (this->ri.sel.Selection) {
+void CGPPopulationBase::getIndividual(QVector<Individual> &pool,Individual& ind) {
+        switch (ri.sel.Selection) {
 	case PopulationInterface::QTournament:
-                ind = tournamentSelection(ri.sel.QTournamentSize,pop);
+                ind = tournamentSelection(ri.sel.QTournamentSize,pool);
 		break;
 	case PopulationInterface::Random:
-                ind = this->randomSelection(pop);
+                ind = randomSelection(pool);
 		break;
 	case PopulationInterface::Roulette:
-		LOG("Here");
-		break;
+                ind = rouletteSelection(pool);
+                break;
+        case PopulationInterface::Rank:
+                ind = rankSelection(pool);
+                break;
 	default:
-                QMessageBox::warning(0, QString("Aborting!"),QString("Impossible selection type!"));
-
+                QMessageBox::warning(0, QString("Aborting!"),QString("Impossible selection type: %1").arg(ri.sel.Selection));
 		qDebug() << "selection impossible!! " << this->ri.sel.Selection;
-                //abort();
+                abort();
 	}
 	return;
 }
@@ -429,15 +431,23 @@ Individual& CGPPopulationBase::randomSelection(QVector<Individual>& pool) {
 }
 
 /**
-  * Selects an individual from the population using RANK selection
+  * Selects an individual from the population using ROULETTE selection.
+  * \todo implement properly. Currently deferring to rank selection
   * \param pool the pool of individuals to do the selection from
  */
+Individual& CGPPopulationBase::rouletteSelection(QVector<Individual>& pool) {
+        return rankSelection(pool);
+}
+
+/**
+  * Selects an individual from the population using RANK selection
+  * \param pool the pool of individuals to do the selection from. Pool MUST be sorted in ascending order
+ */
 Individual& CGPPopulationBase::rankSelection(QVector<Individual>& pool) {
-        std::sort(pool.begin(),pool.end(),AscendingSort());
         int total = pool.size()*(pool.size()+1)/2;
         int selection = getRandInt(1,total);
         double var = (sqrt(1+8*selection)-1)/2;
-        int num = pool.size() - ceil(var);
+        int num = pool.size() - (int)(ceil(var));
         return pool[num];
 }
 
