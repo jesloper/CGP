@@ -86,7 +86,7 @@ public:
 
     std::string toStdString();	///< \brief returns gene as std::string
     void toOutStream(std::ostringstream out); ///< \brief prints the gene to the given stream
-    void copy(const Gene& other); ///< \brief explicit copy of object
+    //void copy(const Gene& other); ///< \brief explicit copy of object
     Gene(const Gene& other); ///<\brief copy constructor. Needed as we have arrays!
     Gene& operator=(const Gene &other); ///< \brief assignment operator
     bool operator==(const Gene& other);///< \brief comparison operator

@@ -22,6 +22,7 @@ static FunctionRegistrator<RightShift,CGPBaseType> Function_RightShift(">>");
 static FunctionRegistrator<LeftRotate,CGPBaseType> Function_LeftRotate("rotl");
 static FunctionRegistrator<SimpleIF,CGPBaseType> Function_SimpleIF("sif");
 static FunctionRegistrator<GreaterThan,CGPBaseType> Function_GreaterThan("gt");
+static FunctionRegistrator<Double,CGPBaseType> Function_Double("double");
 static FunctionRegistrator<LessThan,CGPBaseType> Function_LessThan("lt");
 static FunctionRegistrator<LogicalIF,CGPBaseType> Function_LogicalIF("lif");
 static FunctionRegistrator<Min,CGPBaseType> Function_Min("min");

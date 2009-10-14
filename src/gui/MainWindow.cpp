@@ -33,7 +33,7 @@ QMutex mut;
 void myMessageOutput(QtMsgType type, const char *msg) {
     QMutexLocker lock(&mut);
     if(outfile){
-    	(*outfile) << msg << "\n";
+        (*outfile) << msg;
 	outfile->flush();
     }
     std::cout << msg << std::endl;
@@ -51,9 +51,10 @@ CGPWindow::CGPWindow(QMainWindow *parent) :
     if(file->open(QFile::WriteOnly | QFile::Truncate)){
         outfile = new QTextStream(file);
 
-        (void*)(new QDebugStream(std::cout,
-                         Logger::instance().getWindow()));
+
     }
+    (void*)(new QDebugStream(std::cout,
+                         Logger::instance().getWindow()));
     qInstallMsgHandler(myMessageOutput);
 
     runInfo.setGPInfo(Individuals->value(), Generations->value(),
@@ -79,6 +80,7 @@ CGPWindow::CGPWindow(QMainWindow *parent) :
     connect(menuProblems, SIGNAL(triggered(QAction*)), this,
             SLOT(selectProblem(QAction*)));
 
+    //set up default problems
     SRProblem* p = new SRProblem();
     problems[p->getName()] = p;
     EvenParity* e = new EvenParity();
@@ -96,13 +98,18 @@ CGPWindow::CGPWindow(QMainWindow *parent) :
     qDebug() << "finished setup";
     gViewer = 0;
     textbox = 0;
+
+    //batch things are not visible by default
     batch_progressbar->setVisible(false);
     batch_label->setVisible(false);
 
 }
 
+/**
+  * dtor.
+  * Deletes all problems
+*/
 CGPWindow::~CGPWindow() {
-    qDebug() << "Deleting myself";
     QMapIterator<QString,Problem*> i(problems);
     while(i.hasNext()){
     	i.next();
@@ -115,24 +122,28 @@ CGPWindow::~CGPWindow() {
 /**
  * Called when the window is asked to exit.
  * Stores the settings.
+ * Attempts to stop the computation thread if it is still running.
  */
 void CGPWindow::closeEvent(QCloseEvent *event) {
     if (!QMessageBox::question(this, tr("Warning"), tr(
             "Do you really want to exit?"), tr("&Yes"), tr("&No"), QString(),
                                0, 1)) {
         WriteSettings();
+        //delete the grid-viewer
         if (gViewer) {
             gViewer->close();
             delete gViewer;
         }
+        //close and delete the result pop-up
         if (textbox) {
             textbox->close();
             delete textbox;
         }
+        //stop the thread
         thread.stop();
         while(thread.isRunning()){
         }
-
+        //close the logger (maybe we should write it to file now?
         Logger::instance().close();
         event->accept();
     } else {
@@ -244,11 +255,13 @@ void CGPWindow::update(int gens, double best, double worst, double avg,
         gViewer->updateIndividual(indInfo.m_ind);
     }
 
+
     if (runInfo.problem->NumberOfOutputs() == 1) {
         m_solution_grapher->setVisible(true);
-        TwoDArray<double> graphData = indInfo.m_answers;
-        graphData.horzCat(indInfo.m_outputs);
-        graphData.inverse();
+        TwoDArray<double> graphData;
+        graphData.swap(indInfo.m_answers); //swap is cheaper than copy..
+        graphData.horzCat(indInfo.m_outputs); // concat with outputs
+        graphData.inverse();//transpose the matrix
         m_solution_grapher->setValues(graphData);
     }else{
         m_solution_grapher->setVisible(false);
@@ -261,7 +274,7 @@ void CGPWindow::update(int gens, double best, double worst, double avg,
 void CGPWindow::finished() {
     qDebug() << "Run finished";
     StartButton->setEnabled(true);
-    //StopButton->setEnabled(false);
+    StopButton->setEnabled(false);
     if (!textbox)
         textbox = new QTextEdit(0);
     textbox->append(QString("Fitness %1").arg(
@@ -269,7 +282,7 @@ void CGPWindow::finished() {
     textbox->append(thread.get_Population()->getBest().toMatlabCode(
             thread.getRunInfo().problem->NumberOfInputs()));
     textbox->show();
-
+    FunctionFactory<double>::instance().print();
     qDebug() << "batch number" << batchNumber;
     if (batchNumber >= 0) {
         while (thread.isRunning())
@@ -505,6 +518,7 @@ void CGPWindow::on_StartButton_clicked() {
     //start the calculation
     thread.calculate();
     StartButton->setEnabled(false);
+    StopButton->setEnabled(true);
 }
 
 /**

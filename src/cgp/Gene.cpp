@@ -31,6 +31,7 @@ Gene::Gene() : m_function(0) {
 
 /**
  * Method for explisit comparison operator
+ * Checks number of inputs, input numbers and function in that order
  */
 bool Gene::equals(const Gene& other) const {
 	if (this->getNumberOfInputs() != other.getNumberOfInputs())
@@ -46,26 +47,27 @@ bool Gene::equals(const Gene& other) const {
 }
 
 /**
- * Sets the node function to f
+ * Sets the function to f
+ * \param sets the function to the new one. Resets the smart pointer to new instance created using the FunctionFactory
  */
 void Gene::setFunction(QString f) {
 	m_function.reset(FunctionFactory<double>::instance().create(f));
 }
 /**
  * Copies another Gene
- */
+ * \param other Gene to copy from
 void Gene::copy(const Gene& other) {
-
 	//copy all inputs
 	for (int i = 1; i <= 2; i++) {
 		this->setInput(i, other.getInput(i));
 	}
 	this->setFunction(other.getFunction()->name());
-
 }
+ */
 
 /**
  * copy ctor
+ * \param other Gene to copy from
  */
 Gene::Gene(const Gene& other) :
 	m_function(0) {

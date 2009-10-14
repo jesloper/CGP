@@ -3,8 +3,8 @@
 std::streamsize QDebugStream::xsputn(const char *p, std::streamsize n) {
     QMutexLocker locker(m_mutex);
     m_string.append(p, p + n);
-    uint pos = 0;
-    while (pos != std::string::npos) {
+    //uint pos = 0;
+    /*while (pos != std::string::npos) {
         pos = m_string.find('\n');
         if (pos != std::string::npos) {
             std::string tmp(m_string.begin(), m_string.begin() + pos);
@@ -12,6 +12,9 @@ std::streamsize QDebugStream::xsputn(const char *p, std::streamsize n) {
             m_string.erase(m_string.begin(), m_string.begin() + pos + 1);
         }
     }
+    */
+    m_text.append(m_string.c_str());
+    m_string.clear();
     if(log_window){
         QCoreApplication::postEvent(this, new QEvent(QEvent::User));
     }else{
@@ -19,6 +22,10 @@ std::streamsize QDebugStream::xsputn(const char *p, std::streamsize n) {
     }
     return n;
 }
+
+/**
+  * Deals with posted events. Actually updates the log window
+  */
 bool QDebugStream::event(QEvent* event) {
     if (event->type() == QEvent::User) {
         {
@@ -37,12 +44,12 @@ bool QDebugStream::event(QEvent* event) {
 std::streambuf::int_type QDebugStream::overflow(int_type v) {
     QMutexLocker locker(m_mutex);
 
-    if (v == '\n') {
+   // if (v == '\n') {
         m_text.append(m_string.c_str()).append("\n");
         m_string.erase(m_string.begin(), m_string.end());
-    } else {
-        m_string += v;
-    }
+    //} else {
+    //    m_string += v;
+   // }
     if(log_window){
         QCoreApplication::postEvent(this, new QEvent(QEvent::User));
     }

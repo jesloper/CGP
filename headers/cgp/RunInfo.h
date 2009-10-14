@@ -85,7 +85,7 @@ public:
 			int back, bool tree);
 	void setGridInfo(bool grid, int Rows, int Cols, int cons);
 	void setSelectionInfo(bool elitism, int selType);
-	void setRunData(int generations);
+        //void setRunData(int generations);
 	void updateData(int gen, double best, double avg, double worst,
 			QString bestInd, QString activeNodes,QString functionUsage);
 	void reset();

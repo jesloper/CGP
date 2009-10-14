@@ -316,6 +316,18 @@ public:
         return 0;
     }
 };
+template<class T> class Double: public UnaryOperator<T> {
+public:
+    Double() {
+        Function<T>::m_name = "double";
+        Function<T>::m_description = "Doubles the input value";
+        Function<T>::m_inputs = 1;
+    }
+    T calculate(T* inputs) {
+        return inputs[0]*2;
+    }
+
+};
 template<class T> class LogicalIF: public UnaryOperator<T> {
 public:
     LogicalIF() {
@@ -457,6 +469,8 @@ template<class T> static void getFunctions(std::list<Function<T>*>& list) {
     list.push_back(new GreaterThan<T> );
     list.push_back(new LessThan<T> );
     list.push_back(new Constant<T> );
+    list.push_back(new Double<T> );
+
 }
 
 #endif

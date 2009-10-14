@@ -31,9 +31,7 @@ public:
 	virtual Individual& getWorst(); /**< \brief returns the least fit individual */
 	virtual void setInfo(RunInfo& info) { /**< \brief sets the run information */
 		ri = info;
-		
-	}
-	;
+        }
 	virtual TwoDArray<double> getBestOutput();
         RunInfo ri;
 	QString HumanReadable(Individual &ind);

@@ -121,25 +121,35 @@ void RunInfo::setSelectionInfo(bool elitism, int selType) {
 }
 ;
 
-void RunInfo::setRunData(int generations) {
-	rd.CompletedGenerations = generations;
 
-}
+/**
+  * updates the stored information
+  * \param gen Generation information belongs to
+  * \param best Fitness of the most fit indivdual
+  * \param avg Average fitness of the generation
+  * \param worst Fitness of the least fit individual
+  * \param bestInd String representation of the best individual
+  * \param activeNodes String containing a list of the active nodes
+  * \param functionUsage String containing the used functions (only the ones in the active nodes) and their count
+  */
 void RunInfo::updateData(int gen, double best, double avg, double worst,
 		QString bestInd, QString activeNodes, QString functionUsage) {
 	rd.CompletedGenerations++;
 	rd.Stats[gen][0] = best;
 	rd.Stats[gen][1] = avg;
 	rd.Stats[gen][2] = worst;
-	//HERE_T(0,"Got updates " << bestInd << " == " << activeNodes);
-	rd.BestInds.push_back(bestInd);
+        rd.BestInds.push_back(bestInd);
 	rd.ActiveNodes.push_back(activeNodes);
-	this->bestInd = bestInd;
+
+        this->bestInd = bestInd;
 	this->m_functionUsage = functionUsage;
 	this->bestInd.replace(QString("\n"), QString(" , "));
 	this->activeNodes = activeNodes;
 }
 
+/**
+  * Resets information contained in RunInfo
+  */
 void RunInfo::reset() {
 	qDebug() << "setting compgen = 0";
 	rd.CompletedGenerations = 0;
