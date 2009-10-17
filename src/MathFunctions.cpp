@@ -14,10 +14,7 @@ TRandomMersenne rb((unsigned int)time(0));
 */
 
 int getRandInt(int min, int max){
-	//qDebug() << "Rand between " << min  << " and " << max << "  = " << rb.IRandom(min,max);
  return	rb.IRandom(min,max);
- //double r = (double)rand()/(double(RAND_MAX)+1);
- //return (int)(r*(max-min+1)+min);
 }
 
 int max(int f, int s){

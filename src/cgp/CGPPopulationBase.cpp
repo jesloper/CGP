@@ -23,6 +23,10 @@ CGPPopulationBase::~CGPPopulationBase() {
 		delete[] inputList;
 }
 
+double CGPPopulationBase::threadedGetFitness(Individual& it){
+   QFuture<double> t = QtConcurrent::run(this,&CGPPopulationBase::getFitness,it);
+   return t.result();
+}
 /**
  * Gets the fitness of a single Individual.
  * Loops over all fitnesscases, computes individual output and retrives fitness from problem.
@@ -38,14 +42,13 @@ double CGPPopulationBase::getFitness(Individual& it) {
 			}
 			it.getOutput(m_ind_outputs, this->ri, m_ind_inputs);
 			m_ind_fitnessTotal += ri.problem->setFitness(m_ind_outputs);
-			;
+
 		}
 	} catch (std::exception &e) {
 		std::cerr << __FUNCTION__ << ": caught std::exception " << e.what();
-                //abort();
+                abort();
 	}
-	//HERE_T(0,"Fitness of ind is " << m_ind_fitnessTotal);
-	return m_ind_fitnessTotal;
+        return m_ind_fitnessTotal;
 
 }
 
@@ -136,8 +139,8 @@ void CGPPopulationBase::regularCrossOver(Individual& first, Individual &second,
 		result = first;
 		return;
 	}
-	child1.setFitness(this->getFitness(child1));
-	child2.setFitness(this->getFitness(child2));
+        child1.setFitness(this->threadedGetFitness(child1));
+        child2.setFitness(this->threadedGetFitness(child2));
 	//return the child with the best fitness
 
 	//if (child1.getFitness() < child2.getFitness())
@@ -174,7 +177,7 @@ void CGPPopulationBase::simpleCrossOver(Individual& first, Individual &second,
 		result = first;
 		return;
 	}
-	child1.setFitness(this->getFitness(child1));
+        child1.setFitness(this->threadedGetFitness(child1));
 	//child2.setFitness(this->getFitness(child2));
 	result = child1;
 }
@@ -194,8 +197,8 @@ void CGPPopulationBase::directedGraphTreeCrossOver(Individual& first,
 	for (it = nodes.begin(); it != end; it++) {
 		child2.swapGenes(child1, (*it), (*it));
 	}
-	child1.setFitness(this->getFitness(child1));
-	child2.setFitness(this->getFitness(child2));
+        child1.setFitness(this->threadedGetFitness(child1));
+        child2.setFitness(this->threadedGetFitness(child2));
 	//return the child with the best fitness
 	if (child1.getFitness() < child2.getFitness())
 		result = child1;
@@ -222,8 +225,8 @@ void CGPPopulationBase::gridTreeCrossOver(Individual& first,
 	for (it = nodes.begin(); it != end; it++) {
 		child2.swapGenes(child1, (*it), (*it));
 	}
-	child1.setFitness(this->getFitness(child1));
-	child2.setFitness(this->getFitness(child2));
+        child1.setFitness(this->threadedGetFitness(child1));
+        child2.setFitness(this->threadedGetFitness(child2));
 	//return the child with the best fitness
 	if (child1.getFitness() < child2.getFitness())
 		result = child1;
@@ -264,18 +267,16 @@ void CGPPopulationBase::getNodes(int at, Individual& parent,
 void CGPPopulationBase::computeFitness(QVector<Individual> &pool) {
 	//regularCompute(pool);
 	hashCompute(pool);
+ //       QtConcurrent::mappedReduced ( const Sequence & sequence, MapFunction mapFunction, ReduceFunction reduceFunction, QtConcurrent::ReduceOptions reduceOptions = UnorderedReduce | SequentialReduce )
 }
 /**
  * Calculates the fitness for all individuals.
  */
 void CGPPopulationBase::regularCompute(QVector<Individual> &pool) {
 	QVector<Individual>::iterator it;
-	this->FitnessTotal = 0;
 	for (it = pool.begin(); it != pool.end(); it++) {
-		(*it).setFitness(this->getFitness((*it)));
-		this->FitnessTotal += (*it).getFitness();
+                (*it).setFitness(this->threadedGetFitness((*it)));
 	}
-	//qDebug() << "FitnessTotal = " << this->FitnessTotal;
 }
 
 /**
@@ -284,26 +285,21 @@ void CGPPopulationBase::regularCompute(QVector<Individual> &pool) {
 void CGPPopulationBase::hashCompute(QVector<Individual> &pool) {
 	//m_fitnessMap.clear();
 	QVector<Individual>::iterator it;
-	this->FitnessTotal = 0;
-	int mapUse = 0;
+        int mapUse = 0;
 	for (it = pool.begin(); it != pool.end(); it++) {
 		//see if we have already calculated fitness for this exact individual /todo optimize to only look at 'active' nodes
 		QMap<QString, double>::iterator map_it =
 				this->m_fitnessMap.find((*it).singleLineString());
 		if (map_it == m_fitnessMap.end()) {
-			(*it).setFitness(this->getFitness((*it)));
-			this->FitnessTotal += (*it).getFitness();
-			m_fitnessMap[(*it).singleLineString()] = (*it).getFitness();
+                        (*it).setFitness(threadedGetFitness(*it));
+                        m_fitnessMap[(*it).singleLineString()] = (*it).getFitness();
 		} else {
 			(*it).setFitness(map_it.value());
-			this->FitnessTotal += map_it.value();
-			mapUse++;
+                        mapUse++;
 		}
-
-	}
+       }
         LOG( m_fitnessMap.size() << " unique solutions tested so far");
-        //HERE_T(0, "Used map for " << mapUse << " out of " << pool.size() << ". Map size is now : " << m_fitnessMap.size());
-}
+ }
 /*
  returns the indicvidual with the lowest fitness
  */
@@ -525,8 +521,8 @@ void CGPPopulationBase::sortPool(QVector<Individual>& pop, bool ascending) {
  */
 void CGPPopulationBase::SanityCheck(Individual& ind) {
 	for (int i = 1; i < 100; i++) {
-		double a = this->getFitness(ind);
-		double b = this->getFitness(ind);
+                double a = this->threadedGetFitness(ind);
+                double b = this->threadedGetFitness(ind);
 		if (a != b) {
 			qDebug() << "Sanity check FAILED!";
 			abort();

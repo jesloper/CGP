@@ -55,7 +55,7 @@ protected:
 	double m_ind_fit;	///< \brief fitness for a single individual for a single fitnesscase
 	QMap<QString, double> m_fitnessMap; ///< \brief contains already calculated values. Used to improve performance
 	double getFitness(Individual& it);
-
+        double threadedGetFitness(Individual& it);
 	void mutate(Gene& it, int number); ///< \brief mutates a Gene
 	void mutate(Individual& it); ///< \brief mutates an individual
 	void CrossOver(Individual& first, Individual &second, Individual &result); ///< \brief performs a crossover of two individuals and stores the result in the third parameter
@@ -123,6 +123,7 @@ protected:
 
 				}
 			};
+
 			timingInfo ti;
 		};
 
