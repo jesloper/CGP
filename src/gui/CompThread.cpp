@@ -7,10 +7,11 @@
 #include <QtDebug>
 #include "Logger.h"
 #include "TwoDArray.h"
+#include "common.h"
 class TimeInfo {
 public:
-	double totalTime;
-	double avgTime;
+    double totalTime;
+    double avgTime;
 
 };
 
@@ -19,49 +20,49 @@ public:
  * \param *parent QObject in control of the thread
  */
 CompThread::CompThread(QObject *parent) :
-	QThread(parent), m_population(0) {
-	qDebug() << "Created thread";
-	m_abort = false;
-	m_pause=false;
-	popType =0;
-	stopValue = 0;
+        QThread(parent), m_population(0) {
+    qDebug() << "Created thread";
+    m_abort = false;
+    m_pause=false;
+    popType =0;
+    stopValue = 0;
 }
 
 /**
  * Destructor. Makes sure the thread is finished its last cycle before terminating.
  */
 CompThread::~CompThread() {
-	qDebug() << "deleting thread";
-        QMutexLocker lock(&mutex);
-	qDebug() << "mutex locked";
-	m_abort = true;
-	condition.wakeOne();
-	qDebug() << "condition awoken";
-	qDebug() << "deletion successful";
+    qDebug() << "deleting thread";
+    QMutexLocker lock(&mutex);
+    qDebug() << "mutex locked";
+    m_abort = true;
+    condition.wakeOne();
+    qDebug() << "condition awoken";
+    qDebug() << "deletion successful";
 }
 
 /**
  * Starts the computation
  */
 void CompThread::calculate() {
-	QMutexLocker locker(&mutex);
+    QMutexLocker locker(&mutex);
 
-	if (!isRunning()) {
-		m_abort = false;
-		m_pause= false;
-		start(LowPriority); //the thread will run with low priority
-	}
+    if (!isRunning()) {
+        m_abort = false;
+        m_pause= false;
+        start(LowPriority); //the thread will run with low priority
+    }
 }
 
 /**
  * Stops the thread.
  */
 void CompThread::stop() {
-	if (isRunning()) {
-		m_abort = true;
-		if (m_pause)
-			restart();
-	}
+    if (isRunning()) {
+        m_abort = true;
+        if (m_pause)
+            restart();
+    }
 
 }
 
@@ -69,14 +70,14 @@ void CompThread::stop() {
  * Pauses the thread until specifically told to wake up.
  */
 void CompThread::pause() {
-	m_pause= true;
+    m_pause= true;
 }
 
 /**
  * Restarts the thread if sleeping
  */
 void CompThread::restart() {
-	condition.wakeOne();
+    condition.wakeOne();
 }
 
 double avgTime = 0;
@@ -84,88 +85,92 @@ double avgTime = 0;
  * Actually runs the thread
  */
 void CompThread::run() {
-        qDebug() << "Running thread";
-        delete m_population; // delete the old one
-	//create the new population
-        qDebug() << "Creating new population...";
-	if (ri.gp.HFC) {
-		m_population = new HFCPopulation();
-	} else {
-		m_population = new CGPPopulation();
-	}
-        qDebug() << "Created population successfully";
-	//pass along information
-	m_population->setInfo(this->ri);
-        qDebug() << "Info is set";
+    qDebug() << "Running thread";
+    delete m_population; // delete the old one
+    //create the new population
+    qDebug() << "Creating new population...";
+    if (ri.gp.HFC) {
+        m_population = new HFCPopulation();
+    } else {
+        m_population = new CGPPopulation();
+    }
+    qDebug() << "Created population successfully";
+    //pass along information
+    m_population->setInfo(this->ri);
+    qDebug() << "Info is set";
 
-	//create a new population
-	qDebug() << "Creating population ....";
-	m_population->createPopulation();
-	qDebug() << "Finished creating";
+    //create a new population
+    qDebug() << "Creating population ....";
+    m_population->createPopulation();
+    qDebug() << "Finished creating";
 
-	std::string bestInd = "";
-	int pass =0;
-	//qDebug() << "Getting best individual";
-	IndividualInformation indInfo;
-	indInfo.m_ind = m_population->getBest();
-	indInfo.m_answers = ri.problem->getAnswers();
-	indInfo.m_outputs = m_population->getBestOutput();
-	indInfo.m_generation = pass;
-emit 											update(pass, m_population->getBestFitness(), m_population->getWorstFitness(), m_population->getAvgFitness(), indInfo);
-	//loop for the set number of times or until an ind with fitness <= stopValue is found
-	qDebug() << "Starting new generations";
-	TimeInfo ti;
-	ti.totalTime = 0;
-	ti.avgTime = 0;
-	try {
-		while (pass < ri.gp.Generations && (m_population->getBestFitness()> this->stopValue)) {
-			clock_t start = clock();
-			mutex.lock();
-			//check if thread has been paused
-			if (m_pause) {
-				condition.wait(&mutex);
-			}
-			m_pause = false;
-			mutex.unlock();
+    std::string bestInd = "";
+    int pass =0;
+    //qDebug() << "Getting best individual";
+    IndividualInformation indInfo;
+    indInfo.m_ind = m_population->getBest();
+    indInfo.m_answers = ri.problem->getAnswers();
+    indInfo.m_outputs = m_population->getBestOutput();
+    indInfo.m_generation = pass;
+    emit 											update(pass, m_population->getBestFitness(), m_population->getWorstFitness(), m_population->getAvgFitness(), indInfo);
+    //loop for the set number of times or until an ind with fitness <= stopValue is found
+    qDebug() << "Starting new generations";
+    TimeInfo ti;
+    ti.totalTime = 0;
+    ti.avgTime = 0;
+    //clock_t cooling = clock()/CLOCKS_PER_SEC;
+    while (pass < ri.gp.Generations && (m_population->getBestFitness()> this->stopValue)) {
+        clock_t start = clock();
+        mutex.lock();
+        //check if thread has been paused
+        if (m_pause) {
+            condition.wait(&mutex);
+        }
+        m_pause = false;
+        mutex.unlock();
 
-			//check if thread has been stopped
-			if (m_abort) {
-				break;
-			}
-			//Create the next generations
-			m_population->NewGeneration();
+        //check if thread has been stopped
+        if (m_abort) {
+            break;
+        }
+        //Create the next generations
+        m_population->NewGeneration();
 
-			//increment number of generations
-			++pass;
+        //increment number of generations
+        ++pass;
 
-			//get the best individual
-			//qDebug() << "Getting human readable";
-			Individual ind = m_population->getBest();
+        //get the best individual
+        //qDebug() << "Getting human readable";
+        Individual ind = m_population->getBest();
 
-			//send information to the GUI
-			indInfo.m_ind = m_population->getBest();
-			indInfo.m_answers = ri.problem->getAnswers();
-			indInfo.m_outputs = m_population->getBestOutput();
-			indInfo.m_generation = pass;
-			emit update(pass, m_population->getBestFitness(), m_population->getWorstFitness(), m_population->getAvgFitness(), indInfo);
-			clock_t end = clock();
-			ti.totalTime += ((double)(end - start)/CLOCKS_PER_SEC);
-			ti.avgTime = ti.totalTime/(double)(pass);
+        //send information to the GUI
+        indInfo.m_ind = m_population->getBest();
+        indInfo.m_answers = ri.problem->getAnswers();
+        indInfo.m_outputs = m_population->getBestOutput();
+        indInfo.m_generation = pass;
+        emit update(pass, m_population->getBestFitness(), m_population->getWorstFitness(), m_population->getAvgFitness(), indInfo);
+        clock_t end = clock();
+        ti.totalTime += ((double)(end - start)/CLOCKS_PER_SEC);
+        ti.avgTime = ti.totalTime/(double)(pass);
 
-			int totalSecs =(int)(ti.avgTime*(ri.gp.Generations - pass));
-			int hours = totalSecs/3600;
-			totalSecs %=3600;
-			int mins = totalSecs/60;
-			totalSecs %= 60;
-                        QString msg = QString("New Generation took : %1s. Estimated time left: %2h %3m %4s").arg(((double)(end - start)/CLOCKS_PER_SEC)).arg(hours).arg(mins).arg(totalSecs);
-			HERE_T(0,msg);
+        int totalSecs =(int)(ti.avgTime*(ri.gp.Generations - pass));
+        int hours = totalSecs/3600;
+        totalSecs %=3600;
+        int mins = totalSecs/60;
+        totalSecs %= 60;
+        QString msg = QString("New Generation took : %1s. Estimated time left: %2h %3m %4s").arg(((double)(end - start)/CLOCKS_PER_SEC)).arg(hours).arg(mins).arg(totalSecs);
+        HERE_T(0,msg);
 
-		}
-	} catch(std::exception& e) {
-		std::cerr << "Caught std::exception : " << e.what();
-	}
-	qDebug() << "Evolution took : " << ti.totalTime << "seconds";
-	//tell the GUI that thread has finished
-emit 	finished();
+
+        /*clock_t current = clock()/CLOCKS_PER_SEC;
+        if((current-cooling) > 60){
+            cooling = current;
+            sleep(20);
+        }*/
+    }
+
+    qDebug() << "Evolution took : " << ti.totalTime << "seconds";
+    //tell the GUI that thread has finished
+    emit 	finished();
 
 }

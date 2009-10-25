@@ -21,7 +21,6 @@ template < class T> class TwoDArray {
 public:
     TwoDArray() :
             m_row(0),m_col(0),m_data(0) {
-        qDebug() << "default ctor";
     }
     TwoDArray(size_t row, size_t col) :
             m_row(row), m_col(col), m_data((row!=0&&col!=0) ? new T[row*col] : 0) {

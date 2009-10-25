@@ -9,12 +9,10 @@
 #include <QMessageBox>
 
 
-ClassificationProblem::ClassificationProblem():m_inputArray(0),m_dataLoaded(false),m_fitnessFactor(0) {
+ClassificationProblem::ClassificationProblem():m_dataLoaded(false),m_fitnessFactor(0) {
 }
 
 ClassificationProblem::~ClassificationProblem() {
-    delete m_inputArray;
-    m_inputArray = 0;
     delete m_fitnessFactor;
     m_fitnessFactor =0;
     delete m_inputs;
@@ -35,7 +33,7 @@ void ClassificationProblem::GetInputData() {
     bool ok = false;
     while(!ok){
         m_fitnessFunction = QInputDialog::getItem(0, tr("Choose fitness evaluation type"),
-                                                          tr("Evaluation function:"), items, 0, false, &ok);
+                                                  tr("Evaluation function:"), items, 0, false, &ok);
     }
 
 
@@ -50,7 +48,7 @@ void ClassificationProblem::GetInputData() {
     QFile file(fileName);
     if (!file.open(QFile::ReadOnly)) {
         LOG("Could not open file!: " << fileName);
-       return;
+        return;
     }
     QTextStream input(&file);
     int rows, cols, outputs;
@@ -96,39 +94,60 @@ void ClassificationProblem::GetInputData() {
         m_fitFunc = 1;
     }
 }
+double ClassificationProblem::setFitnessRoundOff(TwoDArray<double>& output){
+    double TP,TN,FP,FN;
+    TP = TN = FP = FN=0;
+    for(int r = 0; r < Problem::NumberOfFitnessCases();++r){
+        for (int c = 0; c < this->m_number_of_outputs; ++c) {
+            if((*m_answers)[r][c] == 1) {
+                if (output[r][c] < 0.5) {
+                    ++FN;//fit+= m_fitnessFactor[currentOut];
+                }else{
+                    ++TP;
+                }
+            } else {
+                if (output[r][c] >= 0.5) {
+                    ++FP;//fit+= m_fitnessFactor[currentOut];
+                }else{
+                    ++TN;
+                }
+            }
+        }
+    }
+    double sens = TP/(TP+FN);
+    double spec = TN/(TN+FP);
+    double ppv = (TP > 0 ? TP/(TP+FP): 0);
+    double npv = (TN > 0 ? TN/(TN+FN): 0);
+    double factor = sens*spec*ppv*npv;
+    if(factor >=1){
+        qDebug() << "no way!";
+    }
 
+    return (1-factor);
+    //return (TP+TN)/((double)output.rows()); //percentage
+}
+double ClassificationProblem::setFitnessSSE(TwoDArray<double>& output){
+   /* for (int i = 0; i < this->m_number_of_outputs; i++) {
+        double err = fabs((*m_answers)[currentOut][i]-output[i]);
+        fit += m_fitnessFactor[currentOut]*err*err;
+
+    }
+    */
+}
 /**
   *  Calculates fitness value for a given output
   */
-double ClassificationProblem::setFitness(double* output) {
-    double fit = 0;
-
+double ClassificationProblem::setFitness(TwoDArray<double>& output) {
     /* Fitness function checks if answer is >=, < output */
     if(m_fitFunc == 0){
-        for (int i = 0; i < this->m_number_of_outputs; i++) {
-            if((*m_answers)[currentOut][i] == 1) {
-                if (output[i] < 0.5) {
-                    fit+= m_fitnessFactor[currentOut];
-                }
-            } else {
-                if (output[i] >= 0.5) {
-                    fit+= m_fitnessFactor[currentOut];
-                }
-            }
-
-        }
+        return setFitnessRoundOff(output);
     }else if(m_fitFunc == 1){ // calculates absolute error
-        for (int i = 0; i < this->m_number_of_outputs; i++) {
-            double err = fabs((*m_answers)[currentOut][i]-output[i]);
-            fit += m_fitnessFactor[currentOut]*err*err;
-
-        }
+        return setFitnessSSE(output);
     }else{
         QMessageBox::warning(0, QString("Aborting!"),QString("Wrong fit function!"));
-
         abort();
     }
-    return fit;
+
 }
 
 /**

@@ -53,8 +53,7 @@ CGPWindow::CGPWindow(QMainWindow *parent) :
 
 
     }
-    (void*)(new QDebugStream(std::cout,
-                         Logger::instance().getWindow()));
+    (void*)(new QDebugStream(std::cout,Logger::instance().getWindow()));
     qInstallMsgHandler(myMessageOutput);
 
     runInfo.setGPInfo(Individuals->value(), Generations->value(),

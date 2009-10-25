@@ -17,7 +17,7 @@ public:
 		qDebug() << "Deleting SR problem";
 	}
 
-	virtual double setFitness(double* output);
+        virtual double setFitness(TwoDArray<double>& output);
 
 	virtual double answer() {
 		return answer_;
@@ -77,7 +77,7 @@ public:
 		//delete[] m_answer;
 	}
 
-	virtual double setFitness(double* output) {
+        virtual double setFitness(TwoDArray<double>& output) {
 		//qDebug() << "output = " << output;
 		//qDebug() << "answer = " << ans;
 
@@ -145,7 +145,7 @@ public:
 		return m_inputs;
 	}
 	//sets the fitnesaffection for the current input
-	virtual double setFitness(double* output) {
+        virtual double setFitness(TwoDArray<double>& output) {
 
 		outputTotal += !((int)(output[0]) == answer());
 

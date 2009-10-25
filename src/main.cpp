@@ -4,13 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#ifdef WIN32
-void sleep(unsigned int mseconds)
-{
-    clock_t goal = 1000*mseconds + clock();
-    while (goal > clock());
-}
-#endif
+#include "common.h"
 /**
  * Create CGPWindow and pass control to QT
  * \todo: redirect output to text window instead of console

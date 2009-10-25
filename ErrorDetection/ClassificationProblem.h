@@ -15,20 +15,23 @@ class ClassificationProblem : public QObject,public Problem{
 public:
 	ClassificationProblem();
 	virtual ~ClassificationProblem();
-    virtual double setFitness(double* output);
+        virtual double setFitness(TwoDArray<double>& output);
+
 	virtual double answer();
 	virtual double* getCurrentInputs();
         virtual void inputStringValues(QVector<QString>& inp);
 	virtual QString description();
-	QString getName(){ return "ErrorDetection";} ///< \brief this should return the name of the problem
+        QString getName(){ return "ErrorDetection";} ///< \brief this should return the name of the problem
 	void Init();
 private:
 	void setInputs();
 	void GetInputData();
+        virtual double setFitnessRoundOff(TwoDArray<double>& output);
+        virtual double setFitnessSSE(TwoDArray<double>& output);
+
         int current,currentOut;
 	double x,y,z;
-	TwoDArray<double>* m_inputArray;	///< \brief holds the input and output values
-	bool m_dataLoaded;	///< \brief flag whether data has been loaded yet
+        bool m_dataLoaded;	///< \brief flag whether data has been loaded yet
 	double* m_fitnessFactor; ///< \brief multiplier of fitness value. Used in order to 'direct' the classification
         QString m_fitnessFunction; ///< \brief chooses the type of fitness evaluation
         int m_fitFunc;

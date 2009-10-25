@@ -22,7 +22,7 @@ public:
 	Problem():m_inputs(0),m_answers(0) {
 		qDebug() << "Creating new problem";
 	}
-	;
+
 	virtual ~Problem() {
 		if(m_answers)
 			delete m_answers;
@@ -30,17 +30,19 @@ public:
 			delete[] m_inputs;
 		qDebug() << "deleting problem";
 	}
-	;
+
 	void setup() {
-		Problem::m_inputs = new double[m_number_of_inputs];
-		if(m_answers)
-			delete m_answers;
-		m_answers = new TwoDArray<double>(m_fitness_cases,m_number_of_outputs);
+                m_inputs = new double[m_number_of_inputs];
+                m_inputArray = new TwoDArray<double>(m_fitness_cases,m_number_of_inputs);
+                m_answers = new TwoDArray<double>(m_fitness_cases,m_number_of_outputs);
 	}
         ///< \brief sets up the problem according to number of inputs, outputs, etc.
-	virtual double setFitness(double* output) =0; ///< \brief sets the fitness affection for the current input */
+        virtual double setFitness(TwoDArray<double> &output) =0; ///< \brief sets the fitness affection for the current input
 	virtual double answer() = 0; ///< \brief should return the correct answer for a given inputs
 	virtual double* getCurrentInputs() = 0; ///< \brief this should return the current inputs
+        TwoDArray<double>* getAllInputs(){
+            return m_inputArray;
+        }
 	virtual QString getName() = 0; ///< \brief this should return the name of the problem
 	virtual void reset() {
 	}
@@ -92,6 +94,7 @@ protected:
 	int m_number_of_inputs; ///< holds the default number of inputs for the problem (this can be modified from the GUI)
 	int m_number_of_outputs; ///< holds the default number of output for the problem (this can be modified from the GUI)
 	double* m_inputs; ///< this should hold the current set of inputs
+        TwoDArray<double>* m_inputArray; ///< holds the input for all fitness cases. num_fitness_cases*num_inputs
 	TwoDArray<double>* m_answers; ///< this has size num_fitness_cases*num_outputs and holds all answers for the problem
 };
 
