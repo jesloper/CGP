@@ -96,9 +96,12 @@ void ClassificationProblem::GetInputData() {
 }
 double ClassificationProblem::setFitnessRoundOff(TwoDArray<double>& output){
     double TP,TN,FP,FN;
-    TP = TN = FP = FN=0;
-    for(int r = 0; r < Problem::NumberOfFitnessCases();++r){
-        for (int c = 0; c < this->m_number_of_outputs; ++c) {
+
+    double factor = 1;
+    double sens, spec,ppv,npv;
+    for (int c = 0; c < this->m_number_of_outputs; ++c) { //for each output
+        TP = TN = FP = FN=0;
+        for(int r = 0; r < Problem::NumberOfFitnessCases();++r){//for all fitness cases
             if((*m_answers)[r][c] == 1) {
                 if (output[r][c] < 0.5) {
                     ++FN;//fit+= m_fitnessFactor[currentOut];
@@ -113,12 +116,13 @@ double ClassificationProblem::setFitnessRoundOff(TwoDArray<double>& output){
                 }
             }
         }
+        sens = TP/(TP+FN);
+        spec = TN/(TN+FP);
+        ppv = (TP > 0 ? TP/(TP+FP): 0);
+        npv = (TN > 0 ? TN/(TN+FN): 0);
+        factor *= sens*spec*ppv*npv;
     }
-    double sens = TP/(TP+FN);
-    double spec = TN/(TN+FP);
-    double ppv = (TP > 0 ? TP/(TP+FP): 0);
-    double npv = (TN > 0 ? TN/(TN+FN): 0);
-    double factor = sens*spec*ppv*npv;
+
     if(factor >=1){
         qDebug() << "no way!";
     }
@@ -127,12 +131,13 @@ double ClassificationProblem::setFitnessRoundOff(TwoDArray<double>& output){
     //return (TP+TN)/((double)output.rows()); //percentage
 }
 double ClassificationProblem::setFitnessSSE(TwoDArray<double>& output){
-   /* for (int i = 0; i < this->m_number_of_outputs; i++) {
-        double err = fabs((*m_answers)[currentOut][i]-output[i]);
-        fit += m_fitnessFactor[currentOut]*err*err;
+   //double fit = 0;
+    //for (int i = 0; i < this->m_number_of_outputs; i++) {
+        //double err = fabs((*m_answers)[currentOut][i]-output[i]);
+      //  fit += m_fitnessFactor[currentOut]*err*err;
 
-    }
-    */
+    //}
+    return 0;
 }
 /**
   *  Calculates fitness value for a given output
